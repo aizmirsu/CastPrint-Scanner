@@ -115,35 +115,17 @@
                calibrationType == STCalibrationTypeApproximate
             || calibrationType == STCalibrationTypeDeviceSpecific;
 
-        if (_useColorCamera)
-        {
-            // Leave _dynamicOptions.newTrackerIsOn alone. It may have been modified by the user.
-
-            // Enable the new tracker UI switch, since both depth and color frames can be captured.
-            _dynamicOptions.depthAndColorTrackerSwitchEnabled = true;
-
-            // Leave _dynamicOptions.highResColoring alone. It may have been modified by the user.
-            
-            // Enable the high-res coloring UI switch when high-resolution color capture is available.
-            _dynamicOptions.highResColoringSwitchEnabled = [self videoDeviceSupportsHighResColor];
-        }
-        else
+        if (!_useColorCamera)
         {
             // Disable both the new tracker and its UI switch, since there is no color camera input.
-            _dynamicOptions.depthAndColorTrackerSwitchEnabled = false;
-            _dynamicOptions.depthAndColorTrackerIsOn = false;
+            _options.depthAndColorTrackerIsOn = false;
 
             // Disable both the high resolution coloring and its UI switch, since there is no color camera input.
-            _dynamicOptions.highResColoring = false;
-            _dynamicOptions.highResColoringSwitchEnabled = false;
+            _options.highResColoring = false;
 
             // If we can't use the color camera, then don't try to use registered depth.
             _options.useHardwareRegisteredDepth = false;
         }
-
-        // Make sure the new mapper and high-resolution mapping switches are always enabled.
-        _dynamicOptions.newMapperSwitchEnabled = true;
-        _dynamicOptions.highResMappingSwitchEnabled = true;
 
         // Reset the SLAM pipeline.
         // This will also synchronize the UI switches states from the dynamic option values.

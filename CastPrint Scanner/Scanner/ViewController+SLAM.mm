@@ -59,12 +59,12 @@ namespace // anonymous namespace for local functions
     
     // Initialize the camera pose tracker.
     NSDictionary* trackerOptions = @{
-                                     kSTTrackerTypeKey: _dynamicOptions.depthAndColorTrackerIsOn ? @(STTrackerDepthAndColorBased) : @(STTrackerDepthBased),
+                                     kSTTrackerTypeKey: _options.depthAndColorTrackerIsOn ? @(STTrackerDepthAndColorBased) : @(STTrackerDepthBased),
                                      kSTTrackerTrackAgainstModelKey: @TRUE, // tracking against the model is much better for close range scanning.
                                      kSTTrackerQualityKey: @(STTrackerQualityAccurate),
                                      kSTTrackerBackgroundProcessingEnabledKey: @YES,
                                      kSTTrackerSceneTypeKey: @(STTrackerSceneTypeObject),
-                                     kSTTrackerLegacyKey: @(!_dynamicOptions.improvedTrackingIsOn)
+                                     kSTTrackerLegacyKey: @(!_options.improvedTrackingIsOn)
                                      };
     
     // Initialize the camera pose tracker.
@@ -133,7 +133,7 @@ namespace // anonymous namespace for local functions
     const float highResolutionVolumeBounds = 200;
     
     float voxelSizeInMeters = _slamState.volumeSizeInMeters.x /
-        (_dynamicOptions.highResMapping ? highResolutionVolumeBounds : lowResolutionVolumeBounds);
+        (_options.highResMapping ? highResolutionVolumeBounds : lowResolutionVolumeBounds);
     
     // Avoid voxels that are too small - these become too noisy.
     voxelSizeInMeters = keepInRange(voxelSizeInMeters, 0.003, 0.2);
@@ -151,7 +151,7 @@ namespace // anonymous namespace for local functions
     
     NSDictionary* mapperOptions =
     @{
-      kSTMapperLegacyKey: @(!_dynamicOptions.newMapperIsOn),
+      kSTMapperLegacyKey: @(!_options.newMapperIsOn),
       kSTMapperVolumeResolutionKey: @(voxelSizeInMeters),
       kSTMapperVolumeBoundsKey: @[@(volumeBounds.x), @(volumeBounds.y), @(volumeBounds.z)],
       kSTMapperVolumeHasSupportPlaneKey: @(_slamState.cameraPoseInitializer.hasSupportPlane),

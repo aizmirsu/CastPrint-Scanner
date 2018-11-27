@@ -18,13 +18,6 @@
 @interface ViewController ()
 {}
 
-// These property should usually not been accessed directly.
-// Unless you know what you're doing, modify _dynamicOptions and call syncUIfromDynamicOptions instead.
-@property (weak, nonatomic) IBOutlet UISwitch *enableRGBDTrackerSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *enableNewMapperSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *enableHighResMappingSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *enableHighResolutionColorSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *enableImprovedTrackerSwitch;
 
 @end
 
@@ -74,7 +67,6 @@
                                                object:nil];
     
     [self initializeDynamicOptions];
-    [self syncUIfromDynamicOptions];
 
 }
 
@@ -114,40 +106,7 @@
 
 - (void)initializeDynamicOptions
 {
-    _dynamicOptions.depthAndColorTrackerIsOn = true;
-    _dynamicOptions.depthAndColorTrackerSwitchEnabled = true;
-
-    _dynamicOptions.improvedTrackingIsOn = true;
-    _dynamicOptions.improvedTrackingSwitchEnabled = true;
-
-    _dynamicOptions.highResColoring = [self videoDeviceSupportsHighResColor];
-    _dynamicOptions.highResColoringSwitchEnabled = false;
-    
-    _dynamicOptions.newMapperIsOn = true;
-    _dynamicOptions.newMapperSwitchEnabled = true;
-    
-    _dynamicOptions.highResMapping = true;
-    _dynamicOptions.highResMappingSwitchEnabled = true;
-}
-
-- (void)syncUIfromDynamicOptions
-{
-    // This method ensures the UI reflects the dynamic settings.
-    
-    self.enableRGBDTrackerSwitch.on = _dynamicOptions.depthAndColorTrackerIsOn;
-    self.enableRGBDTrackerSwitch.enabled = _dynamicOptions.depthAndColorTrackerSwitchEnabled;
-
-    self.enableImprovedTrackerSwitch.on = _dynamicOptions.improvedTrackingIsOn;
-    self.enableImprovedTrackerSwitch.enabled = _dynamicOptions.improvedTrackingSwitchEnabled;
-    
-    self.enableHighResMappingSwitch.on = _dynamicOptions.highResMapping;
-    self.enableHighResMappingSwitch.enabled = _dynamicOptions.highResMappingSwitchEnabled;
-    
-    self.enableNewMapperSwitch.on = _dynamicOptions.newMapperIsOn;
-    self.enableNewMapperSwitch.enabled = _dynamicOptions.newMapperSwitchEnabled;
-    
-    self.enableHighResolutionColorSwitch.on = _dynamicOptions.highResColoring;
-    self.enableHighResolutionColorSwitch.enabled = _dynamicOptions.highResColoringSwitchEnabled;
+    _options.highResColoring = [self videoDeviceSupportsHighResColor];
 }
 
 - (void)setupUserInterface
@@ -241,8 +200,6 @@
     
     _slamState.scannerState = ScannerStateCubePlacement;
  
-    // Restore dynamic options UI state, as we may be coming back from scanning state, where they were all disabled.
-    [self syncUIfromDynamicOptions];
     
     [self updateIdleTimer];
 }
@@ -270,13 +227,6 @@
     [self setColorCameraParametersForScanning];
     
     _slamState.scannerState = ScannerStateScanning;
-    
-    // Temporarily disable options while we're scanning.
-    self.enableRGBDTrackerSwitch.enabled = NO;
-    self.enableHighResolutionColorSwitch.enabled = NO;
-    self.enableNewMapperSwitch.enabled = NO;
-    self.enableHighResMappingSwitch.enabled = NO;
-    self.enableImprovedTrackerSwitch.enabled = NO;
 }
 
 - (void)enterViewingState
@@ -371,52 +321,8 @@
 
 #pragma mark - UI Callbacks
 
-- (IBAction)enableRGBDTrackerSwitchChanged:(id)sender
-{
-    _dynamicOptions.depthAndColorTrackerIsOn = self.enableRGBDTrackerSwitch.on;
-
-    [self onSLAMOptionsChanged]; // will call UI sync
-}
-
-- (IBAction)enableHighResolutionColorSwitchChanged:(id)sender
-{
-    if (self.avCaptureSession)
-    {
-        [self stopColorCamera];
-
-        // The dynamic option must be updated before the camera is restarted.
-        _dynamicOptions.highResColoring = self.enableHighResolutionColorSwitch.on;
-
-        if (_useColorCamera)
-            [self startColorCamera];
-    }
-
-    // Force a scan reset since changing the image resolution during the scan is not supported by STColorizer.
-    [self onSLAMOptionsChanged]; // will call UI sync
-}
-
-- (IBAction)enableImprovedTrackerSwitch:(id)sender {
-    _dynamicOptions.improvedTrackingIsOn = self.enableImprovedTrackerSwitch.on;
-
-    [self onSLAMOptionsChanged];
-}
-
-- (IBAction)enableNewMapperSwitchChanged:(id)sender
-{
-    _dynamicOptions.newMapperIsOn = self.enableNewMapperSwitch.on;
-    [self onSLAMOptionsChanged]; // will call UI sync
-}
-
-- (IBAction)enableHighResMappingSwitchChanged:(id)sender
-{
-    _dynamicOptions.highResMapping = self.enableHighResMappingSwitch.on;
-    [self onSLAMOptionsChanged]; // will call UI sync
-}
-
 - (void)onSLAMOptionsChanged
 {
-    [self syncUIfromDynamicOptions];
-    
     // A full reset to force a creation of a new tracker.
     [self resetSLAM];
     [self clearSLAM];

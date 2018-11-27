@@ -13,23 +13,6 @@
 #import "MeshViewController.h"
 
 // See default initialization in: -(void)initializeDynamicOptions
-struct DynamicOptions
-{
-    bool depthAndColorTrackerIsOn;
-    bool depthAndColorTrackerSwitchEnabled;
-
-    bool improvedTrackingIsOn;
-    bool improvedTrackingSwitchEnabled;
-
-    bool highResColoring;
-    bool highResColoringSwitchEnabled;
-    
-    bool newMapperIsOn;
-    bool newMapperSwitchEnabled;
-    
-    bool highResMapping;
-    bool highResMappingSwitchEnabled;
-};
 
 struct Options
 {
@@ -71,6 +54,14 @@ struct Options
     // Focus position for the color camera (between 0 and 1). Must remain fixed one depth streaming
     // has started when using hardware registered depth.
     const float lensPosition = 0.75f;
+    
+    
+    bool depthAndColorTrackerIsOn = true;
+    bool improvedTrackingIsOn = true;
+    bool highResColoring = false; // function videoDeviceSupportsHighResColor
+    bool newMapperIsOn = true;
+    bool highResMapping = true;
+
 };
 
 enum ScannerState
@@ -238,8 +229,6 @@ struct DisplayData
     
     Options _options;
     
-    DynamicOptions _dynamicOptions;
-    
     // Manages the app status messages.
     AppStatus _appStatus;
     
@@ -281,10 +270,6 @@ struct DisplayData
 
 + (instancetype) viewController;
 
-- (IBAction)enableRGBDTrackerSwitchChanged:(id)sender;
-- (IBAction)enableHighResolutionColorSwitchChanged:(id)sender;
-- (IBAction)enableNewMapperSwitchChanged:(id)sender;
-- (IBAction)enableHighResMappingSwitchChanged:(id)sender;
 - (IBAction)scanButtonPressed:(id)sender;
 - (IBAction)resetButtonPressed:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
@@ -300,7 +285,6 @@ struct DisplayData
 - (void)showTrackingMessage:(NSString*)message;
 - (void)hideTrackingErrorMessage;
 - (void)processDeviceMotion:(CMDeviceMotion *)motion withError:(NSError *)error;
-- (void)syncUIfromDynamicOptions;
 - (void)onSLAMOptionsChanged;
 
 @end

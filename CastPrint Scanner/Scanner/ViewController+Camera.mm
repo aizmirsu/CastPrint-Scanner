@@ -200,7 +200,7 @@
         int imageWidth = -1;
         int imageHeight = -1;
         
-        if (_dynamicOptions.highResColoring)
+        if (_options.highResColoring)
         {
             // High-resolution uses 2592x1936, which is close to a 4:3 aspect ratio.
             // Other aspect ratios such as 720p or 1080p are not yet supported.
