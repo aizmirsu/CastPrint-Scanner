@@ -188,30 +188,16 @@
 		2AFC8D81176F966000F7F3B5 /* CastPrint Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				2F589DF421ADA51C008D9E33 /* Scanner */,
-				7EAD26B4198C07F600638C9C /* CustomUIKitStyles.h */,
-				7E2288CD198FE67D00F6E3B2 /* CustomUIKitStyles.mm */,
+				2F589DF621ADAE0A008D9E33 /* Scanner */,
 				2D1295A5184370FE00E8C685 /* AppDelegate.h */,
 				2D1295A6184370FE00E8C685 /* AppDelegate.mm */,
-				2AB955C2184E573A003DA089 /* MeshViewController.h */,
-				2AB955C3184E573A003DA089 /* MeshViewController.mm */,
-				2A0BA2D2184ECE0C008FBE2E /* MeshRenderer.h */,
-				2D4DE5A7199B95BE00F69F56 /* MeshRenderer.mm */,
-				2D4DE5AA199BB90400F69F56 /* CustomShaders.mm */,
-				2D4DE5AB199BB90400F69F56 /* CustomShaders.h */,
-				2A93E232185133880049CEBE /* ViewpointController.h */,
-				2DE057BC199E58E100137F8F /* ViewpointController.mm */,
-				6F03CB5E1862832600518C22 /* EAGLView.h */,
-				6F03CB5F1862832600518C22 /* EAGLView.mm */,
-				6F8BE65E199EED0C00E10C10 /* CalibrationOverlay.h */,
-				6F8BE65F199EED0C00E10C10 /* CalibrationOverlay.mm */,
 				1F300614186E3B8F00405D34 /* Images.xcassets */,
 				433C3B9D186CBEA900552A10 /* Supporting Files */,
 			);
 			path = "CastPrint Scanner";
 			sourceTree = SOURCE_ROOT;
 		};
-		2F589DF421ADA51C008D9E33 /* Scanner */ = {
+		2F589DF621ADAE0A008D9E33 /* Scanner */ = {
 			isa = PBXGroup;
 			children = (
 				2D1295AB184370FE00E8C685 /* ViewController.h */,
@@ -224,6 +210,20 @@
 				2AEF461F1A127B4900CAF953 /* ViewController+SLAM.mm */,
 				2A1557BB1A37D198007C485A /* ViewController+OpenGL.h */,
 				2A1557BC1A37D198007C485A /* ViewController+OpenGL.mm */,
+				2A93E232185133880049CEBE /* ViewpointController.h */,
+				2DE057BC199E58E100137F8F /* ViewpointController.mm */,
+				6F8BE65E199EED0C00E10C10 /* CalibrationOverlay.h */,
+				6F8BE65F199EED0C00E10C10 /* CalibrationOverlay.mm */,
+				6F03CB5E1862832600518C22 /* EAGLView.h */,
+				6F03CB5F1862832600518C22 /* EAGLView.mm */,
+				2AB955C2184E573A003DA089 /* MeshViewController.h */,
+				2AB955C3184E573A003DA089 /* MeshViewController.mm */,
+				2A0BA2D2184ECE0C008FBE2E /* MeshRenderer.h */,
+				2D4DE5A7199B95BE00F69F56 /* MeshRenderer.mm */,
+				2D4DE5AA199BB90400F69F56 /* CustomShaders.mm */,
+				2D4DE5AB199BB90400F69F56 /* CustomShaders.h */,
+				7EAD26B4198C07F600638C9C /* CustomUIKitStyles.h */,
+				7E2288CD198FE67D00F6E3B2 /* CustomUIKitStyles.mm */,
 			);
 			path = Scanner;
 			sourceTree = "<group>";
