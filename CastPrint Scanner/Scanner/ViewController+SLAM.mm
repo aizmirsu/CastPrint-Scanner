@@ -79,7 +79,7 @@ namespace // anonymous namespace for local functions
     // Setup the cube placement initializer.
     _slamState.cameraPoseInitializer = [[STCameraPoseInitializer alloc]
                                         initWithVolumeSizeInMeters:_slamState.volumeSizeInMeters
-                                        options:@{kSTCameraPoseInitializerStrategyKey: @(STCameraPoseInitializerStrategyTableTopCube)}];
+                                        options:@{kSTCameraPoseInitializerStrategyKey: @(STCameraPoseInitializerStrategyGravityAlignedAtOrigin)}];
     
     // Set up the cube renderer with the current volume size.
     _display.cubeRenderer = [[STCubeRenderer alloc] initWithContext:_display.context];
@@ -154,7 +154,7 @@ namespace // anonymous namespace for local functions
       kSTMapperLegacyKey: @(!_options.newMapperIsOn),
       kSTMapperVolumeResolutionKey: @(voxelSizeInMeters),
       kSTMapperVolumeBoundsKey: @[@(volumeBounds.x), @(volumeBounds.y), @(volumeBounds.z)],
-      kSTMapperVolumeHasSupportPlaneKey: @(_slamState.cameraPoseInitializer.hasSupportPlane),
+      kSTMapperVolumeHasSupportPlaneKey: @NO,
       kSTMapperEnableLiveWireFrameKey: @NO,
     };
     
@@ -316,7 +316,7 @@ namespace // anonymous namespace for local functions
             // Estimate the new scanning volume position.
             if (GLKVector3Length(_lastGravity) > 1e-5f)
             {
-                bool success = [_slamState.cameraPoseInitializer updateCameraPoseWithGravity:_lastGravity depthFrame:depthFrameForCubeInitialization error:nil];
+                bool success = [_slamState.cameraPoseInitializer updateCameraPoseWithGravity:_lastGravity depthFrame:nil error:nil];
                 
                 // Since we potentially detected the cube in a registered depth frame, also save the pose
                 // in the original depth sensor coordinate system since this is what we'll use for SLAM
@@ -328,7 +328,7 @@ namespace // anonymous namespace for local functions
             }
             
             // Tell the cube renderer whether there is a support plane or not.
-            [_display.cubeRenderer setCubeHasSupportPlane:_slamState.cameraPoseInitializer.hasSupportPlane];
+            [_display.cubeRenderer setCubeHasSupportPlane:NO];
             
             // Enable the scan button if the pose initializer could estimate a pose.
             self.scanButton.enabled = _slamState.cameraPoseInitializer.hasValidPose;

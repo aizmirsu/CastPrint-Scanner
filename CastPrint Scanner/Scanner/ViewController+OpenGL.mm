@@ -212,10 +212,14 @@
                 }
                 
                 // Highlighted depth values inside the current volume area.
-                [_display.cubeRenderer renderHighlightedDepthWithCameraPose:cameraViewpoint alpha:alpha];
+                float xOffset = _slamState.cameraPoseInitializer.volumeSizeInMeters.x / 2.0;
+                float yOffset = _slamState.cameraPoseInitializer.volumeSizeInMeters.y / 2.0;
+                
+                _slamState.cubePose = GLKMatrix4Translate(cameraViewpoint, xOffset, yOffset, -_slamState.cubeRange);
+                [_display.cubeRenderer renderHighlightedDepthWithCameraPose:_slamState.cubePose alpha:alpha];
                 
                 // Render the wireframe cube corresponding to the current scanning volume.
-                [_display.cubeRenderer renderCubeOutlineWithCameraPose:cameraViewpoint
+                [_display.cubeRenderer renderCubeOutlineWithCameraPose:_slamState.cubePose
                                                       depthTestEnabled:false
                                                   occlusionTestEnabled:true];
             }

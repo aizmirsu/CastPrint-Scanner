@@ -58,7 +58,8 @@
     [self setupStructureSensor];
     
     // Later, we’ll set this true if we have a device-specific calibration
-    _useColorCamera = [STSensorController approximateCalibrationGuaranteedForDevice];
+//    _useColorCamera = [STSensorController approximateCalibrationGuaranteedForDevice];
+    _useColorCamera = false;
     
     // Make sure we get notified when the app becomes active to start/restore the sensor state if necessary.
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -119,6 +120,10 @@
     
     // Make sure the label is on top of everything else.
     self.appStatusMessageLabel.layer.zPosition = 100;
+    
+    // Set range label
+    self.sensorCubeRangeSlider.value = _slamState.cubeRange;
+    self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
 }
 
 // Make sure the status bar is disabled (iOS 7+)
@@ -196,6 +201,9 @@
     // Cannot be lost in cube placement mode.
     _trackingLostLabel.hidden = YES;
     
+    // Volume change view
+    self.enableNewTrackerDataView.hidden = NO;
+    
     [self setColorCameraParametersForInit];
     
     _slamState.scannerState = ScannerStateCubePlacement;
@@ -218,10 +226,13 @@
     self.doneButton.hidden = NO;
     self.resetButton.hidden = NO;
     
+    // Volume change view
+    self.enableNewTrackerDataView.hidden = YES;
+    
     // Prepare the mapper for the new scan.
     [self setupMapper];
     
-    _slamState.tracker.initialCameraPose = _slamState.initialDepthCameraPose;
+    _slamState.tracker.initialCameraPose = _slamState.cubePose;
     
     // We will lock exposure during scanning to ensure better coloring.
     [self setColorCameraParametersForScanning];
@@ -339,6 +350,16 @@
     volumeSize.y = keepInRange (volumeSize.y, 0.1, 3.f);
     volumeSize.z = keepInRange (volumeSize.z, 0.1, 3.f);
     
+    // show volume information
+    self.sensorCubeWidthValueLabel.text = [NSString stringWithFormat: @"%.02f%s", volumeSize.x, " m"];
+    self.sensorCubeHeightValueLabel.text = [NSString stringWithFormat: @"%.2f%s", volumeSize.y , " m"];
+    self.sensorCubeDepthValueLabel.text = [NSString stringWithFormat: @"%.2f%s", volumeSize.z, " m"];
+    
+    // Set slider values
+    self.sensorCubeWidthSlider.value = volumeSize.x;
+    self.sensorCubeHeightSlider.value = volumeSize.y;
+    self.sensorCubeDepthSlider.value = volumeSize.z;
+    
     _slamState.volumeSizeInMeters = volumeSize;
     
     _slamState.cameraPoseInitializer.volumeSizeInMeters = volumeSize;
@@ -365,6 +386,35 @@
     [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
 }
 
+- (IBAction)sensorCubeHeightSliderValueChanged:(id)sender
+{
+     GLKVector3 newVolumeSize = GLKVector3Make(_slamState.volumeSizeInMeters.x, self.sensorCubeHeightSlider.value, _slamState.volumeSizeInMeters.z);
+    
+    [self adjustVolumeSize:newVolumeSize];
+}
+
+- (IBAction)sensorCubeWidthSliderValueChanged:(id)sender
+{
+    GLKVector3 newVolumeSize = GLKVector3Make(self.sensorCubeWidthSlider.value, _slamState.volumeSizeInMeters.y, _slamState.volumeSizeInMeters.z);
+    
+    [self adjustVolumeSize:newVolumeSize];
+}
+
+- (IBAction)sensorCubeDepthSliderValueChanged:(id)sender
+{
+    GLKVector3 newVolumeSize = GLKVector3Make(_slamState.volumeSizeInMeters.x, _slamState.volumeSizeInMeters.y, self.sensorCubeDepthSlider.value);
+    
+    [self adjustVolumeSize:newVolumeSize];
+}
+
+- (IBAction)sensorCubeRangeSliderValueChanged:(id)sender
+{
+    _slamState.cubeRange = self.sensorCubeRangeSlider.value;
+    self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
+    
+//    [self onSLAMOptionsChanged]
+}
+
 // Manages whether we can let the application sleep.
 -(void)updateIdleTimer
 {
@@ -372,6 +422,7 @@
     {
         // Do not let the application sleep if we are currently using the sensor data.
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        self.batteryProcentageLabel.text = [NSString stringWithFormat: @"%d%s", [_sensorController getBatteryChargePercentage], "%"];
     }
     else
     {
@@ -479,7 +530,8 @@
     {
         if (_slamState.scannerState == ScannerStateCubePlacement)
         {
-            _volumeScale.initialPinchScale = _volumeScale.currentScale / [gestureRecognizer scale];
+            _volumeScale.initialPinchScale = [gestureRecognizer scale];
+            _volumeScale.volumeSizeBeforeChange = _slamState.volumeSizeInMeters;
         }
     }
     else if ([gestureRecognizer state] == UIGestureRecognizerStateChanged)
@@ -494,12 +546,59 @@
                 // Don't let our scale multiplier become absurd
                 _volumeScale.currentScale = keepInRange(_volumeScale.currentScale, 0.01, 1000.f);
                 
-                GLKVector3 newVolumeSize = GLKVector3MultiplyScalar(_options.initVolumeSizeInMeters, _volumeScale.currentScale);
+                GLKVector3 newVolumeSize;
+                GLKVector3 changeScale;
+                switch ([self pinchDirection:gestureRecognizer]) {
+                    case 0:
+                        // horizontal scale
+                        changeScale = GLKVector3Make(_volumeScale.currentScale, 1, 1);
+                        newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
+                        break;
+                    case 1:
+                        // vertical scale
+                        changeScale = GLKVector3Make(1, _volumeScale.currentScale, 1);
+                        newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
+                        break;
+                        
+                    default:
+                        newVolumeSize = GLKVector3MultiplyScalar(_volumeScale.volumeSizeBeforeChange, _volumeScale.currentScale);
+                        break;
+                }
                 
                 [self adjustVolumeSize:newVolumeSize];
             }
         }
     }
+}
+
+/*
+ * horizontal   - 0
+ * vertical     - 1
+ * diagonal     - 2
+ */
+- (int)pinchDirection:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.numberOfTouches < 2) {
+        NSLog(@"Invalid touch count for pinch!");
+        return NULL;
+    }
+    
+    UIView *view = gestureRecognizer.view;
+    CGPoint A = [gestureRecognizer locationOfTouch:0 inView:view];
+    CGPoint B = [gestureRecognizer locationOfTouch:1 inView:view];
+    
+    float xD = fabs( A.x - B.x );
+    float yD = fabs( A.y - B.y );
+    
+    if (xD == 0) { return 1; }
+    if (yD == 0) { return 0; }
+    
+    float ratio = xD / yD;
+
+    if (ratio > 2) { return 0; }
+    if (ratio < 0.5) { return 1; }
+    return 2;
+    
 }
 
 #pragma mark - MeshViewController delegates

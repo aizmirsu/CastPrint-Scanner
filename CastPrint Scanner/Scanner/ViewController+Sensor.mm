@@ -111,9 +111,9 @@
         
         STCalibrationType calibrationType = [_sensorController calibrationType];
 
-        _useColorCamera =
-               calibrationType == STCalibrationTypeApproximate
-            || calibrationType == STCalibrationTypeDeviceSpecific;
+//        _useColorCamera =
+//               calibrationType == STCalibrationTypeApproximate
+//            || calibrationType == STCalibrationTypeDeviceSpecific;
 
         if (!_useColorCamera)
         {

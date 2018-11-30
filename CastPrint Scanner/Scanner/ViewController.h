@@ -100,6 +100,8 @@ struct SlamData
     ScannerState scannerState;
     
     GLKVector3 volumeSizeInMeters = GLKVector3Make(NAN, NAN, NAN);
+    float cubeRange = 1;
+    GLKMatrix4 cubePose = GLKMatrix4Translate(GLKMatrix4Identity, 0.0, 0.0, -cubeRange);
 };
 
 // Utility struct to manage a gesture-based scale.
@@ -112,6 +114,7 @@ struct PinchScaleState
     
     float currentScale;
     float initialPinchScale;
+    GLKVector3 volumeSizeBeforeChange = GLKVector3Make(NAN, NAN, NAN);
 };
 
 namespace { // anonymous namespace for utility function.
@@ -267,6 +270,16 @@ struct DisplayData
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackingLostLabel;
 @property (weak, nonatomic) IBOutlet UIView *enableNewTrackerView;
+@property (weak, nonatomic) IBOutlet UILabel *batteryProcentageLabel;
+@property (weak, nonatomic) IBOutlet UIView *enableNewTrackerDataView;
+@property (weak, nonatomic) IBOutlet UILabel *sensorCubeHeightValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sensorCubeWidthValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sensorCubeDepthValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sensorCubeRangeValueLabel;
+@property (weak, nonatomic) IBOutlet UISlider *sensorCubeHeightSlider;
+@property (weak, nonatomic) IBOutlet UISlider *sensorCubeWidthSlider;
+@property (weak, nonatomic) IBOutlet UISlider *sensorCubeDepthSlider;
+@property (weak, nonatomic) IBOutlet UISlider *sensorCubeRangeSlider;
 
 + (instancetype) viewController;
 
@@ -274,6 +287,10 @@ struct DisplayData
 - (IBAction)resetButtonPressed:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
 - (IBAction)optionsButtonPressed:(id)sender;
+- (IBAction)sensorCubeHeightSliderValueChanged:(id)sender;
+- (IBAction)sensorCubeWidthSliderValueChanged:(id)sender;
+- (IBAction)sensorCubeDepthSliderValueChanged:(id)sender;
+- (IBAction)sensorCubeRangeSliderValueChanged:(id)sender;
 
 - (void)enterCubePlacementState;
 - (void)enterScanningState;
