@@ -327,6 +327,16 @@ namespace // anonymous namespace for local functions
                 NSAssert (success, @"Camera pose initializer error.");
             }
             
+            // Automatically set cubeRange after center depth
+            if (!_slamState.cubeRangeManual) {
+                const float* depthAsMillimeters = [depthFrame depthInMillimeters];
+                const float centralPointDepthInMeters = depthAsMillimeters[ depthFrame.width * (depthFrame.height/2) + (depthFrame.width/2)] / 1000.;
+                _slamState.cubeRange = keepInRange((centralPointDepthInMeters - _slamState.volumeSizeInMeters.z/2), self.sensorCubeRangeSlider.minimumValue, self.sensorCubeRangeSlider.maximumValue);
+                // Set range label
+                self.sensorCubeRangeSlider.value = _slamState.cubeRange;
+                self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
+            }
+            
             // Tell the cube renderer whether there is a support plane or not.
             [_display.cubeRenderer setCubeHasSupportPlane:NO];
             

@@ -122,7 +122,6 @@
     self.appStatusMessageLabel.layer.zPosition = 100;
     
     // Set range label
-    self.sensorCubeRangeSlider.value = _slamState.cubeRange;
     self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
 }
 
@@ -409,6 +408,7 @@
 
 - (IBAction)sensorCubeRangeSliderValueChanged:(id)sender
 {
+    _slamState.cubeRangeManual = TRUE;
     _slamState.cubeRange = self.sensorCubeRangeSlider.value;
     self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
     

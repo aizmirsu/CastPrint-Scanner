@@ -100,6 +100,7 @@ struct SlamData
     ScannerState scannerState;
     
     GLKVector3 volumeSizeInMeters = GLKVector3Make(NAN, NAN, NAN);
+    BOOL cubeRangeManual = false;
     float cubeRange = 1;
     GLKMatrix4 cubePose = GLKMatrix4Translate(GLKMatrix4Identity, 0.0, 0.0, -cubeRange);
 };
