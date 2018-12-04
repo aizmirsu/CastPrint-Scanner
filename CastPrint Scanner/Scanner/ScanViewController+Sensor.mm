@@ -4,16 +4,16 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+Camera.h"
-#import "ViewController+Sensor.h"
-#import "ViewController+SLAM.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+Camera.h"
+#import "ScanViewController+Sensor.h"
+#import "ScanViewController+SLAM.h"
+#import "ScanViewController+OpenGL.h"
 
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
 
-@implementation ViewController (Sensor)
+@implementation ScanViewController (Sensor)
 
 #pragma mark -  Structure Sensor delegates
 

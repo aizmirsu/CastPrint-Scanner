@@ -5,7 +5,7 @@
 */
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "ScanViewController.h"
 
 //------------------------------------------------------------------------------
 
@@ -59,7 +59,7 @@ void preventApplicationFromStartingInTheBackgroundWhenTheStructureSensorIsPlugge
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [ViewController viewController];
+    self.viewController = [ScanViewController viewController];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     

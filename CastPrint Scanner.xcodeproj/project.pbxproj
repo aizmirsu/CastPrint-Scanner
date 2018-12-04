@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F300615186E3B8F00405D34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F300614186E3B8F00405D34 /* Images.xcassets */; };
 		2A0BA3E418500398008FBE2E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0BA3E318500398008FBE2E /* CoreImage.framework */; };
-		2A1557BD1A37D198007C485A /* ViewController+OpenGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A1557BC1A37D198007C485A /* ViewController+OpenGL.mm */; };
+		2A1557BD1A37D198007C485A /* ScanViewController+OpenGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A1557BC1A37D198007C485A /* ScanViewController+OpenGL.mm */; };
 		2A3F2BB01857FB1600EE7A96 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3F2BAF1857FB1600EE7A96 /* MessageUI.framework */; };
 		2A5AA3841771397A0092391A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5AA3831771397A0092391A /* OpenGLES.framework */; };
 		2AB8B9C717EA78280097C231 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB8B9C617EA78280097C231 /* AVFoundation.framework */; };
@@ -17,15 +17,15 @@
 		2AB8B9CD17EA78860097C231 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB8B9CC17EA78860097C231 /* CoreMedia.framework */; };
 		2AB955C4184E573A003DA089 /* MeshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB955C1184E573A003DA089 /* MeshView.xib */; };
 		2AB955C5184E573A003DA089 /* MeshViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AB955C3184E573A003DA089 /* MeshViewController.mm */; };
-		2AEF461B1A1278D300CAF953 /* ViewController+Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF461A1A1278D300CAF953 /* ViewController+Sensor.mm */; };
-		2AEF46201A127B4900CAF953 /* ViewController+SLAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF461F1A127B4900CAF953 /* ViewController+SLAM.mm */; };
-		2AEF46231A1288B600CAF953 /* ViewController+Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF46221A1288B600CAF953 /* ViewController+Camera.mm */; };
+		2AEF461B1A1278D300CAF953 /* ScanViewController+Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF461A1A1278D300CAF953 /* ScanViewController+Sensor.mm */; };
+		2AEF46201A127B4900CAF953 /* ScanViewController+SLAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF461F1A127B4900CAF953 /* ScanViewController+SLAM.mm */; };
+		2AEF46231A1288B600CAF953 /* ScanViewController+Camera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF46221A1288B600CAF953 /* ScanViewController+Camera.mm */; };
 		2AF77B8B17F2575500A99E20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF77B8A17F2575500A99E20 /* CoreGraphics.framework */; };
 		2AFC8D78176F966000F7F3B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFC8D77176F966000F7F3B5 /* UIKit.framework */; };
 		2AFC8D7A176F966000F7F3B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFC8D79176F966000F7F3B5 /* Foundation.framework */; };
 		2AFC8D7E176F966000F7F3B5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFC8D7D176F966000F7F3B5 /* GLKit.framework */; };
 		2D1295AD184370FE00E8C685 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2D1295A6184370FE00E8C685 /* AppDelegate.mm */; };
-		2D1295B0184370FE00E8C685 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2D1295AC184370FE00E8C685 /* ViewController.mm */; };
+		2D1295B0184370FE00E8C685 /* ScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2D1295AC184370FE00E8C685 /* ScanViewController.mm */; };
 		2D23E7CD1A37B77D006E1F98 /* startScanButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D23E7CC1A37B77D006E1F98 /* startScanButton@2x.png */; };
 		2D23E7CF1A37B785006E1F98 /* doneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D23E7CE1A37B785006E1F98 /* doneButton@2x.png */; };
 		2D23E7D11A37B78E006E1F98 /* resetScanButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D23E7D01A37B78E006E1F98 /* resetScanButton@2x.png */; };
@@ -37,11 +37,13 @@
 		2DC7D69A18438E42005BEE8B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D69918438E42005BEE8B /* Accelerate.framework */; };
 		2DE057BD199E58E100137F8F /* ViewpointController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DE057BC199E58E100137F8F /* ViewpointController.mm */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
+		2FF26B7B21B68FB900097942 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FF26B7A21B68FB900097942 /* MenuViewController.xib */; };
+		2FF26B7D21B690C100097942 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FF26B7C21B690C100097942 /* MenuViewController.mm */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
 		435307C91872825B00B04481 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C51872825B00B04481 /* Default@2x.png */; };
 		435307CA1872825B00B04481 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C61872825B00B04481 /* Default-Landscape~ipad.png */; };
-		438C049C18723EB10062E958 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438C049818723EB10062E958 /* ViewController.xib */; };
+		438C049C18723EB10062E958 /* ScanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438C049818723EB10062E958 /* ScanViewController.xib */; };
 		43BB38C9199D2A51009D7AB2 /* calibration.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB38C8199D2A51009D7AB2 /* calibration.png */; };
 		6F03CB7E1862832600518C22 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6F03CB5F1862832600518C22 /* EAGLView.mm */; };
 		6F03CB911862832600518C22 /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F03CB731862832600518C22 /* Splash.png */; };
@@ -57,8 +59,8 @@
 		1F300614186E3B8F00405D34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2A0BA2D2184ECE0C008FBE2E /* MeshRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshRenderer.h; sourceTree = "<group>"; };
 		2A0BA3E318500398008FBE2E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		2A1557BB1A37D198007C485A /* ViewController+OpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+OpenGL.h"; sourceTree = "<group>"; };
-		2A1557BC1A37D198007C485A /* ViewController+OpenGL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ViewController+OpenGL.mm"; sourceTree = "<group>"; };
+		2A1557BB1A37D198007C485A /* ScanViewController+OpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanViewController+OpenGL.h"; sourceTree = "<group>"; };
+		2A1557BC1A37D198007C485A /* ScanViewController+OpenGL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ScanViewController+OpenGL.mm"; sourceTree = "<group>"; };
 		2A3F2BAF1857FB1600EE7A96 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2A5AA3831771397A0092391A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		2A93E232185133880049CEBE /* ViewpointController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewpointController.h; sourceTree = "<group>"; };
@@ -69,12 +71,12 @@
 		2AB955C1184E573A003DA089 /* MeshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshView.xib; sourceTree = "<group>"; };
 		2AB955C2184E573A003DA089 /* MeshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshViewController.h; sourceTree = "<group>"; };
 		2AB955C3184E573A003DA089 /* MeshViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MeshViewController.mm; sourceTree = "<group>"; };
-		2AEF461A1A1278D300CAF953 /* ViewController+Sensor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ViewController+Sensor.mm"; sourceTree = "<group>"; };
-		2AEF461D1A1279A900CAF953 /* ViewController+Sensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViewController+Sensor.h"; sourceTree = "<group>"; };
-		2AEF461E1A127B4900CAF953 /* ViewController+SLAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+SLAM.h"; sourceTree = "<group>"; };
-		2AEF461F1A127B4900CAF953 /* ViewController+SLAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ViewController+SLAM.mm"; sourceTree = "<group>"; };
-		2AEF46211A1288B600CAF953 /* ViewController+Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+Camera.h"; sourceTree = "<group>"; };
-		2AEF46221A1288B600CAF953 /* ViewController+Camera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ViewController+Camera.mm"; sourceTree = "<group>"; };
+		2AEF461A1A1278D300CAF953 /* ScanViewController+Sensor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ScanViewController+Sensor.mm"; sourceTree = "<group>"; };
+		2AEF461D1A1279A900CAF953 /* ScanViewController+Sensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScanViewController+Sensor.h"; sourceTree = "<group>"; };
+		2AEF461E1A127B4900CAF953 /* ScanViewController+SLAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanViewController+SLAM.h"; sourceTree = "<group>"; };
+		2AEF461F1A127B4900CAF953 /* ScanViewController+SLAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ScanViewController+SLAM.mm"; sourceTree = "<group>"; };
+		2AEF46211A1288B600CAF953 /* ScanViewController+Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanViewController+Camera.h"; sourceTree = "<group>"; };
+		2AEF46221A1288B600CAF953 /* ScanViewController+Camera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ScanViewController+Camera.mm"; sourceTree = "<group>"; };
 		2AF77B8A17F2575500A99E20 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2AFC8D74176F966000F7F3B5 /* CastPrint Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CastPrint Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AFC8D77176F966000F7F3B5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -82,8 +84,8 @@
 		2AFC8D7D176F966000F7F3B5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		2D1295A5184370FE00E8C685 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2D1295A6184370FE00E8C685 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		2D1295AB184370FE00E8C685 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2D1295AC184370FE00E8C685 /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		2D1295AB184370FE00E8C685 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		2D1295AC184370FE00E8C685 /* ScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScanViewController.mm; sourceTree = "<group>"; };
 		2D23E7CC1A37B77D006E1F98 /* startScanButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startScanButton@2x.png"; sourceTree = "<group>"; };
 		2D23E7CE1A37B785006E1F98 /* doneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doneButton@2x.png"; sourceTree = "<group>"; };
 		2D23E7D01A37B78E006E1F98 /* resetScanButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resetScanButton@2x.png"; sourceTree = "<group>"; };
@@ -94,8 +96,11 @@
 		2DC7D69618438E1D005BEE8B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2DC7D69918438E42005BEE8B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2DE057BC199E58E100137F8F /* ViewpointController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewpointController.mm; sourceTree = "<group>"; };
-		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewController.xib; sourceTree = "<group>"; };
+		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanViewController.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
+		2FF26B7A21B68FB900097942 /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
+		2FF26B7C21B690C100097942 /* MenuViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuViewController.mm; sourceTree = "<group>"; };
+		2FF26B7E21B690EB00097942 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		435307C51872825B00B04481 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -188,7 +193,10 @@
 		2AFC8D81176F966000F7F3B5 /* CastPrint Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				2FF26B7721B68F2800097942 /* Mesh */,
 				2F589DF621ADAE0A008D9E33 /* Scanner */,
+				2FF26B7E21B690EB00097942 /* MenuViewController.h */,
+				2FF26B7C21B690C100097942 /* MenuViewController.mm */,
 				2D1295A5184370FE00E8C685 /* AppDelegate.h */,
 				2D1295A6184370FE00E8C685 /* AppDelegate.mm */,
 				1F300614186E3B8F00405D34 /* Images.xcassets */,
@@ -200,40 +208,48 @@
 		2F589DF621ADAE0A008D9E33 /* Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				2D1295AB184370FE00E8C685 /* ViewController.h */,
-				2D1295AC184370FE00E8C685 /* ViewController.mm */,
-				2AEF46211A1288B600CAF953 /* ViewController+Camera.h */,
-				2AEF46221A1288B600CAF953 /* ViewController+Camera.mm */,
-				2AEF461D1A1279A900CAF953 /* ViewController+Sensor.h */,
-				2AEF461A1A1278D300CAF953 /* ViewController+Sensor.mm */,
-				2AEF461E1A127B4900CAF953 /* ViewController+SLAM.h */,
-				2AEF461F1A127B4900CAF953 /* ViewController+SLAM.mm */,
-				2A1557BB1A37D198007C485A /* ViewController+OpenGL.h */,
-				2A1557BC1A37D198007C485A /* ViewController+OpenGL.mm */,
+				2D1295AB184370FE00E8C685 /* ScanViewController.h */,
+				2D1295AC184370FE00E8C685 /* ScanViewController.mm */,
+				2AEF46211A1288B600CAF953 /* ScanViewController+Camera.h */,
+				2AEF46221A1288B600CAF953 /* ScanViewController+Camera.mm */,
+				2AEF461D1A1279A900CAF953 /* ScanViewController+Sensor.h */,
+				2AEF461A1A1278D300CAF953 /* ScanViewController+Sensor.mm */,
+				2AEF461E1A127B4900CAF953 /* ScanViewController+SLAM.h */,
+				2AEF461F1A127B4900CAF953 /* ScanViewController+SLAM.mm */,
+				2A1557BB1A37D198007C485A /* ScanViewController+OpenGL.h */,
+				2A1557BC1A37D198007C485A /* ScanViewController+OpenGL.mm */,
 				2A93E232185133880049CEBE /* ViewpointController.h */,
 				2DE057BC199E58E100137F8F /* ViewpointController.mm */,
 				6F8BE65E199EED0C00E10C10 /* CalibrationOverlay.h */,
 				6F8BE65F199EED0C00E10C10 /* CalibrationOverlay.mm */,
-				6F03CB5E1862832600518C22 /* EAGLView.h */,
-				6F03CB5F1862832600518C22 /* EAGLView.mm */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+		2FF26B7721B68F2800097942 /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
 				2AB955C2184E573A003DA089 /* MeshViewController.h */,
 				2AB955C3184E573A003DA089 /* MeshViewController.mm */,
 				2A0BA2D2184ECE0C008FBE2E /* MeshRenderer.h */,
 				2D4DE5A7199B95BE00F69F56 /* MeshRenderer.mm */,
-				2D4DE5AA199BB90400F69F56 /* CustomShaders.mm */,
+				6F03CB5E1862832600518C22 /* EAGLView.h */,
+				6F03CB5F1862832600518C22 /* EAGLView.mm */,
 				2D4DE5AB199BB90400F69F56 /* CustomShaders.h */,
+				2D4DE5AA199BB90400F69F56 /* CustomShaders.mm */,
 				7EAD26B4198C07F600638C9C /* CustomUIKitStyles.h */,
 				7E2288CD198FE67D00F6E3B2 /* CustomUIKitStyles.mm */,
 			);
-			path = Scanner;
+			path = Mesh;
 			sourceTree = "<group>";
 		};
 		433C3B9D186CBEA900552A10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				6F03CB601862832600518C22 /* Graphics */,
+				2FF26B7A21B68FB900097942 /* MenuViewController.xib */,
 				2AB955C1184E573A003DA089 /* MeshView.xib */,
-				438C049818723EB10062E958 /* ViewController.xib */,
+				438C049818723EB10062E958 /* ScanViewController.xib */,
 				6F03CB7C1862832600518C22 /* CastPrintScanner-Info.plist */,
 				6F03CB571862823000518C22 /* InfoPlist.strings */,
 				6F03CB791862832600518C22 /* main.m */,
@@ -325,7 +341,8 @@
 				2D23E7CF1A37B785006E1F98 /* doneButton@2x.png in Resources */,
 				2D23E7D11A37B78E006E1F98 /* resetScanButton@2x.png in Resources */,
 				2D23E7CD1A37B77D006E1F98 /* startScanButton@2x.png in Resources */,
-				438C049C18723EB10062E958 /* ViewController.xib in Resources */,
+				2FF26B7B21B68FB900097942 /* MenuViewController.xib in Resources */,
+				438C049C18723EB10062E958 /* ScanViewController.xib in Resources */,
 				435307C91872825B00B04481 /* Default@2x.png in Resources */,
 				6F03CB911862832600518C22 /* Splash.png in Resources */,
 				435307C71872825B00B04481 /* Default-568h@2x.png in Resources */,
@@ -343,15 +360,16 @@
 				2D4DE5A8199B95BE00F69F56 /* MeshRenderer.mm in Sources */,
 				6F03CB7E1862832600518C22 /* EAGLView.mm in Sources */,
 				2DE057BD199E58E100137F8F /* ViewpointController.mm in Sources */,
+				2FF26B7D21B690C100097942 /* MenuViewController.mm in Sources */,
 				2AB955C5184E573A003DA089 /* MeshViewController.mm in Sources */,
-				2A1557BD1A37D198007C485A /* ViewController+OpenGL.mm in Sources */,
-				2AEF46201A127B4900CAF953 /* ViewController+SLAM.mm in Sources */,
-				2AEF461B1A1278D300CAF953 /* ViewController+Sensor.mm in Sources */,
-				2D1295B0184370FE00E8C685 /* ViewController.mm in Sources */,
+				2A1557BD1A37D198007C485A /* ScanViewController+OpenGL.mm in Sources */,
+				2AEF46201A127B4900CAF953 /* ScanViewController+SLAM.mm in Sources */,
+				2AEF461B1A1278D300CAF953 /* ScanViewController+Sensor.mm in Sources */,
+				2D1295B0184370FE00E8C685 /* ScanViewController.mm in Sources */,
 				2D4DE5AC199BB90400F69F56 /* CustomShaders.mm in Sources */,
 				6F03CB961862832600518C22 /* main.m in Sources */,
 				7E2288CE198FE67D00F6E3B2 /* CustomUIKitStyles.mm in Sources */,
-				2AEF46231A1288B600CAF953 /* ViewController+Camera.mm in Sources */,
+				2AEF46231A1288B600CAF953 /* ScanViewController+Camera.mm in Sources */,
 				6F8BE660199EED0C00E10C10 /* CalibrationOverlay.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,12 +377,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		438C049818723EB10062E958 /* ViewController.xib */ = {
+		438C049818723EB10062E958 /* ScanViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2FD5688921AD843C003EFC27 /* Base */,
 			);
-			name = ViewController.xib;
+			name = ScanViewController.xib;
 			sourceTree = "<group>";
 		};
 		6F03CB571862823000518C22 /* InfoPlist.strings */ = {

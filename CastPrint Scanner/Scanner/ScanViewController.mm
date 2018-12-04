@@ -4,28 +4,28 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+Camera.h"
-#import "ViewController+Sensor.h"
-#import "ViewController+SLAM.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+Camera.h"
+#import "ScanViewController+Sensor.h"
+#import "ScanViewController+SLAM.h"
+#import "ScanViewController+OpenGL.h"
 
 #include <cmath>
 #include <algorithm>
 
 #pragma mark - ViewController Setup
 
-@interface ViewController ()
+@interface ScanViewController ()
 {}
 
 
 @end
 
-@implementation ViewController
+@implementation ScanViewController
 
 + (instancetype) viewController
 {
-    ViewController* vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    ScanViewController* vc = [[ScanViewController alloc] initWithNibName:@"ScanViewController" bundle:nil];
     return vc;
 }
 
@@ -302,7 +302,7 @@
     _imuQueue = [[NSOperationQueue alloc] init];
     [_imuQueue setMaxConcurrentOperationCount:1];
     
-    __weak ViewController *weakSelf = self;
+    __weak ScanViewController *weakSelf = self;
     CMDeviceMotionHandler dmHandler = ^(CMDeviceMotion *motion, NSError *error)
     {
         // Could be nil if the self is released before the callback happens.
@@ -380,9 +380,9 @@
     [self enterViewingState];
 }
 
-- (IBAction)optionsButtonPressed:(id)sender
+- (IBAction)backButtonPressed:(id)sender
 {
-    [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
+//    [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
 }
 
 - (IBAction)sensorCubeHeightSliderValueChanged:(id)sender
@@ -465,7 +465,7 @@
     _appStatus.needsDisplayOfStatusMessage = false;
     [self.view.layer removeAllAnimations];
     
-    __weak ViewController *weakSelf = self;
+    __weak ScanViewController *weakSelf = self;
     [UIView animateWithDuration:0.5f
                      animations:^{
                          weakSelf.appStatusMessageLabel.alpha = 0.0f;

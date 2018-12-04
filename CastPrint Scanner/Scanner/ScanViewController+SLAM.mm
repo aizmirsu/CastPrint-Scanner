@@ -4,8 +4,8 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+OpenGL.h"
 
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
@@ -44,7 +44,7 @@ namespace // anonymous namespace for local functions
     }
 }
 
-@implementation ViewController (SLAM)
+@implementation ScanViewController (SLAM)
 
 #pragma mark - SLAM
 

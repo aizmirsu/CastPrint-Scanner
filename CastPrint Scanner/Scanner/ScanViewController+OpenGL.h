@@ -8,11 +8,11 @@
 #import <AVFoundation/AVFoundation.h>
 #define HAS_LIBCXX
 
-#import "ViewController.h"
+#import "ScanViewController.h"
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
 
-@interface ViewController (OpenGL)
+@interface ScanViewController (OpenGL)
 
 - (void)setupGL;
 - (void)setupGLViewport;

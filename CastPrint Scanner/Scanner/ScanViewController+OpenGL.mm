@@ -4,13 +4,13 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+OpenGL.h"
 
 #include <cmath>
 #include <limits>
 
-@implementation ViewController (OpenGL)
+@implementation ScanViewController (OpenGL)
 
 #pragma mark -  OpenGL
 

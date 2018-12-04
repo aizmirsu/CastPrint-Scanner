@@ -223,7 +223,7 @@ struct DisplayData
     float meshRenderingAlpha = 0.8;
 };
 
-@interface ViewController : UIViewController <STBackgroundTaskDelegate, MeshViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
+@interface ScanViewController : UIViewController <STBackgroundTaskDelegate, MeshViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
 {
     // Structure Sensor controller.
     STSensorController *_sensorController;
@@ -268,9 +268,9 @@ struct DisplayData
 @property (weak, nonatomic) IBOutlet UIButton *scanButton;
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackingLostLabel;
-@property (weak, nonatomic) IBOutlet UIView *enableNewTrackerView;
+//@property (weak, nonatomic) IBOutlet UIView *enableNewTrackerView;
 @property (weak, nonatomic) IBOutlet UILabel *batteryProcentageLabel;
 @property (weak, nonatomic) IBOutlet UIView *enableNewTrackerDataView;
 @property (weak, nonatomic) IBOutlet UILabel *sensorCubeHeightValueLabel;
@@ -287,7 +287,7 @@ struct DisplayData
 - (IBAction)scanButtonPressed:(id)sender;
 - (IBAction)resetButtonPressed:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
-- (IBAction)optionsButtonPressed:(id)sender;
+- (IBAction)backButtonPressed:(id)sender;
 - (IBAction)sensorCubeHeightSliderValueChanged:(id)sender;
 - (IBAction)sensorCubeWidthSliderValueChanged:(id)sender;
 - (IBAction)sensorCubeDepthSliderValueChanged:(id)sender;

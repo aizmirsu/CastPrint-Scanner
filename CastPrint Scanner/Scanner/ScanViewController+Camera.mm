@@ -4,15 +4,15 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+Camera.h"
-#import "ViewController+Sensor.h"
-#import "ViewController+SLAM.h"
+#import "ScanViewController.h"
+#import "ScanViewController+Camera.h"
+#import "ScanViewController+Sensor.h"
+#import "ScanViewController+SLAM.h"
 
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
 
-@implementation ViewController (Camera)
+@implementation ScanViewController (Camera)
 
 #pragma mark -  Color Camera
 
