@@ -63,7 +63,7 @@
     
     // Make sure we get notified when the app becomes active to start/restore the sensor state if necessary.
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appDidBecomeActive)
+                                             selector:@selector(scanViewDidBecomeActive)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
@@ -83,9 +83,10 @@
     [self updateAppStatusMessage];
     
     // We will connect to the sensor when we receive appDidBecomeActive.
+    [self scanViewDidBecomeActive];
 }
 
-- (void)appDidBecomeActive
+- (void)scanViewDidBecomeActive
 {
     if ([self currentStateNeedsSensor])
         [self connectToStructureSensorAndStartStreaming];
@@ -120,6 +121,7 @@
     
     // Make sure the label is on top of everything else.
     self.appStatusMessageLabel.layer.zPosition = 100;
+    self.backButton.layer.zPosition = 100;
     
     // Set range label
     self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
@@ -382,7 +384,12 @@
 
 - (IBAction)backButtonPressed:(id)sender
 {
-//    [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
+    [_sensorController stopStreaming];
+    
+    if (_useColorCamera)
+        [self stopColorCamera];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)sensorCubeHeightSliderValueChanged:(id)sender
@@ -450,8 +457,14 @@
     [self.appStatusMessageLabel setText:msg];
     [self.appStatusMessageLabel setHidden:NO];
     
-    // Progressively show the message label.
-    [self.view setUserInteractionEnabled:false];
+    // Progressively show the message label and enable only back button.
+    for (UIView* view in self.view.subviews) {
+        if (view.tag == 10) {
+            [view setUserInteractionEnabled:true];
+        } else {
+            [view setUserInteractionEnabled:false];
+        }
+    }
     [UIView animateWithDuration:0.5f animations:^{
         self.appStatusMessageLabel.alpha = 1.0f;
     }completion:nil];
@@ -477,7 +490,9 @@
                              // Could be nil if the self is released before the callback happens.
                              if (weakSelf) {
                                  [weakSelf.appStatusMessageLabel setHidden:YES];
-                                 [weakSelf.view setUserInteractionEnabled:true];
+                                 for (UIView* view in weakSelf.view.subviews) {
+                                     [view setUserInteractionEnabled:true];
+                                 }
                              }
                          }
      }];
@@ -526,46 +541,49 @@
 
 - (void)pinchGesture:(UIPinchGestureRecognizer *)gestureRecognizer
 {
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan)
+    if (!_appStatus.needsDisplayOfStatusMessage)
     {
-        if (_slamState.scannerState == ScannerStateCubePlacement)
+        if ([gestureRecognizer state] == UIGestureRecognizerStateBegan)
         {
-            _volumeScale.initialPinchScale = [gestureRecognizer scale];
-            _volumeScale.volumeSizeBeforeChange = _slamState.volumeSizeInMeters;
-        }
-    }
-    else if ([gestureRecognizer state] == UIGestureRecognizerStateChanged)
-    {
-        if(_slamState.scannerState == ScannerStateCubePlacement)
-        {
-            // In some special conditions the gesture recognizer can send a zero initial scale.
-            if (!isnan (_volumeScale.initialPinchScale))
+            if (_slamState.scannerState == ScannerStateCubePlacement)
             {
-                _volumeScale.currentScale = [gestureRecognizer scale] * _volumeScale.initialPinchScale;
-                
-                // Don't let our scale multiplier become absurd
-                _volumeScale.currentScale = keepInRange(_volumeScale.currentScale, 0.01, 1000.f);
-                
-                GLKVector3 newVolumeSize;
-                GLKVector3 changeScale;
-                switch ([self pinchDirection:gestureRecognizer]) {
-                    case 0:
-                        // horizontal scale
-                        changeScale = GLKVector3Make(_volumeScale.currentScale, 1, 1);
-                        newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
-                        break;
-                    case 1:
-                        // vertical scale
-                        changeScale = GLKVector3Make(1, _volumeScale.currentScale, 1);
-                        newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
-                        break;
-                        
-                    default:
-                        newVolumeSize = GLKVector3MultiplyScalar(_volumeScale.volumeSizeBeforeChange, _volumeScale.currentScale);
-                        break;
+                _volumeScale.initialPinchScale = [gestureRecognizer scale];
+                _volumeScale.volumeSizeBeforeChange = _slamState.volumeSizeInMeters;
+            }
+        }
+        else if ([gestureRecognizer state] == UIGestureRecognizerStateChanged)
+        {
+            if(_slamState.scannerState == ScannerStateCubePlacement)
+            {
+                // In some special conditions the gesture recognizer can send a zero initial scale.
+                if (!isnan (_volumeScale.initialPinchScale))
+                {
+                    _volumeScale.currentScale = [gestureRecognizer scale] * _volumeScale.initialPinchScale;
+                    
+                    // Don't let our scale multiplier become absurd
+                    _volumeScale.currentScale = keepInRange(_volumeScale.currentScale, 0.01, 1000.f);
+                    
+                    GLKVector3 newVolumeSize;
+                    GLKVector3 changeScale;
+                    switch ([self pinchDirection:gestureRecognizer]) {
+                        case 0:
+                            // horizontal scale
+                            changeScale = GLKVector3Make(_volumeScale.currentScale, 1, 1);
+                            newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
+                            break;
+                        case 1:
+                            // vertical scale
+                            changeScale = GLKVector3Make(1, _volumeScale.currentScale, 1);
+                            newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
+                            break;
+                            
+                        default:
+                            newVolumeSize = GLKVector3MultiplyScalar(_volumeScale.volumeSizeBeforeChange, _volumeScale.currentScale);
+                            break;
+                    }
+                    
+                    [self adjustVolumeSize:newVolumeSize];
                 }
-                
-                [self adjustVolumeSize:newVolumeSize];
             }
         }
     }

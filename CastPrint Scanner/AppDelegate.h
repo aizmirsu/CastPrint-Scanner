@@ -6,12 +6,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class ScanViewController;
+@class MenuViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ScanViewController *viewController;
+@property (strong, nonatomic) MenuViewController *viewController;
 
 @end

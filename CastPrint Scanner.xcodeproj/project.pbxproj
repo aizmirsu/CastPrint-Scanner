@@ -36,8 +36,8 @@
 		2DC7D69818438E1D005BEE8B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D69618438E1D005BEE8B /* CoreMotion.framework */; };
 		2DC7D69A18438E42005BEE8B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC7D69918438E42005BEE8B /* Accelerate.framework */; };
 		2DE057BD199E58E100137F8F /* ViewpointController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DE057BC199E58E100137F8F /* ViewpointController.mm */; };
+		2F7CFC0221B6CE410090548B /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7CFC0421B6CE410090548B /* MenuViewController.xib */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
-		2FF26B7B21B68FB900097942 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FF26B7A21B68FB900097942 /* MenuViewController.xib */; };
 		2FF26B7D21B690C100097942 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FF26B7C21B690C100097942 /* MenuViewController.mm */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
@@ -96,9 +96,9 @@
 		2DC7D69618438E1D005BEE8B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		2DC7D69918438E42005BEE8B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		2DE057BC199E58E100137F8F /* ViewpointController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewpointController.mm; sourceTree = "<group>"; };
+		2F7CFC0321B6CE410090548B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MenuViewController.xib; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanViewController.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
-		2FF26B7A21B68FB900097942 /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		2FF26B7C21B690C100097942 /* MenuViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuViewController.mm; sourceTree = "<group>"; };
 		2FF26B7E21B690EB00097942 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -222,6 +222,8 @@
 				2DE057BC199E58E100137F8F /* ViewpointController.mm */,
 				6F8BE65E199EED0C00E10C10 /* CalibrationOverlay.h */,
 				6F8BE65F199EED0C00E10C10 /* CalibrationOverlay.mm */,
+				6F03CB5E1862832600518C22 /* EAGLView.h */,
+				6F03CB5F1862832600518C22 /* EAGLView.mm */,
 			);
 			path = Scanner;
 			sourceTree = "<group>";
@@ -233,8 +235,6 @@
 				2AB955C3184E573A003DA089 /* MeshViewController.mm */,
 				2A0BA2D2184ECE0C008FBE2E /* MeshRenderer.h */,
 				2D4DE5A7199B95BE00F69F56 /* MeshRenderer.mm */,
-				6F03CB5E1862832600518C22 /* EAGLView.h */,
-				6F03CB5F1862832600518C22 /* EAGLView.mm */,
 				2D4DE5AB199BB90400F69F56 /* CustomShaders.h */,
 				2D4DE5AA199BB90400F69F56 /* CustomShaders.mm */,
 				7EAD26B4198C07F600638C9C /* CustomUIKitStyles.h */,
@@ -247,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				6F03CB601862832600518C22 /* Graphics */,
-				2FF26B7A21B68FB900097942 /* MenuViewController.xib */,
+				2F7CFC0421B6CE410090548B /* MenuViewController.xib */,
 				2AB955C1184E573A003DA089 /* MeshView.xib */,
 				438C049818723EB10062E958 /* ScanViewController.xib */,
 				6F03CB7C1862832600518C22 /* CastPrintScanner-Info.plist */,
@@ -341,7 +341,7 @@
 				2D23E7CF1A37B785006E1F98 /* doneButton@2x.png in Resources */,
 				2D23E7D11A37B78E006E1F98 /* resetScanButton@2x.png in Resources */,
 				2D23E7CD1A37B77D006E1F98 /* startScanButton@2x.png in Resources */,
-				2FF26B7B21B68FB900097942 /* MenuViewController.xib in Resources */,
+				2F7CFC0221B6CE410090548B /* MenuViewController.xib in Resources */,
 				438C049C18723EB10062E958 /* ScanViewController.xib in Resources */,
 				435307C91872825B00B04481 /* Default@2x.png in Resources */,
 				6F03CB911862832600518C22 /* Splash.png in Resources */,
@@ -377,6 +377,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2F7CFC0421B6CE410090548B /* MenuViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F7CFC0321B6CE410090548B /* Base */,
+			);
+			name = MenuViewController.xib;
+			sourceTree = "<group>";
+		};
 		438C049818723EB10062E958 /* ScanViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -5,7 +5,7 @@
 */
 
 #import "AppDelegate.h"
-#import "ScanViewController.h"
+#import "MenuViewController.h"
 
 //------------------------------------------------------------------------------
 
@@ -45,21 +45,21 @@ void preventApplicationFromStartingInTheBackgroundWhenTheStructureSensorIsPlugge
 {
     preventApplicationFromStartingInTheBackgroundWhenTheStructureSensorIsPlugged();
 
-    if (false)
-    {
-        // STWirelessLog is very helpful for debugging while your Structure Sensor is plugged in.
-        // See SDK documentation for how to start a listener on your computer.
-
-        NSError* error = nil;
-        NSString *remoteLogHost = @"192.168.1.1";
-        [STWirelessLog broadcastLogsToWirelessConsoleAtAddress:remoteLogHost usingPort:4999 error:&error];
-        if (error)
-            NSLog(@"Oh no! Can't start wireless log: %@", [error localizedDescription]);
-    }
+//    if (false)
+//    {
+//        // STWirelessLog is very helpful for debugging while your Structure Sensor is plugged in.
+//        // See SDK documentation for how to start a listener on your computer.
+//
+//        NSError* error = nil;
+//        NSString *remoteLogHost = @"192.168.1.1";
+//        [STWirelessLog broadcastLogsToWirelessConsoleAtAddress:remoteLogHost usingPort:4999 error:&error];
+//        if (error)
+//            NSLog(@"Oh no! Can't start wireless log: %@", [error localizedDescription]);
+//    }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [ScanViewController viewController];
+    self.viewController = [MenuViewController viewController];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
