@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
+                <outlet property="appStatusMessageLabel" destination="qar-sd-xxn" id="Add-Bs-wKN"/>
                 <outlet property="batteryProcentageLabel" destination="2xl-hg-4BD" id="5D6-cu-EcK"/>
                 <outlet property="doneButton" destination="mZb-la-8Ct" id="e73-HP-m5Y"/>
                 <outlet property="enableNewTrackerDataView" destination="OS6-C8-8fV" id="43U-DH-5xL"/>
@@ -173,6 +174,18 @@ Try to re-align or press reset.</string>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.16838074629999999" blue="0.58894312520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
+                <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please Connect Structure Sensor" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qar-sd-xxn" userLabel="Label - App Status Message">
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                        <real key="isElement" value="0.0"/>
+                    </accessibility>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
+                    <color key="textColor" red="0.66666668650000005" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>

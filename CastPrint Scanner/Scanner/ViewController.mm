@@ -380,10 +380,10 @@
     [self enterViewingState];
 }
 
-- (IBAction)optionsButtonPressed:(id)sender
-{
-    [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
-}
+//- (IBAction)optionsButtonPressed:(id)sender
+//{
+//    [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
+//}
 
 - (IBAction)sensorCubeHeightSliderValueChanged:(id)sender
 {
