@@ -4,52 +4,38 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+Camera.h"
-#import "ViewController+Sensor.h"
-#import "ViewController+SLAM.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+Camera.h"
+#import "ScanViewController+Sensor.h"
+#import "ScanViewController+SLAM.h"
+#import "ScanViewController+OpenGL.h"
 
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
 
-@implementation ViewController (Sensor)
+@implementation ScanViewController (Sensor)
 
 #pragma mark -  Structure Sensor delegates
-
-- (void)setupStructureSensor
-{
-    // Get the sensor controller singleton
-    _sensorController = [STSensorController sharedController];
-    
-    // Set ourself as the delegate to receive sensor data.
-    _sensorController.delegate = self;
-}
-
-- (BOOL)isStructureConnectedAndCharged
-{
-    return [_sensorController isConnected] && ![_sensorController isLowPower];
-}
 
 - (void)sensorDidConnect
 {
     NSLog(@"[Structure] Sensor connected!");
     
     if ([self currentStateNeedsSensor])
-        [self connectToStructureSensorAndStartStreaming];
+        [self.delegate connectToStructureSensorAndStartStreaming:true];
 }
 
 - (void)sensorDidLeaveLowPowerMode
 {
-    _appStatus.sensorStatus = AppStatus::SensorStatusNeedsUserToConnect;
-    [self updateAppStatusMessage];
+    _structureSensorStatus.sensorStatus = StructureSensorStatus::SensorStatusNeedsUserToConnect;
+    [self updateSensorStatusMessage];
 }
 
 - (void)sensorBatteryNeedsCharging
 {
     // Notify the user that the sensor needs to be charged.
-    _appStatus.sensorStatus = AppStatus::SensorStatusNeedsUserToCharge;
-    [self updateAppStatusMessage];
+    _structureSensorStatus.sensorStatus = StructureSensorStatus::SensorStatusNeedsUserToCharge;
+    [self updateSensorStatusMessage];
 }
 
 - (void)sensorDidStopStreaming:(STSensorControllerDidStopStreamingReason)reason
@@ -75,7 +61,7 @@
     NSLog(@"[Structure] Sensor disconnected!");
     
     // Reset the scan on disconnect, since we won't be able to recover afterwards.
-    if (_slamState.scannerState == ScannerStateScanning)
+    if (_slamState->scannerState == ScannerStateScanning)
     {
         [self resetButtonPressed:self];
     }
@@ -86,8 +72,8 @@
     // We only show the app status when we need sensor
     if ([self currentStateNeedsSensor])
     {
-        _appStatus.sensorStatus = AppStatus::SensorStatusNeedsUserToConnect;
-        [self updateAppStatusMessage];
+        _structureSensorStatus.sensorStatus = StructureSensorStatus::SensorStatusNeedsUserToConnect;
+        [self updateSensorStatusMessage];
     }
     
     if (_calibrationOverlay)
@@ -97,72 +83,62 @@
 }
 
 
-- (STSensorControllerInitStatus)connectToStructureSensorAndStartStreaming
+- (void)connectToStructureSensorAndStartStreaming:(bool) startStream
+                     andSensorControllerConnected:(bool) connected
 {
-    
-    // Try connecting to a Structure Sensor.
-    STSensorControllerInitStatus result = [_sensorController initializeSensorConnection];
-    
-    if (result == STSensorControllerInitStatusSuccess || result == STSensorControllerInitStatusAlreadyInitialized)
+    if (connected)
     {
-        // Even though _useColorCamera was set in viewDidLoad by asking if an approximate calibration is guaranteed,
-        // it's still possible that the Structure Sensor that has just been plugged in has a custom or approximate calibration
-        // that we couldn't have known about in advance.
-        
-        STCalibrationType calibrationType = [_sensorController calibrationType];
-
-//        _useColorCamera =
-//               calibrationType == STCalibrationTypeApproximate
-//            || calibrationType == STCalibrationTypeDeviceSpecific;
-
-        if (!_useColorCamera)
-        {
-            // Disable both the new tracker and its UI switch, since there is no color camera input.
-            _options.depthAndColorTrackerIsOn = false;
-
-            // Disable both the high resolution coloring and its UI switch, since there is no color camera input.
-            _options.highResColoring = false;
-
-            // If we can't use the color camera, then don't try to use registered depth.
-            _options.useHardwareRegisteredDepth = false;
-        }
-
-        // Reset the SLAM pipeline.
-        // This will also synchronize the UI switches states from the dynamic option values.
-        [self onSLAMOptionsChanged];
-
         // Update the app status message.
-        _appStatus.sensorStatus = AppStatus::SensorStatusOk;
-        [self updateAppStatusMessage];
+        _structureSensorStatus.sensorStatus = StructureSensorStatus::SensorStatusOk;
+        [self updateSensorStatusMessage];
         
-        // Start streaming depth data.
-        [self startStructureSensorStreaming];
+        if (startStream) {
+            // Even though _useColorCamera was set in viewDidLoad by asking if an approximate calibration is guaranteed,
+            // it's still possible that the Structure Sensor that has just been plugged in has a custom or approximate calibration
+            // that we couldn't have known about in advance.
+            
+            STCalibrationType calibrationType = [_sensorController calibrationType];
+            
+            //        _useColorCamera =
+            //               calibrationType == STCalibrationTypeApproximate
+            //            || calibrationType == STCalibrationTypeDeviceSpecific;
+            
+            if (!_useColorCamera)
+            {
+                // Disable both the new tracker and its UI switch, since there is no color camera input.
+                _options.depthAndColorTrackerIsOn = false;
+                
+                // Disable both the high resolution coloring and its UI switch, since there is no color camera input.
+                _options.highResColoring = false;
+                
+                // If we can't use the color camera, then don't try to use registered depth.
+                _options.useHardwareRegisteredDepth = false;
+            }
+            
+            // Reset the SLAM pipeline.
+            // This will also synchronize the UI switches states from the dynamic option values.
+            [self onSLAMOptionsChanged];
+            
+//            // Update the app status message.
+//            _appStatus.sensorStatus = AppStatus::SensorStatusOk;
+//            [self updateSensorStatusMessage];
+            
+            // Start streaming depth data.
+            [self startStructureSensorStreaming];
+        }
     }
     else
     {
-        switch (result)
-        {
-            case STSensorControllerInitStatusSensorNotFound:
-                NSLog(@"[Structure] No sensor found"); break;
-            case STSensorControllerInitStatusOpenFailed:
-                NSLog(@"[Structure] Error: Open failed."); break;
-            case STSensorControllerInitStatusSensorIsWakingUp:
-                NSLog(@"[Structure] Error: Sensor still waking up."); break;
-            default: {}
-        }
-        
-        _appStatus.sensorStatus = AppStatus::SensorStatusNeedsUserToConnect;
-        [self updateAppStatusMessage];
+        _structureSensorStatus.sensorStatus = StructureSensorStatus::SensorStatusNeedsUserToConnect;
+        [self updateSensorStatusMessage];
     }
     
     [self updateIdleTimer];
-    
-    return result;
 }
 
 - (void)startStructureSensorStreaming
 {
-    if (![self isStructureConnectedAndCharged])
+    if (![self.delegate isStructureConnectedAndCharged])
         return;
     
     // Tell the driver to start streaming.
@@ -241,14 +217,14 @@
             _calibrationOverlay.hidden = true;
     }
     
-    if (!_slamState.initialized)
+    if (!_slamState->initialized)
         [self setupSLAM];
 }
 
 - (void)sensorDidOutputSynchronizedDepthFrame:(STDepthFrame*)depthFrame
                                    colorFrame:(STColorFrame*)colorFrame
 {
-    if (_slamState.initialized)
+    if (_slamState->initialized)
     {
         [self processDepthFrame:depthFrame colorFrameOrNil:colorFrame];
         // Scene rendering is triggered by new frames to avoid rendering the same view several times.
@@ -258,7 +234,7 @@
 
 - (void)sensorDidOutputDepthFrame:(STDepthFrame *)depthFrame
 {
-    if (_slamState.initialized)
+    if (_slamState->initialized)
     {
         [self processDepthFrame:depthFrame colorFrameOrNil:nil];
         // Scene rendering is triggered by new frames to avoid rendering the same view several times.

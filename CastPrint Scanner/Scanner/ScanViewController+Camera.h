@@ -8,13 +8,13 @@
 #import <AVFoundation/AVFoundation.h>
 #define HAS_LIBCXX
 
-#import "ViewController.h"
+#import "ScanViewController.h"
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
 
 #import "MeshViewController.h"
 
-@interface ViewController (Camera) <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface ScanViewController (Camera) <AVCaptureVideoDataOutputSampleBufferDelegate>
 
 - (void) startColorCamera;
 - (void) stopColorCamera;

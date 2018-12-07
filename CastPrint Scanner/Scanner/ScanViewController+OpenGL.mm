@@ -4,13 +4,13 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+OpenGL.h"
 
 #include <cmath>
 #include <limits>
 
-@implementation ViewController (OpenGL)
+@implementation ScanViewController (OpenGL)
 
 #pragma mark -  OpenGL
 
@@ -181,16 +181,16 @@
     
     glViewport (_display.viewport[0], _display.viewport[1], _display.viewport[2], _display.viewport[3]);
     
-    switch (_slamState.scannerState)
+    switch (_slamState->scannerState)
     {
         case ScannerStateCubePlacement:
         {
             // Render the background image from the color camera.
             [self renderCameraImage];
             
-            if (_slamState.cameraPoseInitializer.hasValidPose)
+            if (_slamState->cameraPoseInitializer.hasValidPose)
             {
-                GLKMatrix4 depthCameraPose = _slamState.initialDepthCameraPose;
+                GLKMatrix4 depthCameraPose = _slamState->initialDepthCameraPose;
                 
                 GLKMatrix4 cameraViewpoint;
                 float alpha;
@@ -212,14 +212,14 @@
                 }
                 
                 // Highlighted depth values inside the current volume area.
-                float xOffset = _slamState.cameraPoseInitializer.volumeSizeInMeters.x / 2.0;
-                float yOffset = _slamState.cameraPoseInitializer.volumeSizeInMeters.y / 2.0;
+                float xOffset = _slamState->cameraPoseInitializer.volumeSizeInMeters.x / 2.0;
+                float yOffset = _slamState->cameraPoseInitializer.volumeSizeInMeters.y / 2.0;
                 
-                _slamState.cubePose = GLKMatrix4Translate(cameraViewpoint, xOffset, yOffset, -_slamState.cubeRange);
-                [_display.cubeRenderer renderHighlightedDepthWithCameraPose:_slamState.cubePose alpha:alpha];
+                _slamState->cubePose = GLKMatrix4Translate(cameraViewpoint, xOffset, yOffset, -_slamState->cubeRange);
+                [_display.cubeRenderer renderHighlightedDepthWithCameraPose:_slamState->cubePose alpha:alpha];
                 
                 // Render the wireframe cube corresponding to the current scanning volume.
-                [_display.cubeRenderer renderCubeOutlineWithCameraPose:_slamState.cubePose
+                [_display.cubeRenderer renderCubeOutlineWithCameraPose:_slamState->cubePose
                                                       depthTestEnabled:false
                                                   occlusionTestEnabled:true];
             }
@@ -236,7 +236,7 @@
             
             // Render the current mesh reconstruction using the last estimated camera pose.
             
-            GLKMatrix4 depthCameraPose = [_slamState.tracker lastFrameCameraPose];
+            GLKMatrix4 depthCameraPose = [_slamState->tracker lastFrameCameraPose];
             
             GLKMatrix4 cameraGLProjection;
             if (_useColorCamera)
@@ -265,7 +265,7 @@
                 cameraViewpoint = depthCameraPose;
             }
             
-            [_slamState.scene renderMeshFromViewpoint:cameraViewpoint
+            [_slamState->scene renderMeshFromViewpoint:cameraViewpoint
                                    cameraGLProjection:cameraGLProjection
                                                 alpha:_display.meshRenderingAlpha
                              highlightOutOfRangeDepth:true

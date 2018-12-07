@@ -4,28 +4,28 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+Camera.h"
-#import "ViewController+Sensor.h"
-#import "ViewController+SLAM.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+Camera.h"
+#import "ScanViewController+Sensor.h"
+#import "ScanViewController+SLAM.h"
+#import "ScanViewController+OpenGL.h"
 
 #include <cmath>
 #include <algorithm>
 
 #pragma mark - ViewController Setup
 
-@interface ViewController ()
+@interface ScanViewController ()
 {}
 
 
 @end
 
-@implementation ViewController
+@implementation ScanViewController
 
 + (instancetype) viewController
 {
-    ViewController* vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    ScanViewController* vc = [[ScanViewController alloc] initWithNibName:@"ScanView" bundle:nil];
     return vc;
 }
 
@@ -55,20 +55,29 @@
     
     [self setupIMU];
     
-    [self setupStructureSensor];
-    
     // Later, we’ll set this true if we have a device-specific calibration
 //    _useColorCamera = [STSensorController approximateCalibrationGuaranteedForDevice];
     _useColorCamera = false;
     
-    // Make sure we get notified when the app becomes active to start/restore the sensor state if necessary.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appDidBecomeActive)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
-    
-    [self initializeDynamicOptions];
+//    if ([self.delegate isStructureConnected])
+//    {
+//        [self enterCubePlacementState];
+//        [self activateSensor];
+//    }
+//    [self enterCubePlacementState];
+//    [self.delegate connectToStructureSensorAndStartStreaming: true];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    _structureSensorStatus.statusMessageDisabled = false;
+    [self updateSensorStatusMessage];
+    
+    [self enterCubePlacementState];
+    [self.delegate connectToStructureSensorAndStartStreaming: true];
+    [self resetSLAM];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -80,19 +89,19 @@
     
     [self setupGLViewport];
 
-    [self updateAppStatusMessage];
-    
-    // We will connect to the sensor when we receive appDidBecomeActive.
+    [self updateSensorStatusMessage];
 }
 
-- (void)appDidBecomeActive
+- (void)activateSensor
 {
     if ([self currentStateNeedsSensor])
-        [self connectToStructureSensorAndStartStreaming];
+        [self.delegate connectToStructureSensorAndStartStreaming: true];
+    else
+        [self.delegate connectToStructureSensorAndStartStreaming:false];
     
     // Abort the current scan if we were still scanning before going into background since we
     // are not likely to recover well.
-    if (_slamState.scannerState == ScannerStateScanning)
+    if (_slamState->scannerState == ScannerStateScanning)
     {
         [self resetButtonPressed:self];
     }
@@ -108,6 +117,8 @@
 - (void)initializeDynamicOptions
 {
     _options.highResColoring = [self videoDeviceSupportsHighResColor];
+    _slamState = [self.delegate getSlamData];
+    _sensorController = [self.delegate getSensorController];
 }
 
 - (void)setupUserInterface
@@ -119,10 +130,11 @@
     self.appStatusMessageLabel.alpha = 0;
     
     // Make sure the label is on top of everything else.
-    self.appStatusMessageLabel.layer.zPosition = 100;
+    self.appStatusMessageLabel.layer.zPosition = 99;
+    self.backToMenuButton.layer.zPosition = 100;
     
     // Set range label
-    self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
+    self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState->cubeRange, " m"];
 }
 
 // Make sure the status bar is disabled (iOS 7+)
@@ -180,7 +192,7 @@
         volumeCenter = GLKVector3DivideScalar(volumeCenter, sampleCount);
     
     else
-        volumeCenter = GLKVector3MultiplyScalar(_slamState.volumeSizeInMeters, 0.5);
+        volumeCenter = GLKVector3MultiplyScalar(_slamState->volumeSizeInMeters, 0.5);
     
     [_meshViewController resetMeshCenter:volumeCenter];
 
@@ -205,7 +217,7 @@
     
     [self setColorCameraParametersForInit];
     
-    _slamState.scannerState = ScannerStateCubePlacement;
+    _slamState->scannerState = ScannerStateCubePlacement;
  
     
     [self updateIdleTimer];
@@ -214,7 +226,7 @@
 - (void)enterScanningState
 {
     // This can happen if the UI did not get updated quickly enough.
-    if (!_slamState.cameraPoseInitializer.hasValidPose)
+    if (!_slamState->cameraPoseInitializer.hasValidPose)
     {
         NSLog(@"Warning: not accepting to enter into scanning state since the initial pose is not valid.");
         return;
@@ -231,12 +243,12 @@
     // Prepare the mapper for the new scan.
     [self setupMapper];
     
-    _slamState.tracker.initialCameraPose = _slamState.cubePose;
+    _slamState->tracker.initialCameraPose = _slamState->cubePose;
     
     // We will lock exposure during scanning to ensure better coloring.
     [self setColorCameraParametersForScanning];
     
-    _slamState.scannerState = ScannerStateScanning;
+    _slamState->scannerState = ScannerStateScanning;
 }
 
 - (void)enterViewingState
@@ -244,8 +256,8 @@
     // Cannot be lost in view mode.
     [self hideTrackingErrorMessage];
     
-    _appStatus.statusMessageDisabled = true;
-    [self updateAppStatusMessage];
+    _structureSensorStatus.statusMessageDisabled = true;
+    [self updateSensorStatusMessage];
     
     // Hide the Scan/Done/Reset button.
     self.scanButton.hidden = YES;
@@ -257,14 +269,32 @@
     if (_useColorCamera)
         [self stopColorCamera];
     
-    [_slamState.mapper finalizeTriangleMesh];
+    [_slamState->mapper finalizeTriangleMesh];
     
-    STMesh *mesh = [_slamState.scene lockAndGetSceneMesh];
+    STMesh *mesh = [_slamState->scene lockAndGetSceneMesh];
     [self presentMeshViewer:mesh];
     
-    [_slamState.scene unlockSceneMesh];
+    [_slamState->scene unlockSceneMesh];
     
-    _slamState.scannerState = ScannerStateViewing;
+    _slamState->scannerState = ScannerStateViewing;
+    
+    [self updateIdleTimer];
+}
+
+- (void)enterConnectedState
+{
+    // Cannot be lost in view mode.
+    [self hideTrackingErrorMessage];
+    
+    _structureSensorStatus.statusMessageDisabled = true;
+    [self updateSensorStatusMessage];
+    
+    [_sensorController stopStreaming];
+    
+    if (_useColorCamera)
+        [self stopColorCamera];
+    
+    _slamState->scannerState = ScannerStateConnected;
     
     [self updateIdleTimer];
 }
@@ -273,7 +303,7 @@
 
 -(BOOL)currentStateNeedsSensor
 {
-    switch (_slamState.scannerState)
+    switch (_slamState->scannerState)
     {
         // Initialization and scanning need the sensor.
         case ScannerStateCubePlacement:
@@ -302,7 +332,7 @@
     _imuQueue = [[NSOperationQueue alloc] init];
     [_imuQueue setMaxConcurrentOperationCount:1];
     
-    __weak ViewController *weakSelf = self;
+    __weak ScanViewController *weakSelf = self;
     CMDeviceMotionHandler dmHandler = ^(CMDeviceMotion *motion, NSError *error)
     {
         // Could be nil if the self is released before the callback happens.
@@ -316,16 +346,16 @@
 
 - (void)processDeviceMotion:(CMDeviceMotion *)motion withError:(NSError *)error
 {
-    if (_slamState.scannerState == ScannerStateCubePlacement)
+    if (_slamState->scannerState == ScannerStateCubePlacement)
     {
         // Update our gravity vector, it will be used by the cube placement initializer.
         _lastGravity = GLKVector3Make (motion.gravity.x, motion.gravity.y, motion.gravity.z);
     }
     
-    if (_slamState.scannerState == ScannerStateCubePlacement || _slamState.scannerState == ScannerStateScanning)
+    if (_slamState->scannerState == ScannerStateCubePlacement || _slamState->scannerState == ScannerStateScanning)
     {
         // The tracker is more robust to fast moves if we feed it with motion data.
-        [_slamState.tracker updateCameraPoseWithMotion:motion];
+        [_slamState->tracker updateCameraPoseWithMotion:motion];
     }
 }
 
@@ -339,7 +369,7 @@
     [self setupSLAM];
     
     // Restore the volume size cleared by the full reset.
-    [self adjustVolumeSize:_slamState.volumeSizeInMeters];
+    [self adjustVolumeSize:_slamState->volumeSizeInMeters];
 }
 
 - (void)adjustVolumeSize:(GLKVector3)volumeSize
@@ -359,10 +389,10 @@
     self.sensorCubeHeightSlider.value = volumeSize.y;
     self.sensorCubeDepthSlider.value = volumeSize.z;
     
-    _slamState.volumeSizeInMeters = volumeSize;
+    _slamState->volumeSizeInMeters = volumeSize;
     
-    _slamState.cameraPoseInitializer.volumeSizeInMeters = volumeSize;
-    [_display.cubeRenderer adjustCubeSize:_slamState.volumeSizeInMeters];
+    _slamState->cameraPoseInitializer.volumeSizeInMeters = volumeSize;
+    [_display.cubeRenderer adjustCubeSize:_slamState->volumeSizeInMeters];
 }
 
 - (IBAction)scanButtonPressed:(id)sender
@@ -380,37 +410,39 @@
     [self enterViewingState];
 }
 
-//- (IBAction)optionsButtonPressed:(id)sender
-//{
-//    [self.enableNewTrackerView setHidden:![self.enableNewTrackerView isHidden]];
-//}
+- (IBAction)backToMenuButtonPressed:(id)sender
+{
+    [self enterConnectedState];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (IBAction)sensorCubeHeightSliderValueChanged:(id)sender
 {
-     GLKVector3 newVolumeSize = GLKVector3Make(_slamState.volumeSizeInMeters.x, self.sensorCubeHeightSlider.value, _slamState.volumeSizeInMeters.z);
+    GLKVector3 newVolumeSize = GLKVector3Make(_slamState->volumeSizeInMeters.x, self.sensorCubeHeightSlider.value, _slamState->volumeSizeInMeters.z);
     
     [self adjustVolumeSize:newVolumeSize];
 }
 
 - (IBAction)sensorCubeWidthSliderValueChanged:(id)sender
 {
-    GLKVector3 newVolumeSize = GLKVector3Make(self.sensorCubeWidthSlider.value, _slamState.volumeSizeInMeters.y, _slamState.volumeSizeInMeters.z);
+    GLKVector3 newVolumeSize = GLKVector3Make(self.sensorCubeWidthSlider.value, _slamState->volumeSizeInMeters.y, _slamState->volumeSizeInMeters.z);
     
     [self adjustVolumeSize:newVolumeSize];
 }
 
 - (IBAction)sensorCubeDepthSliderValueChanged:(id)sender
 {
-    GLKVector3 newVolumeSize = GLKVector3Make(_slamState.volumeSizeInMeters.x, _slamState.volumeSizeInMeters.y, self.sensorCubeDepthSlider.value);
+    GLKVector3 newVolumeSize = GLKVector3Make(_slamState->volumeSizeInMeters.x, _slamState->volumeSizeInMeters.y, self.sensorCubeDepthSlider.value);
     
     [self adjustVolumeSize:newVolumeSize];
 }
 
 - (IBAction)sensorCubeRangeSliderValueChanged:(id)sender
 {
-    _slamState.cubeRangeManual = TRUE;
-    _slamState.cubeRange = self.sensorCubeRangeSlider.value;
-    self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
+    _slamState->cubeRangeManual = TRUE;
+    _slamState->cubeRange = self.sensorCubeRangeSlider.value;
+    self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState->cubeRange, " m"];
     
 //    [self onSLAMOptionsChanged]
 }
@@ -418,7 +450,7 @@
 // Manages whether we can let the application sleep.
 -(void)updateIdleTimer
 {
-    if ([self isStructureConnectedAndCharged] && [self currentStateNeedsSensor])
+    if ([self.delegate isStructureConnectedAndCharged] && [self currentStateNeedsSensor])
     {
         // Do not let the application sleep if we are currently using the sensor data.
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -444,14 +476,21 @@
 
 - (void)showAppStatusMessage:(NSString *)msg
 {
-    _appStatus.needsDisplayOfStatusMessage = true;
+    _structureSensorStatus.needsDisplayOfStatusMessage = true;
     [self.view.layer removeAllAnimations];
     
     [self.appStatusMessageLabel setText:msg];
     [self.appStatusMessageLabel setHidden:NO];
     
     // Progressively show the message label.
-    [self.view setUserInteractionEnabled:false];
+//    [self.view setUserInteractionEnabled:false];
+    for (UIView* view in self.view.subviews) {
+        if (view.tag == 10) {
+            [view setUserInteractionEnabled:true];
+        } else {
+            [view setUserInteractionEnabled:false];
+        }
+    }
     [UIView animateWithDuration:0.5f animations:^{
         self.appStatusMessageLabel.alpha = 1.0f;
     }completion:nil];
@@ -459,64 +498,72 @@
 
 - (void)hideAppStatusMessage
 {
-    if (!_appStatus.needsDisplayOfStatusMessage)
+    if (!_structureSensorStatus.needsDisplayOfStatusMessage)
         return;
     
-    _appStatus.needsDisplayOfStatusMessage = false;
+    _structureSensorStatus.needsDisplayOfStatusMessage = false;
     [self.view.layer removeAllAnimations];
     
-    __weak ViewController *weakSelf = self;
+    __weak ScanViewController *weakSelf = self;
     [UIView animateWithDuration:0.5f
                      animations:^{
                          weakSelf.appStatusMessageLabel.alpha = 0.0f;
                      }
                      completion:^(BOOL finished) {
                          // If nobody called showAppStatusMessage before the end of the animation, do not hide it.
-                         if (!_appStatus.needsDisplayOfStatusMessage)
+                         if (!_structureSensorStatus.needsDisplayOfStatusMessage)
                          {
                              // Could be nil if the self is released before the callback happens.
                              if (weakSelf) {
                                  [weakSelf.appStatusMessageLabel setHidden:YES];
-                                 [weakSelf.view setUserInteractionEnabled:true];
+//                                 [weakSelf.view setUserInteractionEnabled:true];
+                                 for (UIView* view in weakSelf.view.subviews) {
+                                     [view setUserInteractionEnabled:true];
+                                 }
                              }
                          }
      }];
 }
 
--(void)updateAppStatusMessage
+-(StructureSensorStatus::SensorStatus)getStructureSensorStatus
+{
+    return _structureSensorStatus.sensorStatus;
+}
+
+-(void)updateSensorStatusMessage
 {
     // Skip everything if we should not show app status messages (e.g. in viewing state).
-    if (_appStatus.statusMessageDisabled)
+    if (_structureSensorStatus.statusMessageDisabled)
     {
         [self hideAppStatusMessage];
         return;
     }
     
     // First show sensor issues, if any.
-    switch (_appStatus.sensorStatus)
+    switch (_structureSensorStatus.sensorStatus)
     {
-        case AppStatus::SensorStatusOk:
+        case StructureSensorStatus::SensorStatusOk:
         {
             break;
         }
             
-        case AppStatus::SensorStatusNeedsUserToConnect:
+        case StructureSensorStatus::SensorStatusNeedsUserToConnect:
         {
-            [self showAppStatusMessage:_appStatus.pleaseConnectSensorMessage];
+            [self showAppStatusMessage:_structureSensorStatus.pleaseConnectSensorMessage];
             return;
         }
             
-        case AppStatus::SensorStatusNeedsUserToCharge:
+        case StructureSensorStatus::SensorStatusNeedsUserToCharge:
         {
-            [self showAppStatusMessage:_appStatus.pleaseChargeSensorMessage];
+            [self showAppStatusMessage:_structureSensorStatus.pleaseChargeSensorMessage];
             return;
         }
     }
     
     // Then show color camera permission issues, if any.
-    if (!_appStatus.colorCameraIsAuthorized)
+    if (!_structureSensorStatus.colorCameraIsAuthorized)
     {
-        [self showAppStatusMessage:_appStatus.needColorCameraAccessMessage];
+        [self showAppStatusMessage:_structureSensorStatus.needColorCameraAccessMessage];
         return;
     }
 
@@ -526,46 +573,49 @@
 
 - (void)pinchGesture:(UIPinchGestureRecognizer *)gestureRecognizer
 {
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan)
+    if (!_structureSensorStatus.needsDisplayOfStatusMessage)
     {
-        if (_slamState.scannerState == ScannerStateCubePlacement)
+        if ([gestureRecognizer state] == UIGestureRecognizerStateBegan)
         {
-            _volumeScale.initialPinchScale = [gestureRecognizer scale];
-            _volumeScale.volumeSizeBeforeChange = _slamState.volumeSizeInMeters;
-        }
-    }
-    else if ([gestureRecognizer state] == UIGestureRecognizerStateChanged)
-    {
-        if(_slamState.scannerState == ScannerStateCubePlacement)
-        {
-            // In some special conditions the gesture recognizer can send a zero initial scale.
-            if (!isnan (_volumeScale.initialPinchScale))
+            if (_slamState->scannerState == ScannerStateCubePlacement)
             {
-                _volumeScale.currentScale = [gestureRecognizer scale] * _volumeScale.initialPinchScale;
-                
-                // Don't let our scale multiplier become absurd
-                _volumeScale.currentScale = keepInRange(_volumeScale.currentScale, 0.01, 1000.f);
-                
-                GLKVector3 newVolumeSize;
-                GLKVector3 changeScale;
-                switch ([self pinchDirection:gestureRecognizer]) {
-                    case 0:
-                        // horizontal scale
-                        changeScale = GLKVector3Make(_volumeScale.currentScale, 1, 1);
-                        newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
-                        break;
-                    case 1:
-                        // vertical scale
-                        changeScale = GLKVector3Make(1, _volumeScale.currentScale, 1);
-                        newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
-                        break;
-                        
-                    default:
-                        newVolumeSize = GLKVector3MultiplyScalar(_volumeScale.volumeSizeBeforeChange, _volumeScale.currentScale);
-                        break;
+                _volumeScale.initialPinchScale = [gestureRecognizer scale];
+                _volumeScale.volumeSizeBeforeChange = _slamState->volumeSizeInMeters;
+            }
+        }
+        else if ([gestureRecognizer state] == UIGestureRecognizerStateChanged)
+        {
+            if(_slamState->scannerState == ScannerStateCubePlacement)
+            {
+                // In some special conditions the gesture recognizer can send a zero initial scale.
+                if (!isnan (_volumeScale.initialPinchScale))
+                {
+                    _volumeScale.currentScale = [gestureRecognizer scale] * _volumeScale.initialPinchScale;
+                    
+                    // Don't let our scale multiplier become absurd
+                    _volumeScale.currentScale = keepInRange(_volumeScale.currentScale, 0.01, 1000.f);
+                    
+                    GLKVector3 newVolumeSize;
+                    GLKVector3 changeScale;
+                    switch ([self pinchDirection:gestureRecognizer]) {
+                        case 0:
+                            // horizontal scale
+                            changeScale = GLKVector3Make(_volumeScale.currentScale, 1, 1);
+                            newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
+                            break;
+                        case 1:
+                            // vertical scale
+                            changeScale = GLKVector3Make(1, _volumeScale.currentScale, 1);
+                            newVolumeSize = GLKVector3Multiply(_volumeScale.volumeSizeBeforeChange, changeScale);
+                            break;
+                            
+                        default:
+                            newVolumeSize = GLKVector3MultiplyScalar(_volumeScale.volumeSizeBeforeChange, _volumeScale.currentScale);
+                            break;
+                    }
+                    
+                    [self adjustVolumeSize:newVolumeSize];
                 }
-                
-                [self adjustVolumeSize:newVolumeSize];
             }
         }
     }
@@ -620,14 +670,14 @@
     [_meshViewController hideMeshViewerMessage];
 }
 
-- (void)meshViewDidDismiss
-{
-    _appStatus.statusMessageDisabled = false;
-    [self updateAppStatusMessage];
-    
-    [self connectToStructureSensorAndStartStreaming];
-    [self resetSLAM];
-}
+//- (void)meshViewDidDismiss
+//{
+//    _structureSensorStatus.statusMessageDisabled = false;
+//    [self updateSensorStatusMessage];
+//
+//    [self.delegate connectToStructureSensorAndStartStreaming: true];
+//    [self resetSLAM];
+//}
 
 - (void)backgroundTask:(STBackgroundTask *)sender didUpdateProgress:(double)progress
 {
@@ -655,8 +705,8 @@
 
     _naiveColorizeTask = [STColorizer
                      newColorizeTaskWithMesh:mesh
-                     scene:_slamState.scene
-                     keyframes:[_slamState.keyFrameManager getKeyFrames]
+                          scene:_slamState->scene
+                          keyframes:[_slamState->keyFrameManager getKeyFrames]
                      completionHandler: ^(NSError *error)
                      {
                          if (error != nil) {
@@ -679,8 +729,8 @@
     if (_naiveColorizeTask)
     {
         // Release the tracking and mapping resources. It will not be possible to resume a scan after this point
-        [_slamState.mapper reset];
-        [_slamState.tracker reset];
+        [_slamState->mapper reset];
+        [_slamState->tracker reset];
     
         _naiveColorizeTask.delegate = self;
         [_naiveColorizeTask start];
@@ -694,8 +744,8 @@
 {
     _enhancedColorizeTask =[STColorizer
        newColorizeTaskWithMesh:mesh
-       scene:_slamState.scene
-       keyframes:[_slamState.keyFrameManager getKeyFrames]
+                            scene:_slamState->scene
+                            keyframes:[_slamState->keyFrameManager getKeyFrames]
        completionHandler: ^(NSError *error)
        {
            if (error != nil) {
@@ -721,7 +771,7 @@
         // We don't need the keyframes anymore now that the final colorizing task was started.
         // Clearing it now gives a chance to early release the keyframe memory when the colorizer
         // stops needing them.
-        [_slamState.keyFrameManager clear];
+        [_slamState->keyFrameManager clear];
         
         _enhancedColorizeTask.delegate = self;
         [_enhancedColorizeTask start];
@@ -731,14 +781,14 @@
 
 - (void) respondToMemoryWarning
 {
-    switch( _slamState.scannerState )
+    switch( _slamState->scannerState )
     {
         case ScannerStateViewing:
         {
             // If we are running a colorizing task, abort it
-            if( _enhancedColorizeTask != nil && !_slamState.showingMemoryWarning )
+            if( _enhancedColorizeTask != nil && !_slamState->showingMemoryWarning )
             {
-                _slamState.showingMemoryWarning = true;
+                _slamState->showingMemoryWarning = true;
                 
                 // stop the task
                 [_enhancedColorizeTask cancel];
@@ -755,7 +805,7 @@
                                                                    style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction *action)
                                            {
-                                               _slamState.showingMemoryWarning = false;
+                                               _slamState->showingMemoryWarning = false;
                                            }];
                 
                 [alertCtrl addAction:okAction];
@@ -768,9 +818,9 @@
         }
         case ScannerStateScanning:
         {
-            if( !_slamState.showingMemoryWarning )
+            if( !_slamState->showingMemoryWarning )
             {
-                _slamState.showingMemoryWarning = true;
+                _slamState->showingMemoryWarning = true;
                 
                 UIAlertController *alertCtrl= [UIAlertController alertControllerWithTitle:@"Memory Low"
                                                                                   message:@"Scanning will be stopped to avoid loss."
@@ -780,7 +830,7 @@
                                                                    style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction *action)
                                            {
-                                               _slamState.showingMemoryWarning = false;
+                                               _slamState->showingMemoryWarning = false;
                                                [self enterViewingState];
                                            }];
                 
@@ -799,4 +849,5 @@
         }
     }
 }
+
 @end

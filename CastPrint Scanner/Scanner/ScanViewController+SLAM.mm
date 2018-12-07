@@ -4,8 +4,8 @@
   http://structure.io
 */
 
-#import "ViewController.h"
-#import "ViewController+OpenGL.h"
+#import "ScanViewController.h"
+#import "ScanViewController+OpenGL.h"
 
 #import <Structure/Structure.h>
 #import <Structure/StructureSLAM.h>
@@ -44,18 +44,18 @@ namespace // anonymous namespace for local functions
     }
 }
 
-@implementation ViewController (SLAM)
+@implementation ScanViewController (SLAM)
 
 #pragma mark - SLAM
 
 // Set up SLAM related objects.
 - (void)setupSLAM
 {
-    if (_slamState.initialized)
+    if (_slamState->initialized)
         return;
     
     // Initialize the scene.
-    _slamState.scene = [[STScene alloc] initWithContext:_display.context];
+    _slamState->scene = [[STScene alloc] initWithContext:_display.context];
     
     // Initialize the camera pose tracker.
     NSDictionary* trackerOptions = @{
@@ -68,24 +68,24 @@ namespace // anonymous namespace for local functions
                                      };
     
     // Initialize the camera pose tracker.
-    _slamState.tracker = [[STTracker alloc] initWithScene:_slamState.scene options:trackerOptions];
+    _slamState->tracker = [[STTracker alloc] initWithScene:_slamState->scene options:trackerOptions];
     
     // Default volume size set in options struct
-    if( isnan(_slamState.volumeSizeInMeters.x) )
-        _slamState.volumeSizeInMeters = _options.initVolumeSizeInMeters;
+    if( isnan(_slamState->volumeSizeInMeters.x) )
+        _slamState->volumeSizeInMeters = _options.initVolumeSizeInMeters;
     
     // The mapper will be initialized when we start scanning.
     
     // Setup the cube placement initializer.
-    _slamState.cameraPoseInitializer = [[STCameraPoseInitializer alloc]
-                                        initWithVolumeSizeInMeters:_slamState.volumeSizeInMeters
+    _slamState->cameraPoseInitializer = [[STCameraPoseInitializer alloc]
+                                         initWithVolumeSizeInMeters:_slamState->volumeSizeInMeters
                                         options:@{kSTCameraPoseInitializerStrategyKey: @(STCameraPoseInitializerStrategyGravityAlignedAtOrigin)}];
     
     // Set up the cube renderer with the current volume size.
     _display.cubeRenderer = [[STCubeRenderer alloc] initWithContext:_display.context];
     
     // Set up the initial volume size.
-    [self adjustVolumeSize:_slamState.volumeSizeInMeters];
+    [self adjustVolumeSize:_slamState->volumeSizeInMeters];
     
     // Start with cube placement mode
     [self enterCubePlacementState];
@@ -96,43 +96,43 @@ namespace // anonymous namespace for local functions
                                              kSTKeyFrameManagerMaxDeltaRotationKey: @(_options.maxKeyFrameRotation), // 20 degrees.
                                              };
     
-    _slamState.keyFrameManager = [[STKeyFrameManager alloc] initWithOptions:keyframeManagerOptions];
+    _slamState->keyFrameManager = [[STKeyFrameManager alloc] initWithOptions:keyframeManagerOptions];
     
     _depthAsRgbaVisualizer = [[STDepthToRgba alloc] initWithOptions:@{kSTDepthToRgbaStrategyKey: @(STDepthToRgbaStrategyGray)}];
     
-    _slamState.initialized = true;
+    _slamState->initialized = true;
 }
 
 - (void)resetSLAM
 {
-    _slamState.prevFrameTimeStamp = -1.0;
-    [_slamState.mapper reset];
-    [_slamState.tracker reset];
-    [_slamState.scene clear];
-    [_slamState.keyFrameManager clear];
+    _slamState->prevFrameTimeStamp = -1.0;
+    [_slamState->mapper reset];
+    [_slamState->tracker reset];
+    [_slamState->scene clear];
+    [_slamState->keyFrameManager clear];
     
     [self enterCubePlacementState];
 }
 
 - (void)clearSLAM
 {
-    _slamState.initialized = false;
-    _slamState.scene = nil;
-    _slamState.tracker = nil;
-    _slamState.mapper = nil;
-    _slamState.keyFrameManager = nil;
+    _slamState->initialized = false;
+    _slamState->scene = nil;
+    _slamState->tracker = nil;
+    _slamState->mapper = nil;
+    _slamState->keyFrameManager = nil;
 }
 
 - (void)setupMapper
 {
-    if (_slamState.mapper)
-        _slamState.mapper = nil; // make sure we first remove a previous mapper.
+    if (_slamState->mapper)
+        _slamState->mapper = nil; // make sure we first remove a previous mapper.
     
     // Here, we set a larger volume bounds size when mapping in high resolution.
     const float lowResolutionVolumeBounds = 125;
     const float highResolutionVolumeBounds = 200;
     
-    float voxelSizeInMeters = _slamState.volumeSizeInMeters.x /
+    float voxelSizeInMeters = _slamState->volumeSizeInMeters.x /
         (_options.highResMapping ? highResolutionVolumeBounds : lowResolutionVolumeBounds);
     
     // Avoid voxels that are too small - these become too noisy.
@@ -140,12 +140,12 @@ namespace // anonymous namespace for local functions
     
     // Compute the volume bounds in voxels, as a multiple of the volume resolution.
     GLKVector3 volumeBounds;
-    volumeBounds.x = roundf(_slamState.volumeSizeInMeters.x / voxelSizeInMeters);
-    volumeBounds.y = roundf(_slamState.volumeSizeInMeters.y / voxelSizeInMeters);
-    volumeBounds.z = roundf(_slamState.volumeSizeInMeters.z / voxelSizeInMeters);
+    volumeBounds.x = roundf(_slamState->volumeSizeInMeters.x / voxelSizeInMeters);
+    volumeBounds.y = roundf(_slamState->volumeSizeInMeters.y / voxelSizeInMeters);
+    volumeBounds.z = roundf(_slamState->volumeSizeInMeters.z / voxelSizeInMeters);
     
     NSLog(@"[Mapper] volumeSize (m): %f %f %f volumeBounds: %.0f %.0f %.0f (resolution=%f m)",
-        _slamState.volumeSizeInMeters.x, _slamState.volumeSizeInMeters.y, _slamState.volumeSizeInMeters.z,
+          _slamState->volumeSizeInMeters.x, _slamState->volumeSizeInMeters.y, _slamState->volumeSizeInMeters.z,
         volumeBounds.x, volumeBounds.y, volumeBounds.z,
         voxelSizeInMeters );
     
@@ -158,7 +158,7 @@ namespace // anonymous namespace for local functions
       kSTMapperEnableLiveWireFrameKey: @NO,
     };
     
-    _slamState.mapper = [[STMapper alloc] initWithScene:_slamState.scene options:mapperOptions];
+    _slamState->mapper = [[STMapper alloc] initWithScene:_slamState->scene options:mapperOptions];
 }
 
 - (NSString*)maybeAddKeyframeWithDepthFrame:(STDepthFrame*)depthFrame
@@ -169,10 +169,10 @@ namespace // anonymous namespace for local functions
         return nil; // nothing to do
 
     // Only consider adding a new keyframe if the accuracy is high enough.
-    if (_slamState.tracker.poseAccuracy < STTrackerPoseAccuracyApproximate)
+    if (_slamState->tracker.poseAccuracy < STTrackerPoseAccuracyApproximate)
         return nil;
     
-    GLKMatrix4 depthCameraPoseAfterTracking = [_slamState.tracker lastFrameCameraPose];
+    GLKMatrix4 depthCameraPoseAfterTracking = [_slamState->tracker lastFrameCameraPose];
 
     // Make sure the pose is in color camera coordinates in case we are not using registered depth.
     GLKMatrix4 colorCameraPoseInDepthCoordinateSpace;
@@ -184,9 +184,9 @@ namespace // anonymous namespace for local functions
    
     // Check if the viewpoint has moved enough to add a new keyframe
     // OR if we don't have a keyframe yet
-    if ([_slamState.keyFrameManager wouldBeNewKeyframeWithColorCameraPose:colorCameraPoseAfterTracking])
+    if ([_slamState->keyFrameManager wouldBeNewKeyframeWithColorCameraPose:colorCameraPoseAfterTracking])
     {
-        const bool isFirstFrame = (_slamState.prevFrameTimeStamp < 0.);
+        const bool isFirstFrame = (_slamState->prevFrameTimeStamp < 0.);
         bool canAddKeyframe = false;
         
         if (isFirstFrame)
@@ -196,7 +196,7 @@ namespace // anonymous namespace for local functions
         else // check the speed.
         {
             float deltaAngularSpeedInDegreesPerSecond = FLT_MAX;
-            NSTimeInterval deltaSeconds = depthFrame.timestamp - _slamState.prevFrameTimeStamp;
+            NSTimeInterval deltaSeconds = depthFrame.timestamp - _slamState->prevFrameTimeStamp;
             
             // If deltaSeconds is 2x longer than the frame duration of the active video device, do not use it either
             CMTime frameDuration = self.videoDevice.activeVideoMaxFrameDuration;
@@ -217,7 +217,7 @@ namespace // anonymous namespace for local functions
         
         if (canAddKeyframe)
         {
-            [_slamState.keyFrameManager processKeyFrameCandidateWithColorCameraPose:colorCameraPoseAfterTracking
+            [_slamState->keyFrameManager processKeyFrameCandidateWithColorCameraPose:colorCameraPoseAfterTracking
                                                                          colorFrame:colorFrame
                                                                          depthFrame:nil]; // Spare the depth frame memory, since we do not need it in keyframes.
         }
@@ -292,7 +292,7 @@ namespace // anonymous namespace for local functions
             _display.colorCameraGLProjectionMatrix = [colorFrame glProjectionMatrix];
     }
     
-    switch (_slamState.scannerState)
+    switch (_slamState->scannerState)
     {
         case ScannerStateCubePlacement:
         {
@@ -316,32 +316,32 @@ namespace // anonymous namespace for local functions
             // Estimate the new scanning volume position.
             if (GLKVector3Length(_lastGravity) > 1e-5f)
             {
-                bool success = [_slamState.cameraPoseInitializer updateCameraPoseWithGravity:_lastGravity depthFrame:nil error:nil];
+                bool success = [_slamState->cameraPoseInitializer updateCameraPoseWithGravity:_lastGravity depthFrame:nil error:nil];
                 
                 // Since we potentially detected the cube in a registered depth frame, also save the pose
                 // in the original depth sensor coordinate system since this is what we'll use for SLAM
                 // to get the best accuracy.
-                _slamState.initialDepthCameraPose = GLKMatrix4Multiply(_slamState.cameraPoseInitializer.cameraPose,
+                _slamState->initialDepthCameraPose = GLKMatrix4Multiply(_slamState->cameraPoseInitializer.cameraPose,
                                                                        depthCameraPoseInColorCoordinateFrame);
                 
                 NSAssert (success, @"Camera pose initializer error.");
             }
             
             // Automatically set cubeRange after center depth
-            if (!_slamState.cubeRangeManual) {
+            if (!_slamState->cubeRangeManual) {
                 const float* depthAsMillimeters = [depthFrame depthInMillimeters];
                 const float centralPointDepthInMeters = depthAsMillimeters[ depthFrame.width * (depthFrame.height/2) + (depthFrame.width/2)] / 1000.;
-                _slamState.cubeRange = keepInRange((centralPointDepthInMeters - _slamState.volumeSizeInMeters.z/2), self.sensorCubeRangeSlider.minimumValue, self.sensorCubeRangeSlider.maximumValue);
+                _slamState->cubeRange = keepInRange((centralPointDepthInMeters - _slamState->volumeSizeInMeters.z/2), self.sensorCubeRangeSlider.minimumValue, self.sensorCubeRangeSlider.maximumValue);
                 // Set range label
-                self.sensorCubeRangeSlider.value = _slamState.cubeRange;
-                self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState.cubeRange, " m"];
+                self.sensorCubeRangeSlider.value = _slamState->cubeRange;
+                self.sensorCubeRangeValueLabel.text = [NSString stringWithFormat: @"%.2f%s", _slamState->cubeRange, " m"];
             }
             
             // Tell the cube renderer whether there is a support plane or not.
             [_display.cubeRenderer setCubeHasSupportPlane:NO];
             
             // Enable the scan button if the pose initializer could estimate a pose.
-            self.scanButton.enabled = _slamState.cameraPoseInitializer.hasValidPose;
+            self.scanButton.enabled = _slamState->cameraPoseInitializer.hasValidPose;
             break;
         }
             
@@ -354,9 +354,9 @@ namespace // anonymous namespace for local functions
             
             NSString* keyframeMessage = nil;
             
-            GLKMatrix4 depthCameraPoseBeforeTracking = [_slamState.tracker lastFrameCameraPose];
+            GLKMatrix4 depthCameraPoseBeforeTracking = [_slamState->tracker lastFrameCameraPose];
             
-            BOOL trackingOk = [_slamState.tracker updateCameraPoseWithDepthFrame:depthFrame colorFrame:colorFrame error:&trackingError];
+            BOOL trackingOk = [_slamState->tracker updateCameraPoseWithDepthFrame:depthFrame colorFrame:colorFrame error:&trackingError];
             
             // Integrate it into the current mesh estimate if tracking was successful.
             if (!trackingOk)
@@ -368,15 +368,15 @@ namespace // anonymous namespace for local functions
             else
             {
                 // Update the tracking message.
-                trackingMessage = computeTrackerMessage(_slamState.tracker.trackerHints);
+                trackingMessage = computeTrackerMessage(_slamState->tracker.trackerHints);
 
                 // Set the mesh transparency depending on the current accuracy.
-                [self updateMeshAlphaForPoseAccuracy:_slamState.tracker.poseAccuracy];
+                [self updateMeshAlphaForPoseAccuracy:_slamState->tracker.poseAccuracy];
 
                 // If the tracker accuracy is high, use this frame for mapper update and maybe as a keyframe too.
-                if (_slamState.tracker.poseAccuracy >= STTrackerPoseAccuracyHigh)
+                if (_slamState->tracker.poseAccuracy >= STTrackerPoseAccuracyHigh)
                 {
-                    [_slamState.mapper integrateDepthFrame:depthFrame cameraPose:[_slamState.tracker lastFrameCameraPose]];
+                    [_slamState->mapper integrateDepthFrame:depthFrame cameraPose:[_slamState->tracker lastFrameCameraPose]];
                 }
                 
                 keyframeMessage = [self maybeAddKeyframeWithDepthFrame:depthFrame colorFrame:colorFrame depthCameraPoseBeforeTracking:depthCameraPoseBeforeTracking];
@@ -389,7 +389,7 @@ namespace // anonymous namespace for local functions
                     [self hideTrackingErrorMessage];
             }
             
-            _slamState.prevFrameTimeStamp = depthFrame.timestamp;
+            _slamState->prevFrameTimeStamp = depthFrame.timestamp;
 
             break;
         }

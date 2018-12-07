@@ -75,6 +75,9 @@ enum ScannerState
     // Visualizing the mesh
     ScannerStateViewing,
     
+    // Connected
+    ScannerStateConnected,
+    
     NumStates
 };
 
@@ -83,11 +86,13 @@ struct SlamData
 {
     SlamData ()
     : initialized (false)
-    , scannerState (ScannerStateCubePlacement)
+    , scannerState (ScannerStateConnected)
     {}
     
     BOOL initialized;
     BOOL showingMemoryWarning = false;
+    BOOL cubeRangeManual = false;
+    float cubeRange = 1;
     
     NSTimeInterval prevFrameTimeStamp = -1.0;
     
@@ -100,8 +105,6 @@ struct SlamData
     ScannerState scannerState;
     
     GLKVector3 volumeSizeInMeters = GLKVector3Make(NAN, NAN, NAN);
-    BOOL cubeRangeManual = false;
-    float cubeRange = 1;
     GLKMatrix4 cubePose = GLKMatrix4Translate(GLKMatrix4Identity, 0.0, 0.0, -cubeRange);
 };
 
@@ -135,7 +138,7 @@ namespace { // anonymous namespace for utility function.
     }
 }
 
-struct AppStatus
+struct StructureSensorStatus
 {
     NSString* const pleaseConnectSensorMessage = @"Please connect Structure Sensor.";
     NSString* const pleaseChargeSensorMessage = @"Please charge Structure Sensor.";
@@ -223,18 +226,27 @@ struct DisplayData
     float meshRenderingAlpha = 0.8;
 };
 
-@interface ViewController : UIViewController <STBackgroundTaskDelegate, MeshViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
+@protocol ScanViewSensorDelegate <NSObject>
+- (STSensorControllerInitStatus)connectToStructureSensorAndStartStreaming:(bool) startStream;
+- (BOOL)isStructureConnectedAndCharged;
+- (BOOL)isStructureConnected;
+- (SlamData *)getSlamData;
+- (STSensorController *)getSensorController;
+
+@end
+
+@interface ScanViewController : UIViewController <STBackgroundTaskDelegate, MeshViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
 {
     // Structure Sensor controller.
     STSensorController *_sensorController;
     STStreamConfig _structureStreamConfig;
     
-    SlamData _slamState;
+    SlamData *_slamState;
     
     Options _options;
     
     // Manages the app status messages.
-    AppStatus _appStatus;
+    StructureSensorStatus _structureSensorStatus;
     
     DisplayData _display;
     
@@ -261,6 +273,8 @@ struct DisplayData
     CalibrationOverlay* _calibrationOverlay;
 }
 
+@property (nonatomic, assign) id<ScanViewSensorDelegate> delegate;
+
 @property (nonatomic, retain) AVCaptureSession *avCaptureSession;
 @property (nonatomic, retain) AVCaptureDevice *videoDevice;
 
@@ -268,7 +282,8 @@ struct DisplayData
 @property (weak, nonatomic) IBOutlet UIButton *scanButton;
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-//@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *backToMenuButton;
+
 @property (weak, nonatomic) IBOutlet UILabel *trackingLostLabel;
 //@property (weak, nonatomic) IBOutlet UIView *enableNewTrackerView;
 @property (weak, nonatomic) IBOutlet UILabel *batteryProcentageLabel;
@@ -287,6 +302,7 @@ struct DisplayData
 - (IBAction)scanButtonPressed:(id)sender;
 - (IBAction)resetButtonPressed:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
+- (IBAction)backToMenuButtonPressed:(id)sender;
 //- (IBAction)optionsButtonPressed:(id)sender;
 - (IBAction)sensorCubeHeightSliderValueChanged:(id)sender;
 - (IBAction)sensorCubeWidthSliderValueChanged:(id)sender;
@@ -296,13 +312,17 @@ struct DisplayData
 - (void)enterCubePlacementState;
 - (void)enterScanningState;
 - (void)enterViewingState;
+- (void)enterConnectedState;
 - (void)adjustVolumeSize:(GLKVector3)volumeSize;
-- (void)updateAppStatusMessage;
+- (void)updateSensorStatusMessage;
 - (BOOL)currentStateNeedsSensor;
 - (void)updateIdleTimer;
 - (void)showTrackingMessage:(NSString*)message;
 - (void)hideTrackingErrorMessage;
 - (void)processDeviceMotion:(CMDeviceMotion *)motion withError:(NSError *)error;
 - (void)onSLAMOptionsChanged;
+- (void)activateSensor;
+- (void)initializeDynamicOptions;
+- (StructureSensorStatus::SensorStatus)getStructureSensorStatus;
 
 @end

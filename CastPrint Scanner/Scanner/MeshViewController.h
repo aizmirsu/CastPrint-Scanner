@@ -12,7 +12,7 @@
 
 @protocol MeshViewDelegate <NSObject>
 - (void)meshViewWillDismiss;
-- (void)meshViewDidDismiss;
+//- (void)meshViewDidDismiss;
 - (BOOL)meshViewDidRequestColorizing:(STMesh*)mesh
             previewCompletionHandler:(void(^)(void))previewCompletionHandler
            enhancedCompletionHandler:(void(^)(void))enhancedCompletionHandler;

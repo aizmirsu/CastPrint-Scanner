@@ -234,10 +234,7 @@ namespace
     
     [(EAGLView *)self.view setContext:nil];
     
-    [self dismissViewControllerAnimated:YES completion:^{
-        if([self.delegate respondsToSelector:@selector(meshViewDidDismiss)])
-            [self.delegate meshViewDidDismiss];
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - MeshViewer setup when loading the mesh

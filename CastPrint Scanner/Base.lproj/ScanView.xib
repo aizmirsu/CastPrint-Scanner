@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="ipad9_7" orientation="landscape">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanViewController">
             <connections>
                 <outlet property="appStatusMessageLabel" destination="qar-sd-xxn" id="Add-Bs-wKN"/>
+                <outlet property="backToMenuButton" destination="dQD-xx-bsa" id="qI5-9C-Dwf"/>
                 <outlet property="batteryProcentageLabel" destination="2xl-hg-4BD" id="5D6-cu-EcK"/>
                 <outlet property="doneButton" destination="mZb-la-8Ct" id="e73-HP-m5Y"/>
                 <outlet property="enableNewTrackerDataView" destination="OS6-C8-8fV" id="43U-DH-5xL"/>
@@ -174,6 +171,15 @@ Try to re-align or press reset.</string>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.16838074629999999" blue="0.58894312520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
+                <button tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQD-xx-bsa" userLabel="Button - Back To Menu">
+                    <rect key="frame" x="20" y="20" width="100" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="&lt; Back"/>
+                    <connections>
+                        <action selector="backToMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="WnE-sI-IOK"/>
+                    </connections>
+                </button>
                 <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please Connect Structure Sensor" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qar-sd-xxn" userLabel="Label - App Status Message">
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
