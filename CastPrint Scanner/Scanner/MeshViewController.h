@@ -27,6 +27,8 @@
 @property (nonatomic) BOOL colorEnabled;
 @property (nonatomic) STMesh * mesh;
 
+//@property UIDocumentInteractionController* documentInteractionController;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *displayControl;
 @property (weak, nonatomic) IBOutlet UILabel *meshViewerMessageLabel;
 

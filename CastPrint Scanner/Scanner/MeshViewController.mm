@@ -98,6 +98,12 @@ namespace
                                                                   action:@selector(emailMesh)];
     self.navigationItem.rightBarButtonItem = emailButton;
     
+//    UIBarButtonItem *activityButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self  action:@selector(openMesh)];
+//
+//    UIBarButtonItem *emailButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose  target:self action:@selector(emailMesh)];
+//
+//    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: emailButton, activityButton, nil];
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -265,6 +271,31 @@ namespace
         self.needsDisplay = TRUE;
     }
 }
+
+#pragma mark - Open OBJ file
+
+//- (void) openMesh
+//{
+//    NSString *documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0];
+//    NSString *filePath = [documentsDirectoryPath stringByAppendingPathComponent:@"Mesh.obj"];
+//
+//    NSError* error;
+//    [_mesh writeToFile:filePath
+//                options:@{kSTMeshWriteOptionFileFormatKey: @(STMeshWriteOptionFileFormatObjFile)}
+//                  error:&error];
+//
+//    NSURL* fileURL = [NSURL fileURLWithPath:filePath];
+//    if(self.documentInteractionController == nil)
+//    {
+//        self.documentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+//    }
+//    else
+//    {
+//        self.documentInteractionController.URL = fileURL;
+//    }
+//
+//    [self.documentInteractionController presentOpenInMenuFromBarButtonItem:self.navigationItem.rightBarButtonItems.lastObject animated:true];
+//}
 
 #pragma mark - Email Mesh OBJ file
 
