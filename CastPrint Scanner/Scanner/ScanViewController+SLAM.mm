@@ -111,6 +111,9 @@ namespace // anonymous namespace for local functions
     [_slamState->scene clear];
     [_slamState->keyFrameManager clear];
     
+    // Reset filled mesh
+    _holeFilledMesh = nil;
+    
     [self enterCubePlacementState];
 }
 

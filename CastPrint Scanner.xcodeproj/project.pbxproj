@@ -15,7 +15,6 @@
 		2AB8B9C717EA78280097C231 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB8B9C617EA78280097C231 /* AVFoundation.framework */; };
 		2AB8B9CB17EA786F0097C231 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB8B9CA17EA786F0097C231 /* CoreVideo.framework */; };
 		2AB8B9CD17EA78860097C231 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB8B9CC17EA78860097C231 /* CoreMedia.framework */; };
-		2AB955C4184E573A003DA089 /* MeshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB955C1184E573A003DA089 /* MeshView.xib */; };
 		2AB955C5184E573A003DA089 /* MeshViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AB955C3184E573A003DA089 /* MeshViewController.mm */; };
 		2AEF461B1A1278D300CAF953 /* ScanViewController+Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF461A1A1278D300CAF953 /* ScanViewController+Sensor.mm */; };
 		2AEF46201A127B4900CAF953 /* ScanViewController+SLAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF461F1A127B4900CAF953 /* ScanViewController+SLAM.mm */; };
@@ -39,6 +38,7 @@
 		2F7CFC0721B969FE0090548B /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFC0521B969FE0090548B /* MenuViewController.mm */; };
 		2F7CFC0A21B96EB50090548B /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7CFC0C21B96EB50090548B /* MenuView.xib */; };
 		2F7CFC1121B9CC800090548B /* MenuViewController+Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFC1021B9CC800090548B /* MenuViewController+Sensor.mm */; };
+		2FAC64FE21BC6C4900E32A4C /* MeshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FAC650021BC6C4900E32A4C /* MeshView.xib */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
@@ -69,7 +69,6 @@
 		2AB8B9C817EA78590097C231 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2AB8B9CA17EA786F0097C231 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		2AB8B9CC17EA78860097C231 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		2AB955C1184E573A003DA089 /* MeshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeshView.xib; sourceTree = "<group>"; };
 		2AB955C2184E573A003DA089 /* MeshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshViewController.h; sourceTree = "<group>"; };
 		2AB955C3184E573A003DA089 /* MeshViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MeshViewController.mm; sourceTree = "<group>"; };
 		2AEF461A1A1278D300CAF953 /* ScanViewController+Sensor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "ScanViewController+Sensor.mm"; sourceTree = "<group>"; };
@@ -102,6 +101,7 @@
 		2F7CFC0D21B97EA40090548B /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		2F7CFC0E21B9CC140090548B /* MenuViewController+Sensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MenuViewController+Sensor.h"; sourceTree = "<group>"; };
 		2F7CFC1021B9CC800090548B /* MenuViewController+Sensor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MenuViewController+Sensor.mm"; sourceTree = "<group>"; };
+		2FAC64FF21BC6C4900E32A4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MeshView.xib; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				6F03CB601862832600518C22 /* Graphics */,
-				2AB955C1184E573A003DA089 /* MeshView.xib */,
+				2FAC650021BC6C4900E32A4C /* MeshView.xib */,
 				438C049818723EB10062E958 /* ScanView.xib */,
 				2F7CFC0C21B96EB50090548B /* MenuView.xib */,
 				6F03CB7C1862832600518C22 /* CastPrintScanner-Info.plist */,
@@ -334,7 +334,7 @@
 				435307CA1872825B00B04481 /* Default-Landscape~ipad.png in Resources */,
 				435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */,
 				1F300615186E3B8F00405D34 /* Images.xcassets in Resources */,
-				2AB955C4184E573A003DA089 /* MeshView.xib in Resources */,
+				2FAC64FE21BC6C4900E32A4C /* MeshView.xib in Resources */,
 				2D23E7CF1A37B785006E1F98 /* doneButton@2x.png in Resources */,
 				2D23E7D11A37B78E006E1F98 /* resetScanButton@2x.png in Resources */,
 				2D23E7CD1A37B77D006E1F98 /* startScanButton@2x.png in Resources */,
@@ -381,6 +381,14 @@
 				2F7CFC0B21B96EB50090548B /* Base */,
 			);
 			name = MenuView.xib;
+			sourceTree = "<group>";
+		};
+		2FAC650021BC6C4900E32A4C /* MeshView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2FAC64FF21BC6C4900E32A4C /* Base */,
+			);
+			name = MeshView.xib;
 			sourceTree = "<group>";
 		};
 		438C049818723EB10062E958 /* ScanView.xib */ = {

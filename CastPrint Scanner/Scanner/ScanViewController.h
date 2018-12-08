@@ -243,6 +243,9 @@ struct DisplayData
     
     SlamData *_slamState;
     
+    STMesh *_regularMesh;
+    STMesh *_holeFilledMesh;
+    
     Options _options;
     
     // Manages the app status messages.
@@ -264,6 +267,8 @@ struct DisplayData
     CMMotionManager *_motionManager;
     NSOperationQueue *_imuQueue;
     
+    // Handles on background tasks which may be running.
+    STBackgroundTask* _holeFillingTask;
     STBackgroundTask* _naiveColorizeTask;
     STBackgroundTask* _enhancedColorizeTask;
     STDepthToRgba *_depthAsRgbaVisualizer;

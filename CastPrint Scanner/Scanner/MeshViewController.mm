@@ -156,9 +156,6 @@ namespace
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
                                                            forKey:NSFontAttributeName];
     
-    [self.displayControl setTitleTextAttributes:attributes
-                                    forState:UIControlStateNormal];
-    
     [self setupGestureRecognizer];
 }
 
@@ -186,11 +183,10 @@ namespace
     [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     
     _viewpointController->reset();
-
-    if (!self.colorEnabled)
-        [self.displayControl removeSegmentAtIndex:2 animated:NO];
     
-    self.displayControl.selectedSegmentIndex = 1;
+    [self.holeFillingSwitch setEnabled:YES];
+    [self.holeFillingSwitch setOn:false];
+    [self.XRaySwitch setOn:false];
     _renderer->setRenderingMode( MeshRenderer::RenderingModeLightedGray );
 }
 
@@ -266,7 +262,7 @@ namespace
     {
         _renderer->uploadMesh(meshRef);
     
-        [self trySwitchToColorRenderingMode];
+//        [self trySwitchToColorRenderingMode];
 
         self.needsDisplay = TRUE;
     }
@@ -554,45 +550,43 @@ namespace
     // switch the render mode to color, as long as the user has not changed
     // the selector.
 
-    if(self.displayControl.selectedSegmentIndex == 2)
-    {
+//    if(self.displayControl.selectedSegmentIndex == 2)
+//    {
         if ( [_mesh hasPerVertexUVTextureCoords])
             _renderer->setRenderingMode(MeshRenderer::RenderingModeTextured);
         else if ([_mesh hasPerVertexColors])
             _renderer->setRenderingMode(MeshRenderer::RenderingModePerVertexColor);
         else
             _renderer->setRenderingMode(MeshRenderer::RenderingModeLightedGray);
-    }
+//    }
 }
 
-- (IBAction)displayControlChanged:(id)sender {
-    
-    switch (self.displayControl.selectedSegmentIndex) {
-        case 0: // x-ray
+- (IBAction)holeFillingSwitchChanged:(id)sender
+{
+    if (self.holeFillingSwitch.on)
+    {
+        if ([self.delegate respondsToSelector:@selector(meshViewDidRequestHoleFilling)])
         {
-            _renderer->setRenderingMode(MeshRenderer::RenderingModeXRay);
+            [self.delegate meshViewDidRequestHoleFilling];
         }
-            break;
-        case 1: // lighted-gray
-        {
-            _renderer->setRenderingMode(MeshRenderer::RenderingModeLightedGray);
-        }
-            break;
-        case 2: // color
-        {
-            [self trySwitchToColorRenderingMode];
-
-            bool meshIsColorized = [_mesh hasPerVertexColors] ||
-                                   [_mesh hasPerVertexUVTextureCoords];
-            
-            if ( !meshIsColorized ) [self colorizeMesh];
-        }
-            break;
-        default:
-            break;
     }
-    
-    self.needsDisplay = TRUE;
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(meshViewDidRequestRegularMesh)])
+        {
+            [self.delegate meshViewDidRequestRegularMesh];
+        }
+    }
+    self.needsDisplay = true;
+}
+
+- (IBAction)XRaySwitchChanged:(id)sender
+{
+    if ([self.XRaySwitch isOn])
+        _renderer->setRenderingMode(MeshRenderer::RenderingModeXRay);
+    else
+        _renderer->setRenderingMode(MeshRenderer::RenderingModeLightedGray);
+    self.needsDisplay = true;
 }
 
 - (void)colorizeMesh

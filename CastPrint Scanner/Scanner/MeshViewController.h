@@ -16,6 +16,8 @@
 - (BOOL)meshViewDidRequestColorizing:(STMesh*)mesh
             previewCompletionHandler:(void(^)(void))previewCompletionHandler
            enhancedCompletionHandler:(void(^)(void))enhancedCompletionHandler;
+- (void)meshViewDidRequestRegularMesh;
+- (void)meshViewDidRequestHoleFilling;
 @end
 
 @interface MeshViewController : UIViewController <UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate>
@@ -29,15 +31,19 @@
 
 //@property UIDocumentInteractionController* documentInteractionController;
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *displayControl;
 @property (weak, nonatomic) IBOutlet UILabel *meshViewerMessageLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *XRaySwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *holeFillingSwitch;
 
 + (instancetype)viewController;
 
-- (IBAction)displayControlChanged:(id)sender;
+- (IBAction)holeFillingSwitchChanged:(id)sender;
+- (IBAction)XRaySwitchChanged:(id)sender;
 
 - (void)showMeshViewerMessage:(NSString *)msg;
 - (void)hideMeshViewerMessage;
+
+- (void)setMesh:(STMesh *)meshRef;
 
 - (void)setCameraProjectionMatrix:(GLKMatrix4)projRt;
 - (void)resetMeshCenter:(GLKVector3)center;
