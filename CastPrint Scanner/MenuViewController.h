@@ -35,20 +35,16 @@
 //}
 
 
-@interface MenuViewController : UIViewController <STBackgroundTaskDelegate, MeshViewDelegate, UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
+@interface MenuViewController : UIViewController <UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
 {
     ScanViewController *_scanViewController;
     
     // Structure Sensor controller.
     STSensorController *_sensorController;
-//    STStreamConfig _structureStreamConfig;
     
     SlamData _slamState;
     
 //    Options _options;
-    
-    // Manages the app status messages.
-//    StructureSensorStatus _appStatus;
     
     DisplayData _display;
     
@@ -59,20 +55,14 @@
     //    PinchScaleState _volumeScale;
     
     // Mesh viewer controllers.
-    UINavigationController *_meshViewNavigationController;
-    MeshViewController *_meshViewController;
+//    UINavigationController *_meshViewNavigationController;
+//    MeshViewController *_meshViewController;
     
     // IMU handling.
     //    CMMotionManager *_motionManager;
     //    NSOperationQueue *_imuQueue;
     
-//        STBackgroundTask* _naiveColorizeTask;
-    //    STBackgroundTask* _enhancedColorizeTask;
-    //    STDepthToRgba *_depthAsRgbaVisualizer;
-    
     bool _useColorCamera;
-    
-    //    CalibrationOverlay* _calibrationOverlay;
 }
 
 //@property (assign, nonatomic) SlamData *slamData;
@@ -83,44 +73,21 @@
 //@property (weak, nonatomic) IBOutlet UILabel *appStatusMessageLabel;
 //@property (weak, nonatomic) IBOutlet UIButton *scanButton;
 @property (weak, nonatomic) IBOutlet UIButton *scanViewButton;
+@property (weak, nonatomic) IBOutlet UIButton *savedViewButton;
 //@property (weak, nonatomic) IBOutlet UIButton *resetButton;
-//@property (weak, nonatomic) IBOutlet UIButton *doneButton;
-//@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
-//@property (weak, nonatomic) IBOutlet UILabel *trackingLostLabel;
-//@property (weak, nonatomic) IBOutlet UIView *enableNewTrackerView;
-//@property (weak, nonatomic) IBOutlet UILabel *batteryProcentageLabel;
-//@property (weak, nonatomic) IBOutlet UIView *enableNewTrackerDataView;
-//@property (weak, nonatomic) IBOutlet UILabel *sensorCubeHeightValueLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *sensorCubeWidthValueLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *sensorCubeDepthValueLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *sensorCubeRangeValueLabel;
-//@property (weak, nonatomic) IBOutlet UISlider *sensorCubeHeightSlider;
-//@property (weak, nonatomic) IBOutlet UISlider *sensorCubeWidthSlider;
-//@property (weak, nonatomic) IBOutlet UISlider *sensorCubeDepthSlider;
-//@property (weak, nonatomic) IBOutlet UISlider *sensorCubeRangeSlider;
+
 
 + (instancetype) viewController;
 
-//- (IBAction)scanButtonPressed:(id)sender;
-//- (IBAction)resetButtonPressed:(id)sender;
-//- (IBAction)doneButtonPressed:(id)sender;
-////- (IBAction)optionsButtonPressed:(id)sender;
-//- (IBAction)sensorCubeHeightSliderValueChanged:(id)sender;
-//- (IBAction)sensorCubeWidthSliderValueChanged:(id)sender;
+
 //- (IBAction)sensorCubeDepthSliderValueChanged:(id)sender;
 //- (IBAction)sensorCubeRangeSliderValueChanged:(id)sender;
+- (IBAction)scanViewButtonPushed:(id)sender;
+- (IBAction)savedViewButtonPushed:(id)sender;
 
 - (void)updateScanViewButtonColor;
 //- (void)enterCubePlacementState;
 //- (void)enterScanningState;
 //- (void)enterViewingState;
-//- (void)adjustVolumeSize:(GLKVector3)volumeSize;
-//- (void)updateAppStatusMessage;
-//- (BOOL)currentStateNeedsSensor;
-//- (void)updateIdleTimer;
-//- (void)showTrackingMessage:(NSString*)message;
-//- (void)hideTrackingErrorMessage;
-//- (void)processDeviceMotion:(CMDeviceMotion *)motion withError:(NSError *)error;
-//- (void)onSLAMOptionsChanged;
 
 @end

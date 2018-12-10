@@ -34,11 +34,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *meshViewerMessageLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *XRaySwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *holeFillingSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 + (instancetype)viewController;
 
 - (IBAction)holeFillingSwitchChanged:(id)sender;
 - (IBAction)XRaySwitchChanged:(id)sender;
+- (IBAction)saveButtonPushed:(id)sender;
 
 - (void)showMeshViewerMessage:(NSString *)msg;
 - (void)hideMeshViewerMessage;

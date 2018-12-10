@@ -14,6 +14,12 @@
 
 // See default initialization in: -(void)initializeDynamicOptions
 
+
+
+
+
+
+
 struct Options
 {
     // The initial scanning volume size will be 0.5 x 0.5 x 0.5 meters

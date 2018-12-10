@@ -39,6 +39,13 @@
 		2F7CFC0A21B96EB50090548B /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7CFC0C21B96EB50090548B /* MenuView.xib */; };
 		2F7CFC1121B9CC800090548B /* MenuViewController+Sensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFC1021B9CC800090548B /* MenuViewController+Sensor.mm */; };
 		2FAC64FE21BC6C4900E32A4C /* MeshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FAC650021BC6C4900E32A4C /* MeshView.xib */; };
+		2FAC650521BD3BB800E32A4C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAC650421BD3BB800E32A4C /* CoreData.framework */; };
+		2FAC652D21BD3CDC00E32A4C /* CPScanner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC652B21BD3CDC00E32A4C /* CPScanner.xcdatamodeld */; };
+		2FAC655421BD6FB100E32A4C /* Scan+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655221BD6FB100E32A4C /* Scan+CoreDataClass.m */; };
+		2FAC655521BD6FB100E32A4C /* Scan+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655321BD6FB100E32A4C /* Scan+CoreDataProperties.m */; };
+		2FAC655721BDEE0700E32A4C /* SavedScans.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */; settings = {ASSET_TAGS = (scanDateTable, ); }; };
+		2FAC655E21BDFB1600E32A4C /* SavedScansTableController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655D21BDFB1600E32A4C /* SavedScansTableController.mm */; };
+		2FAC656121BF10E600E32A4C /* somethingWentWrong.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656021BF10E600E32A4C /* somethingWentWrong.m */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
@@ -102,6 +109,16 @@
 		2F7CFC0E21B9CC140090548B /* MenuViewController+Sensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MenuViewController+Sensor.h"; sourceTree = "<group>"; };
 		2F7CFC1021B9CC800090548B /* MenuViewController+Sensor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MenuViewController+Sensor.mm"; sourceTree = "<group>"; };
 		2FAC64FF21BC6C4900E32A4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MeshView.xib; sourceTree = "<group>"; };
+		2FAC650421BD3BB800E32A4C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2FAC652C21BD3CDC00E32A4C /* CPScanner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CPScanner.xcdatamodel; sourceTree = "<group>"; };
+		2FAC655021BD6FB100E32A4C /* Scan+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scan+CoreDataProperties.h"; sourceTree = "<group>"; };
+		2FAC655121BD6FB100E32A4C /* Scan+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scan+CoreDataClass.h"; sourceTree = "<group>"; };
+		2FAC655221BD6FB100E32A4C /* Scan+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Scan+CoreDataClass.m"; sourceTree = "<group>"; };
+		2FAC655321BD6FB100E32A4C /* Scan+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Scan+CoreDataProperties.m"; sourceTree = "<group>"; };
+		2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedScans.storyboard; sourceTree = "<group>"; };
+		2FAC655D21BDFB1600E32A4C /* SavedScansTableController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedScansTableController.mm; sourceTree = "<group>"; };
+		2FAC655F21BDFB3400E32A4C /* SavedScansTableController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedScansTableController.h; sourceTree = "<group>"; };
+		2FAC656021BF10E600E32A4C /* somethingWentWrong.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = somethingWentWrong.m; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -129,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FAC650521BD3BB800E32A4C /* CoreData.framework in Frameworks */,
 				2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */,
 				77AAADA51CA5AFC500D91B6C /* Metal.framework in Frameworks */,
 				7EAD26B3198B47DA00638C9C /* libz.dylib in Frameworks */,
@@ -172,6 +190,7 @@
 		2AFC8D76176F966000F7F3B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2FAC650421BD3BB800E32A4C /* CoreData.framework */,
 				2FD5688A21AD87E2003EFC27 /* Structure.framework */,
 				77AAADA41CA5AFC500D91B6C /* Metal.framework */,
 				7EAD26B2198B47DA00638C9C /* libz.dylib */,
@@ -196,6 +215,7 @@
 		2AFC8D81176F966000F7F3B5 /* CastPrint Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				2FAC654421BD4F9800E32A4C /* CoreData */,
 				2F589DF621ADAE0A008D9E33 /* Scanner */,
 				2F7CFC0D21B97EA40090548B /* MenuViewController.h */,
 				2F7CFC0521B969FE0090548B /* MenuViewController.mm */,
@@ -203,8 +223,11 @@
 				2F7CFC1021B9CC800090548B /* MenuViewController+Sensor.mm */,
 				2D1295A5184370FE00E8C685 /* AppDelegate.h */,
 				2D1295A6184370FE00E8C685 /* AppDelegate.mm */,
+				2FAC652B21BD3CDC00E32A4C /* CPScanner.xcdatamodeld */,
+				2FAC655821BDF32A00E32A4C /* SavedScans */,
 				1F300614186E3B8F00405D34 /* Images.xcassets */,
 				433C3B9D186CBEA900552A10 /* Supporting Files */,
+				2FAC656021BF10E600E32A4C /* somethingWentWrong.m */,
 			);
 			path = "CastPrint Scanner";
 			sourceTree = SOURCE_ROOT;
@@ -240,6 +263,26 @@
 			path = Scanner;
 			sourceTree = "<group>";
 		};
+		2FAC654421BD4F9800E32A4C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				2FAC655021BD6FB100E32A4C /* Scan+CoreDataProperties.h */,
+				2FAC655321BD6FB100E32A4C /* Scan+CoreDataProperties.m */,
+				2FAC655121BD6FB100E32A4C /* Scan+CoreDataClass.h */,
+				2FAC655221BD6FB100E32A4C /* Scan+CoreDataClass.m */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		2FAC655821BDF32A00E32A4C /* SavedScans */ = {
+			isa = PBXGroup;
+			children = (
+				2FAC655F21BDFB3400E32A4C /* SavedScansTableController.h */,
+				2FAC655D21BDFB1600E32A4C /* SavedScansTableController.mm */,
+			);
+			path = SavedScans;
+			sourceTree = "<group>";
+		};
 		433C3B9D186CBEA900552A10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +294,7 @@
 				6F03CB571862823000518C22 /* InfoPlist.strings */,
 				6F03CB791862832600518C22 /* main.m */,
 				6F03CB7D1862832600518C22 /* Scanner-Prefix.pch */,
+				2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -297,11 +341,15 @@
 		2AFC8D6C176F966000F7F3B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					scanDateTable,
+				);
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Occipital;
 				TargetAttributes = {
 					2AFC8D73176F966000F7F3B5 = {
 						DevelopmentTeam = Y3D4R7X662;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -336,6 +384,7 @@
 				1F300615186E3B8F00405D34 /* Images.xcassets in Resources */,
 				2FAC64FE21BC6C4900E32A4C /* MeshView.xib in Resources */,
 				2D23E7CF1A37B785006E1F98 /* doneButton@2x.png in Resources */,
+				2FAC655721BDEE0700E32A4C /* SavedScans.storyboard in Resources */,
 				2D23E7D11A37B78E006E1F98 /* resetScanButton@2x.png in Resources */,
 				2D23E7CD1A37B77D006E1F98 /* startScanButton@2x.png in Resources */,
 				2F7CFC0A21B96EB50090548B /* MenuView.xib in Resources */,
@@ -353,14 +402,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FAC655521BD6FB100E32A4C /* Scan+CoreDataProperties.m in Sources */,
 				2D1295AD184370FE00E8C685 /* AppDelegate.mm in Sources */,
+				2FAC655421BD6FB100E32A4C /* Scan+CoreDataClass.m in Sources */,
+				2FAC655E21BDFB1600E32A4C /* SavedScansTableController.mm in Sources */,
 				2F7CFC1121B9CC800090548B /* MenuViewController+Sensor.mm in Sources */,
 				2D4DE5A8199B95BE00F69F56 /* MeshRenderer.mm in Sources */,
 				6F03CB7E1862832600518C22 /* EAGLView.mm in Sources */,
 				2DE057BD199E58E100137F8F /* ViewpointController.mm in Sources */,
 				2AB955C5184E573A003DA089 /* MeshViewController.mm in Sources */,
 				2A1557BD1A37D198007C485A /* ScanViewController+OpenGL.mm in Sources */,
+				2FAC652D21BD3CDC00E32A4C /* CPScanner.xcdatamodeld in Sources */,
 				2AEF46201A127B4900CAF953 /* ScanViewController+SLAM.mm in Sources */,
+				2FAC656121BF10E600E32A4C /* somethingWentWrong.m in Sources */,
 				2AEF461B1A1278D300CAF953 /* ScanViewController+Sensor.mm in Sources */,
 				2D1295B0184370FE00E8C685 /* ScanViewController.mm in Sources */,
 				2D4DE5AC199BB90400F69F56 /* CustomShaders.mm in Sources */,
@@ -450,7 +504,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -461,6 +515,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y3D4R7X662;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -470,12 +525,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CastPrint Scanner/Scanner-Prefix.pch";
 				INFOPLIST_FILE = "CastPrint Scanner/CastPrintScanner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-framework",
 					ExternalAccessory,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uvis.strauss.CastPrintScanner;
 				PRODUCT_NAME = "CastPrint Scanner";
+				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = arm64;
 			};
 			name = Release;
@@ -522,7 +580,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -533,6 +591,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y3D4R7X662;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -542,6 +601,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CastPrint Scanner/Scanner-Prefix.pch";
 				INFOPLIST_FILE = "CastPrint Scanner/CastPrintScanner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-framework",
 					ExternalAccessory,
@@ -549,6 +610,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uvis.strauss.CastPrintScanner;
 				PRODUCT_NAME = "CastPrint Scanner";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				VALID_ARCHS = arm64;
 			};
 			name = Debug;
@@ -575,6 +638,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2FAC652B21BD3CDC00E32A4C /* CPScanner.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2FAC652C21BD3CDC00E32A4C /* CPScanner.xcdatamodel */,
+			);
+			currentVersion = 2FAC652C21BD3CDC00E32A4C /* CPScanner.xcdatamodel */;
+			path = CPScanner.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2AFC8D6C176F966000F7F3B5 /* Project object */;
 }

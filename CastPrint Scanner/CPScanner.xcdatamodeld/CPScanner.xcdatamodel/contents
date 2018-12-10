@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Scan" representedClassName="Scan" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="scanImg" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="scanObj" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="scanObjFilled" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="sent" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Scan" positionX="-63" positionY="-18" width="128" height="133"/>
+    </elements>
+</model>

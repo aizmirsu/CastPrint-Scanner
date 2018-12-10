@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="OOh-PC-YPl">
+            <objects>
+                <viewController id="Cug-4B-azf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fN4-Mc-QT6"/>
+                        <viewControllerLayoutGuide type="bottom" id="9RZ-BE-DNv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Vg-me-XIU">
+                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="svS-FL-VSe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-115.625" y="-104.49666666666666"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="Pz6-7e-GYB">
+            <objects>
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="hb3-bT-iqt" customClass="SavedScansTableController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="rtO-7K-c9f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScanDateCell" id="Xxi-qf-TUv">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xxi-qf-TUv" id="WBS-nG-XCh">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hb3-bT-iqt" id="Odx-eu-bWs"/>
+                            <outlet property="delegate" destination="hb3-bT-iqt" id="3CX-hh-YGe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="M67-97-6TO">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="c4d-K6-na9">
+                            <connections>
+                                <action selector="cancelButtonPushed:" destination="hb3-bT-iqt" id="AHQ-Ae-HXO"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="j20-SK-B4o"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="c4d-K6-na9" id="XKh-dd-eCq"/>
+                        <outlet property="scanDateTable" destination="rtO-7K-c9f" id="W0s-em-LbA"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nih-sY-CyY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="479.375" y="-843.75499999999988"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mAQ-RS-GFb">
+            <objects>
+                <navigationController id="nno-9x-SJH" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="D2v-5W-BnX">
+                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hb3-bT-iqt" kind="relationship" relationship="rootViewController" id="aLy-pa-fJ1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9MC-ld-aRF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-326" y="-881"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="TgG-Ls-6gI">
+            <objects>
+                <splitViewController storyboardIdentifier="scansSplitViewController" id="VgD-kC-kcS" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="nno-9x-SJH" kind="relationship" relationship="masterViewController" id="tRJ-TK-Cn2"/>
+                        <segue destination="Cug-4B-azf" kind="relationship" relationship="detailViewController" id="971-3l-W6D"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CFd-SC-YRS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1087" y="-592"/>
+        </scene>
+    </scenes>
+</document>

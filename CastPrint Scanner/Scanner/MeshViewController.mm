@@ -8,6 +8,7 @@
 #import "MeshRenderer.h"
 #import "ViewpointController.h"
 #import "CustomUIKitStyles.h"
+#import "AppDelegate.h"
 
 #import <ImageIO/ImageIO.h>
 
@@ -68,6 +69,9 @@ namespace
     
     GLKMatrix4 _modelViewMatrixBeforeUserInteractions;
     GLKMatrix4 _projectionMatrixBeforeUserInteractions;
+    
+    AppDelegate *_appDelegate;
+    NSManagedObjectContext *_context;
 }
 
 @property MFMailComposeViewController *mailViewController;
@@ -157,6 +161,10 @@ namespace
                                                            forKey:NSFontAttributeName];
     
     [self setupGestureRecognizer];
+    
+    // Get context
+    _appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    _context = _appDelegate.persistentContainer.viewContext;
 }
 
 - (void)setLabel:(UILabel*)label enabled:(BOOL)enabled {
@@ -587,6 +595,25 @@ namespace
     else
         _renderer->setRenderingMode(MeshRenderer::RenderingModeLightedGray);
     self.needsDisplay = true;
+}
+
+- (IBAction)saveButtonPushed:(id)sender
+{
+    // Create a new managed object
+    NSManagedObject *newScan = [NSEntityDescription insertNewObjectForEntityForName:@"Scan" inManagedObjectContext:_context];
+    [newScan setValue:@"Test" forKey:@"name"];
+//    NSLocale* currentLocale = [NSLocale currentLocale];
+    [newScan setValue:[NSDate date] forKey:@"date"];
+    
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![_context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+    else
+    {
+        [self dismissView];
+    }
 }
 
 - (void)colorizeMesh
