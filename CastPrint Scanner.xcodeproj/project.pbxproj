@@ -44,7 +44,9 @@
 		2FAC655421BD6FB100E32A4C /* Scan+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655221BD6FB100E32A4C /* Scan+CoreDataClass.m */; };
 		2FAC655521BD6FB100E32A4C /* Scan+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655321BD6FB100E32A4C /* Scan+CoreDataProperties.m */; };
 		2FAC655721BDEE0700E32A4C /* SavedScans.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */; settings = {ASSET_TAGS = (scanDateTable, ); }; };
-		2FAC655E21BDFB1600E32A4C /* SavedScansTableController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655D21BDFB1600E32A4C /* SavedScansTableController.mm */; };
+		2FAC655E21BDFB1600E32A4C /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655D21BDFB1600E32A4C /* TableViewController.mm */; };
+		2FAC656421BFE5FA00E32A4C /* DetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656321BFE5FA00E32A4C /* DetailViewController.mm */; };
+		2FAC656621BFEC7900E32A4C /* ScanDetailsCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
@@ -115,8 +117,12 @@
 		2FAC655221BD6FB100E32A4C /* Scan+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Scan+CoreDataClass.m"; sourceTree = "<group>"; };
 		2FAC655321BD6FB100E32A4C /* Scan+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Scan+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedScans.storyboard; sourceTree = "<group>"; };
-		2FAC655D21BDFB1600E32A4C /* SavedScansTableController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedScansTableController.mm; sourceTree = "<group>"; };
-		2FAC655F21BDFB3400E32A4C /* SavedScansTableController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedScansTableController.h; sourceTree = "<group>"; };
+		2FAC655D21BDFB1600E32A4C /* TableViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
+		2FAC655F21BDFB3400E32A4C /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		2FAC656221BFE57500E32A4C /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		2FAC656321BFE5FA00E32A4C /* DetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DetailViewController.mm; sourceTree = "<group>"; };
+		2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ScanDetailsCell.mm; sourceTree = "<group>"; };
+		2FAC656721BFEC9200E32A4C /* ScanDetailsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanDetailsCell.h; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -215,6 +221,7 @@
 			children = (
 				2FAC654421BD4F9800E32A4C /* CoreData */,
 				2F589DF621ADAE0A008D9E33 /* Scanner */,
+				2FAC655821BDF32A00E32A4C /* SavedScans */,
 				2F7CFC0D21B97EA40090548B /* MenuViewController.h */,
 				2F7CFC0521B969FE0090548B /* MenuViewController.mm */,
 				2F7CFC0E21B9CC140090548B /* MenuViewController+Sensor.h */,
@@ -222,7 +229,6 @@
 				2D1295A5184370FE00E8C685 /* AppDelegate.h */,
 				2D1295A6184370FE00E8C685 /* AppDelegate.mm */,
 				2FAC652B21BD3CDC00E32A4C /* CPScanner.xcdatamodeld */,
-				2FAC655821BDF32A00E32A4C /* SavedScans */,
 				1F300614186E3B8F00405D34 /* Images.xcassets */,
 				433C3B9D186CBEA900552A10 /* Supporting Files */,
 			);
@@ -274,8 +280,12 @@
 		2FAC655821BDF32A00E32A4C /* SavedScans */ = {
 			isa = PBXGroup;
 			children = (
-				2FAC655F21BDFB3400E32A4C /* SavedScansTableController.h */,
-				2FAC655D21BDFB1600E32A4C /* SavedScansTableController.mm */,
+				2FAC655F21BDFB3400E32A4C /* TableViewController.h */,
+				2FAC655D21BDFB1600E32A4C /* TableViewController.mm */,
+				2FAC656221BFE57500E32A4C /* DetailViewController.h */,
+				2FAC656321BFE5FA00E32A4C /* DetailViewController.mm */,
+				2FAC656721BFEC9200E32A4C /* ScanDetailsCell.h */,
+				2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */,
 			);
 			path = SavedScans;
 			sourceTree = "<group>";
@@ -402,7 +412,8 @@
 				2FAC655521BD6FB100E32A4C /* Scan+CoreDataProperties.m in Sources */,
 				2D1295AD184370FE00E8C685 /* AppDelegate.mm in Sources */,
 				2FAC655421BD6FB100E32A4C /* Scan+CoreDataClass.m in Sources */,
-				2FAC655E21BDFB1600E32A4C /* SavedScansTableController.mm in Sources */,
+				2FAC656621BFEC7900E32A4C /* ScanDetailsCell.mm in Sources */,
+				2FAC655E21BDFB1600E32A4C /* TableViewController.mm in Sources */,
 				2F7CFC1121B9CC800090548B /* MenuViewController+Sensor.mm in Sources */,
 				2D4DE5A8199B95BE00F69F56 /* MeshRenderer.mm in Sources */,
 				6F03CB7E1862832600518C22 /* EAGLView.mm in Sources */,
@@ -419,6 +430,7 @@
 				2F7CFC0721B969FE0090548B /* MenuViewController.mm in Sources */,
 				2AEF46231A1288B600CAF953 /* ScanViewController+Camera.mm in Sources */,
 				6F8BE660199EED0C00E10C10 /* CalibrationOverlay.mm in Sources */,
+				2FAC656421BFE5FA00E32A4C /* DetailViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

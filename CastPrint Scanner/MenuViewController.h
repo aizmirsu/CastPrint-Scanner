@@ -38,6 +38,7 @@
 @interface MenuViewController : UIViewController <UIPopoverControllerDelegate, UIGestureRecognizerDelegate>
 {
     ScanViewController *_scanViewController;
+    UISplitViewController *_splitViewController;
     
     // Structure Sensor controller.
     STSensorController *_sensorController;

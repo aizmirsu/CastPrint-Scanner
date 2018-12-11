@@ -19,6 +19,9 @@
 #import "ScanViewController+SLAM.h"
 #import "ScanViewController+OpenGL.h"
 
+#import "SavedScans/TableViewController.h"
+#import "SavedScans/DetailViewController.h"
+
 #include <cmath>
 #include <algorithm>
 
@@ -54,6 +57,7 @@
     
     // Setup ScanViewController and Structure Sensor
     [self setupScanViewControllerAndStructure];
+    [self setupSplitViewController];
     
     // Later, we’ll set this true if we have a device-specific calibration
     //    _useColorCamera = [STSensorController approximateCalibrationGuaranteedForDevice];
@@ -124,53 +128,18 @@
     
 }
 
-//- (void)setupMeshViewController
-//{
-//    _meshViewController = [MeshViewController viewController];
-//    _meshViewController.delegate = self;
-//    _meshViewNavigationController = [[UINavigationController alloc] initWithRootViewController:_meshViewController];
-//}
-
-//- (void)presentMeshViewer:(STMesh *)mesh
-//{
-//    [_meshViewController setupGL:_display.context];
-//
-//    _meshViewController.colorEnabled = _useColorCamera;
-//    _meshViewController.mesh = mesh;
-//    [_meshViewController setCameraProjectionMatrix:_display.depthCameraGLProjectionMatrix];
-//
-//    // Sample a few points to estimate the volume center
-//    int totalNumVertices = 0;
-//    for( int i=0; i<mesh.numberOfMeshes; ++i )
-//        totalNumVertices += [mesh numberOfMeshVertices:i];
-//
-//    // The sample step if we need roughly 1000 sample points
-//    int sampleStep = std::max (1.f, totalNumVertices/1000.f);
-//    int sampleCount = 0;
-//    GLKVector3 volumeCenter = GLKVector3Make(0,0,0);
-//
-//    for( int i=0; i<mesh.numberOfMeshes; ++i )
-//    {
-//        int numVertices = [mesh numberOfMeshVertices:i];
-//        const GLKVector3* vertex = [mesh meshVertices:i];
-//
-//        for( int j=0; j<numVertices; j+=sampleStep )
-//        {
-//            volumeCenter = GLKVector3Add(volumeCenter, vertex[j]);
-//            sampleCount++;
-//        }
-//    }
-//
-//    if( sampleCount>0 )
-//        volumeCenter = GLKVector3DivideScalar(volumeCenter, sampleCount);
-//
-//    else
-//        volumeCenter = GLKVector3MultiplyScalar(_slamState.volumeSizeInMeters, 0.5);
-//
-//    [_meshViewController resetMeshCenter:volumeCenter];
-//
-//    [self presentViewController:_meshViewNavigationController animated:YES completion:^{}];
-//}
+- (void)setupSplitViewController
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"SavedScans" bundle:nil];
+    _splitViewController = (UISplitViewController *)[sb instantiateInitialViewController];
+    
+    DetailViewController *detailViewController = (DetailViewController *) [_splitViewController.viewControllers lastObject];
+    
+    TableViewController *masterViewController = (TableViewController *) [[_splitViewController.viewControllers firstObject] topViewController];
+    
+    masterViewController.delegate = detailViewController;
+    
+}
 
 
 #pragma mark - IMU
@@ -179,10 +148,7 @@
 #pragma mark - UI Callbacks
 
 - (IBAction)savedViewButtonPushed:(id)sender {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"SavedScans" bundle:nil];
-    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"scansSplitViewController"];
-    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:vc animated:YES completion:NULL];
+    [self presentViewController:_splitViewController animated:YES completion:NULL];
 }
 
 -(void) updateScanViewButtonColor
@@ -261,72 +227,6 @@
 
 - (void) respondToMemoryWarning
 {
-//    switch( _slamState.scannerState )
-//    {
-//        case ScannerStateViewing:
-//        {
-//            // If we are running a colorizing task, abort it
-////            if( _enhancedColorizeTask != nil && !_slamState.showingMemoryWarning )
-////            {
-////                _slamState.showingMemoryWarning = true;
-////
-////                // stop the task
-////                [_enhancedColorizeTask cancel];
-////                _enhancedColorizeTask = nil;
-////
-////                // hide progress bar
-////                [_meshViewController hideMeshViewerMessage];
-////
-////                UIAlertController *alertCtrl= [UIAlertController alertControllerWithTitle:@"Memory Low"
-////                                                                                  message:@"Colorizing was canceled."
-////                                                                           preferredStyle:UIAlertControllerStyleAlert];
-////
-////                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK"
-////                                                                   style:UIAlertActionStyleDefault
-////                                                                 handler:^(UIAlertAction *action)
-////                                           {
-////                                               _slamState.showingMemoryWarning = false;
-////                                           }];
-////
-////                [alertCtrl addAction:okAction];
-////
-////                // show the alert in the meshViewController
-////                [_meshViewController presentViewController:alertCtrl animated:YES completion:nil];
-////            }
-//
-//            break;
-//        }
-//        case ScannerStateScanning:
-//        {
-//            if( !_slamState.showingMemoryWarning )
-//            {
-//                _slamState.showingMemoryWarning = true;
-//
-//                UIAlertController *alertCtrl= [UIAlertController alertControllerWithTitle:@"Memory Low"
-//                                                                                  message:@"Scanning will be stopped to avoid loss."
-//                                                                           preferredStyle:UIAlertControllerStyleAlert];
-//
-//                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK"
-//                                                                   style:UIAlertActionStyleDefault
-//                                                                 handler:^(UIAlertAction *action)
-//                                           {
-////                                               _slamState.showingMemoryWarning = false;
-////                                               [self enterViewingState];
-//                                           }];
-//
-//
-//                [alertCtrl addAction:okAction];
-//
-//                // show the alert
-//                [self presentViewController:alertCtrl animated:YES completion:nil];
-//            }
-//
-//            break;
-//        }
-//        default:
-//        {
-//            // not much we can do here
-//        }
-//    }
+
 }
 @end
