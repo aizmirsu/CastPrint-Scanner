@@ -13,6 +13,7 @@
 
 @protocol ScanTableViewDelegate <NSObject>
 - (void)setSelectedDateScans: (NSMutableArray *)dateScanArray;
+- (void)emptySelectedScans;
 
 @end
 

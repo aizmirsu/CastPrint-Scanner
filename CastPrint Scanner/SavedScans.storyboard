@@ -104,12 +104,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="M67-97-6TO">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="c4d-K6-na9">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="c4d-K6-na9">
                             <connections>
                                 <action selector="cancelButtonPushed:" destination="hb3-bT-iqt" id="AHQ-Ae-HXO"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="j20-SK-B4o"/>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="c4d-K6-na9" id="XKh-dd-eCq"/>

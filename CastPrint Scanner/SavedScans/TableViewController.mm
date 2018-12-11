@@ -26,11 +26,20 @@
     // Get context
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     _context = _appDelegate.persistentContainer.viewContext;
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     self.scanDates = [[NSMutableArray alloc] init];
     self.scanDict = [[NSMutableDictionary alloc] init];
     
@@ -59,6 +68,20 @@
     NSLog(@"%@", self.scanDict);
     
     [self.scanDateTable reloadData];
+}
+
+-(void)deleteScansInDate:(NSString *)scanDate
+{
+    NSMutableArray *scanArray = [self.scanDict objectForKey:scanDate];
+    for (NSManagedObject *savedScan in scanArray)
+    {
+        [self deleteScanData:savedScan];
+    }
+}
+
+-(void)deleteScanData:(NSManagedObject*)scanObject
+{
+    [_context deleteObject:scanObject];
 }
 
 #pragma mark - UI Callbacks
@@ -100,5 +123,14 @@
     [self.delegate setSelectedDateScans:[self.scanDict objectForKey:[NSString stringWithFormat:@"%@", scanDateString]]];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        [self deleteScansInDate:[NSString stringWithFormat:@"%@", [self.scanDates objectAtIndex:indexPath.row]]];
+        [self.delegate emptySelectedScans];
+        [_scanDates removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 
 @end

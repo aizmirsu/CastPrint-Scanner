@@ -22,6 +22,11 @@
     [super viewDidLoad];
     
     self.scansCollectionView.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     [self.scansCollectionView reloadData];
 }
@@ -32,6 +37,12 @@
 {
     NSLog(@"%@", dateScanArray);
     _scansArray = dateScanArray;
+    [self.scansCollectionView reloadData];
+}
+
+- (void)emptySelectedScans
+{
+     _scansArray = nil;
     [self.scansCollectionView reloadData];
 }
 
