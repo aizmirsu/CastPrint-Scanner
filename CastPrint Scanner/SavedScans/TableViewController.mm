@@ -26,6 +26,7 @@
     // Get context
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     _context = _appDelegate.persistentContainer.viewContext;
+    _fileManager = [NSFileManager new];
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
@@ -40,6 +41,11 @@
 {
     [super viewWillAppear:animated];
     
+    [self updateScansData];
+}
+
+-(void)updateScansData
+{
     self.scanDates = [[NSMutableArray alloc] init];
     self.scanDict = [[NSMutableDictionary alloc] init];
     
@@ -81,7 +87,21 @@
 
 -(void)deleteScanData:(NSManagedObject*)scanObject
 {
-    [_context deleteObject:scanObject];
+    NSError* error = nil;
+    NSDate *creationDate = [scanObject valueForKey:@"date"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy_MM_dd_HH_mm_ss"];
+    NSString *savingTimeString = [dateFormatter stringFromDate:creationDate];
+    
+    NSString *currentDir = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0];
+    NSString *deletableDir = [currentDir stringByAppendingPathComponent:savingTimeString];
+
+    [_fileManager removeItemAtPath:deletableDir error:&error];
+    
+    if (![_fileManager fileExistsAtPath:deletableDir isDirectory:(BOOL *)true])
+    {
+        [_context deleteObject:scanObject];
+    }
 }
 
 #pragma mark - UI Callbacks
@@ -127,9 +147,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //add code here for when you hit delete
         [self deleteScansInDate:[NSString stringWithFormat:@"%@", [self.scanDates objectAtIndex:indexPath.row]]];
-        [self.delegate emptySelectedScans];
+        [self.delegate emptySelectedDetails];
         [_scanDates removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self updateScansData];
     }
 }
 

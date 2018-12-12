@@ -343,21 +343,21 @@ namespace
     // Keep the current render mode
     MeshRenderer::RenderingMode previousRenderingMode = _renderer->getRenderingMode();
     
-    STMesh* meshToRender = _mesh;
-    
-    // Screenshot rendering mode, always use colors if possible.
-    if ([meshToRender hasPerVertexUVTextureCoords] && [meshToRender meshYCbCrTexture])
-    {
-        _renderer->setRenderingMode( MeshRenderer::RenderingModeTextured );
-    }
-    else if ([meshToRender hasPerVertexColors])
-    {
-        _renderer->setRenderingMode( MeshRenderer::RenderingModePerVertexColor );
-    }
-    else // meshToRender can be nil if there is no available color mesh.
-    {
+//    STMesh* meshToRender = _mesh;
+//
+//    // Screenshot rendering mode, always use colors if possible.
+//    if ([meshToRender hasPerVertexUVTextureCoords] && [meshToRender meshYCbCrTexture])
+//    {
+//        _renderer->setRenderingMode( MeshRenderer::RenderingModeTextured );
+//    }
+//    else if ([meshToRender hasPerVertexColors])
+//    {
+//        _renderer->setRenderingMode( MeshRenderer::RenderingModePerVertexColor );
+//    }
+//    else // meshToRender can be nil if there is no available color mesh.
+//    {
         _renderer->setRenderingMode( MeshRenderer::RenderingModeLightedGray );
-    }
+//    }
     
     // Render from the initial viewpoint for the screenshot.
     _renderer->clear();
@@ -599,21 +599,56 @@ namespace
 
 - (IBAction)saveButtonPushed:(id)sender
 {
-    // Create a new managed object
-    NSManagedObject *newScan = [NSEntityDescription insertNewObjectForEntityForName:@"Scan" inManagedObjectContext:_context];
-    [newScan setValue:@"Test" forKey:@"name"];
-//    NSLocale* currentLocale = [NSLocale currentLocale];
-    [newScan setValue:[NSDate date] forKey:@"date"];
-    
-    NSError *error = nil;
     // Save the object to persistent store
-    if (![_context save:&error]) {
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
-    else
+    if ([self saveMeshData])
     {
         [self dismissView];
     }
+}
+
+-(BOOL)saveMeshData
+{
+    // Setup paths and filenames.
+    NSDate *savingTimeDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy_MM_dd_HH_mm_ss"];
+    NSString *savingTimeString = [dateFormatter stringFromDate:savingTimeDate];
+    NSString* screenshotFilename = @"Preview.jpg";
+    
+    //    NSString* zipFilename = @"Model.zip";
+    
+    NSFileManager* fm = [NSFileManager new];
+    NSError* error = nil;
+    NSURL* docsurl =[fm URLForDirectory:NSDocumentDirectory
+                               inDomain:NSUserDomainMask appropriateForURL:nil
+                                 create:YES error:&error];
+    NSURL* scanDirectoryUrl = [docsurl URLByAppendingPathComponent:[NSString stringWithFormat: @"%@", savingTimeString]];
+    
+    if (![fm createDirectoryAtURL:scanDirectoryUrl
+      withIntermediateDirectories:YES attributes:nil error:&error])
+    {
+        NSLog(@"Can't Create folder for scan! %@ %@", error, [error localizedDescription]);
+        return false;
+    }
+    
+    //    NSString *zipPath = [cacheDirectory stringByAppendingPathComponent:zipFilename];
+    NSURL *screenshotURL = [scanDirectoryUrl URLByAppendingPathComponent:screenshotFilename];
+    
+    // Take a screenshot and save it to disk.
+    [self prepareScreenShot:[screenshotURL path]];
+    
+    // Create a new managed object
+    NSManagedObject *newScan = [NSEntityDescription insertNewObjectForEntityForName:@"Scan" inManagedObjectContext:_context];
+    [newScan setValue:@"Nosaukums" forKey:@"name"];
+    [newScan setValue:[NSDate date] forKey:@"date"];
+    [newScan setValue:screenshotURL forKey:@"scanImg"];
+
+    // Save the object to persistent store
+    if (![_context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+        return false;
+    }
+    return true;
 }
 
 - (void)colorizeMesh

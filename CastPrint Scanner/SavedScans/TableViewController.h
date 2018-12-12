@@ -13,7 +13,7 @@
 
 @protocol ScanTableViewDelegate <NSObject>
 - (void)setSelectedDateScans: (NSMutableArray *)dateScanArray;
-- (void)emptySelectedScans;
+- (void)emptySelectedDetails;
 
 @end
 
@@ -21,6 +21,7 @@
 {
     AppDelegate *_appDelegate;
     NSManagedObjectContext *_context;
+    NSFileManager *_fileManager;
     
 }
 

@@ -40,7 +40,7 @@
     [self.scansCollectionView reloadData];
 }
 
-- (void)emptySelectedScans
+- (void)emptySelectedDetails
 {
      _scansArray = nil;
     [self.scansCollectionView reloadData];
@@ -61,6 +61,10 @@
     // Configure the cell...
     NSManagedObject *scan = [self.scansArray objectAtIndex:indexPath.row];
     [cell.scanLabel setText:[NSString stringWithFormat:@"%@", [scan valueForKey:@"date"]]];
+    NSString *imgPath = [[scan valueForKey:@"scanImg"] path];
+//    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:imgPath]];
+    UIImage *image = [UIImage imageWithContentsOfFile:imgPath];
+    [cell.scanImageView setImage:image];
     cell.backgroundColor = [UIColor blueColor];
     
     return cell; 

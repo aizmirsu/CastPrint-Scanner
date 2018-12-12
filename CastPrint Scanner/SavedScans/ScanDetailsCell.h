@@ -11,5 +11,6 @@
 @interface ScanDetailsCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *scanLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *scanImageView;
 
 @end
