@@ -15,6 +15,7 @@
                 <outlet property="holeFillingSwitch" destination="fSV-Iy-Lfr" id="FWG-Uy-rCe"/>
                 <outlet property="meshViewerMessageLabel" destination="sQh-H6-u1T" id="eMH-bO-E4y"/>
                 <outlet property="saveButton" destination="LwQ-Ev-KMQ" id="8mj-iy-ghL"/>
+                <outlet property="scanName" destination="hKC-Mz-2Kj" id="LBk-fd-npt"/>
                 <outlet property="view" destination="1" id="L7f-Ij-c22"/>
             </connections>
         </placeholder>
@@ -66,11 +67,21 @@
                                 <action selector="saveButtonPushed:" destination="-1" eventType="touchUpInside" id="TMe-em-mfm"/>
                             </connections>
                         </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hKC-Mz-2Kj">
+                            <rect key="frame" x="338" y="16.666666666666629" width="99" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="RVs-Cy-Rz1"/>
+                            </constraints>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20293771399999999" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="DeE-lF-zY0" firstAttribute="leading" secondItem="fSV-Iy-Lfr" secondAttribute="trailing" constant="8" id="1U9-t9-fKH"/>
                         <constraint firstAttribute="trailing" secondItem="LwQ-Ev-KMQ" secondAttribute="trailing" constant="20" id="5FF-Bf-Zlp"/>
+                        <constraint firstItem="hKC-Mz-2Kj" firstAttribute="leading" secondItem="wR9-gR-GG4" secondAttribute="trailing" constant="30" id="AKS-Uy-rg7"/>
                         <constraint firstItem="wR9-gR-GG4" firstAttribute="centerY" secondItem="fSV-Iy-Lfr" secondAttribute="centerY" id="PIk-ZA-5Zs"/>
                         <constraint firstAttribute="bottom" secondItem="fSV-Iy-Lfr" secondAttribute="bottom" constant="15" id="V1Y-kU-PW5"/>
                         <constraint firstItem="DeE-lF-zY0" firstAttribute="centerY" secondItem="fSV-Iy-Lfr" secondAttribute="centerY" id="WdX-01-1wc"/>
@@ -81,6 +92,8 @@
                         <constraint firstItem="fSV-Iy-Lfr" firstAttribute="top" secondItem="T43-1T-fMK" secondAttribute="top" constant="15" id="mdN-pp-KRY"/>
                         <constraint firstItem="LwQ-Ev-KMQ" firstAttribute="leading" secondItem="wR9-gR-GG4" secondAttribute="trailing" constant="159" id="qao-zL-BDi"/>
                         <constraint firstItem="LwQ-Ev-KMQ" firstAttribute="centerY" secondItem="fSV-Iy-Lfr" secondAttribute="centerY" id="sb8-WM-70y"/>
+                        <constraint firstItem="hKC-Mz-2Kj" firstAttribute="centerY" secondItem="LwQ-Ev-KMQ" secondAttribute="centerY" constant="1" id="tAe-We-svb"/>
+                        <constraint firstItem="LwQ-Ev-KMQ" firstAttribute="leading" secondItem="hKC-Mz-2Kj" secondAttribute="trailing" constant="30" id="wfv-9L-P4m"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

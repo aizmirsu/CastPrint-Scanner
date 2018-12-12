@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *XRaySwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *holeFillingSwitch;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UITextField *scanName;
 
 + (instancetype)viewController;
 

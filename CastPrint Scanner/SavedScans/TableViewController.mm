@@ -34,7 +34,12 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    if (self.scanDates.count > 0)
+    {
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
+        [_scanDateTable selectRowAtIndexPath:indexPath animated:YES  scrollPosition:UITableViewScrollPositionBottom];
+        [self tableView:_scanDateTable didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

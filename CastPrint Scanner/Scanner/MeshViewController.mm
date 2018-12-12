@@ -244,6 +244,7 @@ namespace
     
     self.mesh = nil;
     self.holeFilledMesh = nil;
+    self.scanName.text = @"";
     
     [(EAGLView *)self.view setContext:nil];
     
@@ -683,7 +684,7 @@ namespace
     
     // Create a new managed object
     NSManagedObject *newScan = [NSEntityDescription insertNewObjectForEntityForName:@"Scan" inManagedObjectContext:_context];
-    [newScan setValue:@"Nosaukums" forKey:@"name"];
+    [newScan setValue:_scanName.text forKey:@"name"];
     [newScan setValue:[NSDate date] forKey:@"date"];
     [newScan setValue:[NSURL fileURLWithPath:[savingTimeString stringByAppendingPathComponent:screenshotFilename]] forKey:@"scanImg"];
     [newScan setValue:[NSURL fileURLWithPath:[savingTimeString stringByAppendingPathComponent:meshFilename]] forKey:@"scanObj"];
