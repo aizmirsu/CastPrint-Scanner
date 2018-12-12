@@ -81,7 +81,7 @@
     NSString *savingTimeString = [dateFormatter stringFromDate:[scanObj valueForKey:@"date"]];
     [cell.scanDateLabel setText:savingTimeString];
     
-    cell.backgroundColor = [UIColor blueColor];
+    cell.backgroundColor = [UIColor grayColor];
     
     return cell; 
 }

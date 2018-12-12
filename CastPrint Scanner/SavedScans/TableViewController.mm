@@ -27,6 +27,7 @@
     _appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     _context = _appDelegate.persistentContainer.viewContext;
     _fileManager = [NSFileManager new];
+    _trySelectFirstRecordInTable = true;
     
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
@@ -34,8 +35,9 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.scanDates.count > 0)
+    if (self.scanDates.count > 0 && _trySelectFirstRecordInTable)
     {
+        _trySelectFirstRecordInTable = false;
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
         [_scanDateTable selectRowAtIndexPath:indexPath animated:YES  scrollPosition:UITableViewScrollPositionBottom];
         [self tableView:_scanDateTable didSelectRowAtIndexPath:indexPath];
@@ -108,6 +110,11 @@
     {
         [_context deleteObject:scanObject];
     }
+}
+
+-(void)selectFirstRecordInTable:(BOOL)trySelectFirst
+{
+    _trySelectFirstRecordInTable = trySelectFirst;
 }
 
 -(NSArray*)arrayOfFoldersInFolder:(NSString*) folder {

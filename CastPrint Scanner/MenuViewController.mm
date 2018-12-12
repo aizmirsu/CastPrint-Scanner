@@ -135,9 +135,9 @@
     
     DetailViewController *detailViewController = (DetailViewController *) [_splitViewController.viewControllers lastObject];
     
-    TableViewController *masterViewController = (TableViewController *) [[_splitViewController.viewControllers firstObject] topViewController];
+    _tableViewController = (TableViewController *) [[_splitViewController.viewControllers firstObject] topViewController];
     
-    masterViewController.delegate = detailViewController;
+    _tableViewController.delegate = detailViewController;
     
 }
 
@@ -148,6 +148,7 @@
 #pragma mark - UI Callbacks
 
 - (IBAction)savedViewButtonPushed:(id)sender {
+    [_tableViewController selectFirstRecordInTable:true];
     [self presentViewController:_splitViewController animated:YES completion:NULL];
 }
 

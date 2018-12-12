@@ -14,6 +14,7 @@
 #import "Scanner/ScanViewController+Sensor.h"
 //#import "Scanner/CalibrationOverlay.h"
 #import "Scanner/MeshViewController.h"
+#import "SavedScans/TableViewController.h"
 
 // See default initialization in: -(void)initializeDynamicOptions
 
@@ -39,6 +40,7 @@
 {
     ScanViewController *_scanViewController;
     UISplitViewController *_splitViewController;
+    TableViewController *_tableViewController;
     
     // Structure Sensor controller.
     STSensorController *_sensorController;

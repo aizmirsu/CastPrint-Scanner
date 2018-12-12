@@ -22,7 +22,7 @@
     AppDelegate *_appDelegate;
     NSManagedObjectContext *_context;
     NSFileManager *_fileManager;
-    
+    BOOL _trySelectFirstRecordInTable;
 }
 
 @property (nonatomic, assign) id<ScanTableViewDelegate> delegate;
@@ -34,5 +34,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *scanDateTable;
 
 - (IBAction)cancelButtonPushed:(id)sender;
+
+-(void)selectFirstRecordInTable:(BOOL)trySelectFirst;
 
 @end
