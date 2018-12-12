@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TableViewController.h" //UISplitViewControllerDelegate
 #import "ScanDetailsCell.h"
+#import "SavedMeshViewController.h"
 
 @interface DetailViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, ScanTableViewDelegate>
 {
     NSString *_cacheDirectory;
+    SavedMeshViewController *_savedMeshViewController;
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *scansCollectionView;

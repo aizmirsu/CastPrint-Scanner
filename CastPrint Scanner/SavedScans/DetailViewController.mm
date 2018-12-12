@@ -23,6 +23,7 @@
     
     self.scansCollectionView.delegate = self;
     _cacheDirectory = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0];
+    [self setupSavedMeshViewController];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -30,6 +31,11 @@
     [super viewWillAppear:animated];
     
     [self.scansCollectionView reloadData];
+}
+
+- (void)setupSavedMeshViewController
+{
+    _savedMeshViewController = [SavedMeshViewController viewController];
 }
 
 #pragma mark - ScanTableViewDelegate
@@ -84,8 +90,10 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *selected = [self.scansArray objectAtIndex:indexPath.row];
+    NSManagedObject *selected = [self.scansArray objectAtIndex:indexPath.row];
     NSLog(@"selected=%@", selected);
+    _savedMeshViewController.scanObj = [self.scansArray objectAtIndex:indexPath.row];
+    [self presentViewController:_savedMeshViewController animated:YES completion:NULL];
 }
 
 @end

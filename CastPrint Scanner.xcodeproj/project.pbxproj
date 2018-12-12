@@ -47,6 +47,8 @@
 		2FAC655E21BDFB1600E32A4C /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC655D21BDFB1600E32A4C /* TableViewController.mm */; };
 		2FAC656421BFE5FA00E32A4C /* DetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656321BFE5FA00E32A4C /* DetailViewController.mm */; };
 		2FAC656621BFEC7900E32A4C /* ScanDetailsCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */; };
+		2FAC656A21C140EF00E32A4C /* SavedMeshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FAC656921C140EF00E32A4C /* SavedMeshView.xib */; };
+		2FAC656C21C1411500E32A4C /* SavedMeshViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656B21C1411500E32A4C /* SavedMeshViewController.mm */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
@@ -123,6 +125,9 @@
 		2FAC656321BFE5FA00E32A4C /* DetailViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DetailViewController.mm; sourceTree = "<group>"; };
 		2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ScanDetailsCell.mm; sourceTree = "<group>"; };
 		2FAC656721BFEC9200E32A4C /* ScanDetailsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanDetailsCell.h; sourceTree = "<group>"; };
+		2FAC656921C140EF00E32A4C /* SavedMeshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedMeshView.xib; sourceTree = "<group>"; };
+		2FAC656B21C1411500E32A4C /* SavedMeshViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedMeshViewController.mm; sourceTree = "<group>"; };
+		2FAC656D21C1412C00E32A4C /* SavedMeshViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedMeshViewController.h; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -286,6 +291,8 @@
 				2FAC656321BFE5FA00E32A4C /* DetailViewController.mm */,
 				2FAC656721BFEC9200E32A4C /* ScanDetailsCell.h */,
 				2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */,
+				2FAC656D21C1412C00E32A4C /* SavedMeshViewController.h */,
+				2FAC656B21C1411500E32A4C /* SavedMeshViewController.mm */,
 			);
 			path = SavedScans;
 			sourceTree = "<group>";
@@ -302,6 +309,7 @@
 				6F03CB791862832600518C22 /* main.m */,
 				6F03CB7D1862832600518C22 /* Scanner-Prefix.pch */,
 				2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */,
+				2FAC656921C140EF00E32A4C /* SavedMeshView.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -397,6 +405,7 @@
 				2F7CFC0A21B96EB50090548B /* MenuView.xib in Resources */,
 				438C049C18723EB10062E958 /* ScanView.xib in Resources */,
 				435307C91872825B00B04481 /* Default@2x.png in Resources */,
+				2FAC656A21C140EF00E32A4C /* SavedMeshView.xib in Resources */,
 				6F03CB911862832600518C22 /* Splash.png in Resources */,
 				435307C71872825B00B04481 /* Default-568h@2x.png in Resources */,
 			);
@@ -419,6 +428,7 @@
 				6F03CB7E1862832600518C22 /* EAGLView.mm in Sources */,
 				2DE057BD199E58E100137F8F /* ViewpointController.mm in Sources */,
 				2AB955C5184E573A003DA089 /* MeshViewController.mm in Sources */,
+				2FAC656C21C1411500E32A4C /* SavedMeshViewController.mm in Sources */,
 				2A1557BD1A37D198007C485A /* ScanViewController+OpenGL.mm in Sources */,
 				2FAC652D21BD3CDC00E32A4C /* CPScanner.xcdatamodeld in Sources */,
 				2AEF46201A127B4900CAF953 /* ScanViewController+SLAM.mm in Sources */,
