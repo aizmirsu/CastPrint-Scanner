@@ -22,6 +22,7 @@
     [super viewDidLoad];
     
     self.scansCollectionView.delegate = self;
+    _cacheDirectory = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,12 +60,21 @@
     ScanDetailsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    NSManagedObject *scan = [self.scansArray objectAtIndex:indexPath.row];
-    [cell.scanLabel setText:[NSString stringWithFormat:@"%@", [scan valueForKey:@"date"]]];
-    NSString *imgPath = [[scan valueForKey:@"scanImg"] path];
+    NSManagedObject *scanObj = [self.scansArray objectAtIndex:indexPath.row];
+    
+    // label
+    [cell.scanLabel setText:[scanObj valueForKey:@"name"]];
+    // image
+    NSString *imgPath = [_cacheDirectory stringByAppendingPathComponent:[[scanObj valueForKey:@"scanImg"] path]];
 //    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:imgPath]];
     UIImage *image = [UIImage imageWithContentsOfFile:imgPath];
     [cell.scanImageView setImage:image];
+    // datetime
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *savingTimeString = [dateFormatter stringFromDate:[scanObj valueForKey:@"date"]];
+    [cell.scanDateLabel setText:savingTimeString];
+    
     cell.backgroundColor = [UIColor blueColor];
     
     return cell; 

@@ -11,7 +11,9 @@
 #import "ScanDetailsCell.h"
 
 @interface DetailViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, ScanTableViewDelegate>
-{}
+{
+    NSString *_cacheDirectory;
+}
 
 @property (weak, nonatomic) IBOutlet UICollectionView *scansCollectionView;
 

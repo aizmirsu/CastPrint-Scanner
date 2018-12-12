@@ -679,7 +679,7 @@
 
 - (void)meshViewDidRequestRegularMesh
 {
-    [_meshViewController setMesh:_regularMesh];
+    [_meshViewController switchFilledMesh:false];
 }
 
 - (void)meshViewDidRequestHoleFilling
@@ -687,7 +687,7 @@
     if (_holeFilledMesh)
     {
         // If already available, just re-upload it.
-        [_meshViewController setMesh:_holeFilledMesh];
+        [_meshViewController switchFilledMesh:true];
     }
     else
     {
@@ -796,7 +796,7 @@
 
 - (void)holeFillingDone
 {
-    [_meshViewController setMesh:_holeFilledMesh];
+    _meshViewController.holeFilledMesh = _holeFilledMesh;
     [_meshViewController hideMeshViewerMessage];
     [_meshViewController.holeFillingSwitch setEnabled:YES];
 }

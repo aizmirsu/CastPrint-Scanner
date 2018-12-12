@@ -62,6 +62,7 @@ namespace
 @interface MeshViewController ()
 {
     STMesh *_mesh;
+    STMesh *_holeFilledMesh;
     CADisplayLink *_displayLink;
     MeshRenderer *_renderer;
     ViewpointController *_viewpointController;
@@ -81,6 +82,7 @@ namespace
 @implementation MeshViewController
 
 @synthesize mesh = _mesh;
+@synthesize holeFilledMesh = _holeFilledMesh;
 
 + (instancetype)viewController {
     MeshViewController *vc = [[MeshViewController alloc] initWithNibName:@"MeshView" bundle:nil];
@@ -241,6 +243,7 @@ namespace
     _displayLink = nil;
     
     self.mesh = nil;
+    self.holeFilledMesh = nil;
     
     [(EAGLView *)self.view setContext:nil];
     
@@ -274,6 +277,31 @@ namespace
 
         self.needsDisplay = TRUE;
     }
+}
+
+- (void)setHoleFilledMesh:(STMesh *)meshRef
+{
+    _holeFilledMesh = meshRef;
+    
+    if (meshRef)
+    {
+        _renderer->uploadMesh(meshRef);
+        
+        self.needsDisplay = TRUE;
+    }
+}
+
+- (void)switchFilledMesh:(BOOL)holeFilledMesh
+{
+    if (holeFilledMesh && _holeFilledMesh)
+    {
+        _renderer->uploadMesh(_holeFilledMesh);
+    }
+    else
+    {
+        _renderer->uploadMesh(_mesh);
+    }
+    self.needsDisplay = TRUE;
 }
 
 #pragma mark - Open OBJ file
@@ -614,8 +642,8 @@ namespace
     [dateFormatter setDateFormat:@"yyyy_MM_dd_HH_mm_ss"];
     NSString *savingTimeString = [dateFormatter stringFromDate:savingTimeDate];
     NSString* screenshotFilename = @"Preview.jpg";
-    
-    //    NSString* zipFilename = @"Model.zip";
+    NSString* meshFilename = @"Model.obj";
+    NSString* filledMeshFilename = @"FilledModel.obj";
     
     NSFileManager* fm = [NSFileManager new];
     NSError* error = nil;
@@ -637,11 +665,30 @@ namespace
     // Take a screenshot and save it to disk.
     [self prepareScreenShot:[screenshotURL path]];
     
+    // Request OBJ file.
+    NSDictionary* options = @{
+                              kSTMeshWriteOptionFileFormatKey: @( STMeshWriteOptionFileFormatObjFile),
+                              kSTMeshWriteOptionUseXRightYUpConventionKey: @YES
+                              };
+
+    NSURL *meshURL = [scanDirectoryUrl URLByAppendingPathComponent:meshFilename];
+    BOOL success = [_mesh writeToFile:[meshURL path] options:options error:&error];
+    if (!success)
+    {
+        NSLog(@"Can't save model for scan! %@ %@", error, [error localizedDescription]);
+        return false;
+    }
+    NSURL *filledMeshURL = [scanDirectoryUrl URLByAppendingPathComponent:filledMeshFilename];
+    BOOL filled = [_holeFilledMesh writeToFile:[filledMeshURL path] options:options error:&error];
+    
     // Create a new managed object
     NSManagedObject *newScan = [NSEntityDescription insertNewObjectForEntityForName:@"Scan" inManagedObjectContext:_context];
     [newScan setValue:@"Nosaukums" forKey:@"name"];
     [newScan setValue:[NSDate date] forKey:@"date"];
-    [newScan setValue:screenshotURL forKey:@"scanImg"];
+    [newScan setValue:[NSURL fileURLWithPath:[savingTimeString stringByAppendingPathComponent:screenshotFilename]] forKey:@"scanImg"];
+    [newScan setValue:[NSURL fileURLWithPath:[savingTimeString stringByAppendingPathComponent:meshFilename]] forKey:@"scanObj"];
+    if (filled)
+        [newScan setValue:[NSURL fileURLWithPath:[savingTimeString stringByAppendingPathComponent:filledMeshFilename]] forKey:@"scanObjFilled"];
 
     // Save the object to persistent store
     if (![_context save:&error]) {

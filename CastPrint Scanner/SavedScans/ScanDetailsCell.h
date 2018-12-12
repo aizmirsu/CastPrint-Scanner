@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *scanLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *scanImageView;
+@property (weak, nonatomic) IBOutlet UILabel *scanDateLabel;
 
 @end

@@ -28,6 +28,7 @@
 @property (nonatomic) BOOL needsDisplay; // force the view to redraw.
 @property (nonatomic) BOOL colorEnabled;
 @property (nonatomic) STMesh * mesh;
+@property (nonatomic) STMesh *holeFilledMesh;
 
 //@property UIDocumentInteractionController* documentInteractionController;
 
@@ -45,7 +46,7 @@
 - (void)showMeshViewerMessage:(NSString *)msg;
 - (void)hideMeshViewerMessage;
 
-- (void)setMesh:(STMesh *)meshRef;
+- (void)switchFilledMesh:(BOOL)holeFilledMesh;
 
 - (void)setCameraProjectionMatrix:(GLKMatrix4)projRt;
 - (void)resetMeshCenter:(GLKVector3)center;
