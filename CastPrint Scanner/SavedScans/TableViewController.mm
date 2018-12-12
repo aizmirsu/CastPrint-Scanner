@@ -94,6 +94,7 @@
     NSString *savingTimeString = [dateFormatter stringFromDate:creationDate];
     
     NSString *currentDir = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0];
+    NSLog(@"%@", [self arrayOfFoldersInFolder:currentDir]);
     NSString *deletableDir = [currentDir stringByAppendingPathComponent:savingTimeString];
 
     [_fileManager removeItemAtPath:deletableDir error:&error];
@@ -102,6 +103,24 @@
     {
         [_context deleteObject:scanObject];
     }
+}
+
+-(NSArray*)arrayOfFoldersInFolder:(NSString*) folder {
+    NSError* error = nil;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray* files = [fm contentsOfDirectoryAtPath:folder error:&error];
+    NSMutableArray *directoryList = [NSMutableArray arrayWithCapacity:10];
+    
+    for(NSString *file in files) {
+        NSString *path = [folder stringByAppendingPathComponent:file];
+        BOOL isDir = NO;
+        [fm fileExistsAtPath:path isDirectory:(&isDir)];
+        if(isDir) {
+            [directoryList addObject:file];
+        }
+    }
+    
+    return directoryList;
 }
 
 #pragma mark - UI Callbacks
