@@ -49,6 +49,8 @@
 		2FAC656621BFEC7900E32A4C /* ScanDetailsCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656521BFEC7900E32A4C /* ScanDetailsCell.mm */; };
 		2FAC656A21C140EF00E32A4C /* SavedMeshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FAC656921C140EF00E32A4C /* SavedMeshView.xib */; };
 		2FAC656C21C1411500E32A4C /* SavedMeshViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2FAC656B21C1411500E32A4C /* SavedMeshViewController.mm */; };
+		2FAC659321C18CA600E32A4C /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAC659221C18CA600E32A4C /* SceneKit.framework */; };
+		2FAC659521C18D3800E32A4C /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAC659421C18D3800E32A4C /* ModelIO.framework */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
 		435307C71872825B00B04481 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C31872825B00B04481 /* Default-568h@2x.png */; };
 		435307C81872825B00B04481 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */; };
@@ -128,6 +130,8 @@
 		2FAC656921C140EF00E32A4C /* SavedMeshView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedMeshView.xib; sourceTree = "<group>"; };
 		2FAC656B21C1411500E32A4C /* SavedMeshViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SavedMeshViewController.mm; sourceTree = "<group>"; };
 		2FAC656D21C1412C00E32A4C /* SavedMeshViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedMeshViewController.h; sourceTree = "<group>"; };
+		2FAC659221C18CA600E32A4C /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		2FAC659421C18D3800E32A4C /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FAC659521C18D3800E32A4C /* ModelIO.framework in Frameworks */,
+				2FAC659321C18CA600E32A4C /* SceneKit.framework in Frameworks */,
 				2FAC650521BD3BB800E32A4C /* CoreData.framework in Frameworks */,
 				2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */,
 				77AAADA51CA5AFC500D91B6C /* Metal.framework in Frameworks */,
@@ -199,6 +205,8 @@
 		2AFC8D76176F966000F7F3B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2FAC659421C18D3800E32A4C /* ModelIO.framework */,
+				2FAC659221C18CA600E32A4C /* SceneKit.framework */,
 				2FAC650421BD3BB800E32A4C /* CoreData.framework */,
 				2FD5688A21AD87E2003EFC27 /* Structure.framework */,
 				77AAADA41CA5AFC500D91B6C /* Metal.framework */,
@@ -301,15 +309,15 @@
 			isa = PBXGroup;
 			children = (
 				6F03CB601862832600518C22 /* Graphics */,
-				2FAC650021BC6C4900E32A4C /* MeshView.xib */,
-				438C049818723EB10062E958 /* ScanView.xib */,
 				2F7CFC0C21B96EB50090548B /* MenuView.xib */,
+				438C049818723EB10062E958 /* ScanView.xib */,
+				2FAC650021BC6C4900E32A4C /* MeshView.xib */,
+				2FAC656921C140EF00E32A4C /* SavedMeshView.xib */,
+				2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */,
 				6F03CB7C1862832600518C22 /* CastPrintScanner-Info.plist */,
 				6F03CB571862823000518C22 /* InfoPlist.strings */,
 				6F03CB791862832600518C22 /* main.m */,
 				6F03CB7D1862832600518C22 /* Scanner-Prefix.pch */,
-				2FAC655621BDEE0700E32A4C /* SavedScans.storyboard */,
-				2FAC656921C140EF00E32A4C /* SavedMeshView.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

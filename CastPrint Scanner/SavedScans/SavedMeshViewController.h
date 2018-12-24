@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ModelIO/ModelIO.h>
+#import <SceneKit/ModelIO.h>
+#import <SceneKit/SceneKit.h>
+#import <GLKit/GLKit.h>
 #import "AppDelegate.h"
 
-@interface SavedMeshViewController : UIViewController
+@interface SavedMeshViewController : UIViewController <SCNSceneRendererDelegate>
 {
 //    AppDelegate *_appDelegate;
 //    NSManagedObjectContext *_context;
@@ -18,15 +22,16 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *scanDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scanNameLabel;
-
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet SCNView *scanSceneView;
 
 + (instancetype)viewController;
 
 @property (nonatomic) NSManagedObject *scanObj;
+@property (nonatomic) SCNNode *objectNode;
+//@property (nonatomic) SCNNode *cameraNode;
 
 
-//- (IBAction)cancelButtonPushed:(id)sender;
 - (IBAction)backButtonPushed:(id)sender;
 
 @end

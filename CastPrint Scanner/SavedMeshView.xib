@@ -14,6 +14,7 @@
                 <outlet property="backButton" destination="Y3i-x8-Y4X" id="T1E-U7-9AG"/>
                 <outlet property="scanDateLabel" destination="GU9-wn-zv5" id="bzg-w9-Sy2"/>
                 <outlet property="scanNameLabel" destination="cml-92-KvQ" id="3Nh-fd-lMb"/>
+                <outlet property="scanSceneView" destination="GS1-Hl-fGs" id="ZrK-R5-uDn"/>
                 <outlet property="view" destination="iN0-l3-epB" id="v2j-sW-efJ"/>
             </connections>
         </placeholder>
@@ -22,6 +23,9 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" loops="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GS1-Hl-fGs">
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                </sceneKitView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3i-x8-Y4X">
                     <rect key="frame" x="42" y="66" width="93" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -40,7 +44,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cml-92-KvQ">
-                    <rect key="frame" x="214" y="146" width="328" height="35"/>
+                    <rect key="frame" x="214" y="36" width="328" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -48,6 +52,12 @@
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="GS1-Hl-fGs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PFj-6Y-8Vp"/>
+                <constraint firstAttribute="bottom" secondItem="GS1-Hl-fGs" secondAttribute="bottom" id="VfM-GO-08Z"/>
+                <constraint firstItem="GS1-Hl-fGs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="e2f-4V-WoD"/>
+                <constraint firstAttribute="trailing" secondItem="GS1-Hl-fGs" secondAttribute="trailing" id="zHS-Es-gOQ"/>
+            </constraints>
             <point key="canvasLocation" x="55.664062499999993" y="48.4375"/>
         </view>
     </objects>
