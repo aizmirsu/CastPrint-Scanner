@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Hole Filling"; ObjectID = "DeE-lF-zY0"; */
+"DeE-lF-zY0.text" = "Caurumu aizpildīšana";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "LwQ-Ev-KMQ"; */
+"LwQ-Ev-KMQ.normalTitle" = "Saglabāt";
+
+/* Class = "UILabel"; text = "Colorizing..."; ObjectID = "sQh-H6-u1T"; */
+"sQh-H6-u1T.text" = "Krāso...";
+
+/* Class = "UILabel"; text = "X-Ray View"; ObjectID = "wR9-gR-GG4"; */
+"wR9-gR-GG4.text" = "Poligonu skats";

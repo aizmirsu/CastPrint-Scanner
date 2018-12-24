@@ -130,6 +130,10 @@
 		2FAC656D21C1412C00E32A4C /* SavedMeshViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedMeshViewController.h; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
+		2FE0CCD321D121D7002D0B4F /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/MeshView.strings; sourceTree = "<group>"; };
+		2FE0CCD421D121D8002D0B4F /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/ScanView.strings; sourceTree = "<group>"; };
+		2FE0CCD521D121D8002D0B4F /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/MenuView.strings; sourceTree = "<group>"; };
+		2FE0CCD621D121D8002D0B4F /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = ../lv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		435307C31872825B00B04481 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		435307C41872825B00B04481 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		435307C51872825B00B04481 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				en,
 				global,
 				Base,
+				lv,
 			);
 			mainGroup = 2AFC8D6B176F966000F7F3B5;
 			productRefGroup = 2AFC8D75176F966000F7F3B5 /* Products */;
@@ -451,6 +456,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2F7CFC0B21B96EB50090548B /* Base */,
+				2FE0CCD521D121D8002D0B4F /* lv */,
 			);
 			name = MenuView.xib;
 			sourceTree = "<group>";
@@ -459,6 +465,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2FAC64FF21BC6C4900E32A4C /* Base */,
+				2FE0CCD321D121D7002D0B4F /* lv */,
 			);
 			name = MeshView.xib;
 			sourceTree = "<group>";
@@ -467,6 +474,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2FD5688921AD843C003EFC27 /* Base */,
+				2FE0CCD421D121D8002D0B4F /* lv */,
 			);
 			name = ScanView.xib;
 			sourceTree = "<group>";
@@ -475,6 +483,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6F03CB581862823000518C22 /* en */,
+				2FE0CCD621D121D8002D0B4F /* lv */,
 			);
 			name = InfoPlist.strings;
 			path = en.lproj;

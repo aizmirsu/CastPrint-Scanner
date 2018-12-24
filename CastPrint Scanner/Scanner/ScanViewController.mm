@@ -44,6 +44,8 @@
     [super viewDidLoad];
     
     _calibrationOverlay = nil;
+    CGAffineTransform trans = CGAffineTransformMakeRotation(-M_PI_2);
+    _sensorCubeRangeSlider.transform = trans;
 
     [self setupGL];
     

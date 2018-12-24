@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0Qx-Pf-e9V"; */
+"0Qx-Pf-e9V.text" = "Label";
+
+/* Class = "UILabel"; accessibilityLabel = "Battery"; ObjectID = "2xl-hg-4BD"; */
+"2xl-hg-4BD.accessibilityLabel" = "Baterija";
+
+/* Class = "UILabel"; text = "100%"; ObjectID = "2xl-hg-4BD"; */
+"2xl-hg-4BD.text" = "100%";
+
+/* Class = "UILabel"; text = "Range"; ObjectID = "5GO-8o-zaG"; */
+"5GO-8o-zaG.text" = "Attālums";
+
+/* Class = "UILabel"; text = "Tracking lost!\nTry to re-align or press reset."; ObjectID = "8b4-Zl-yJD"; */
+"8b4-Zl-yJD.text" = "Traucēta izsekošana!\nMēģiniet nolīdzināt skatu vai pārstartējat skenēšanu.";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "JGV-9O-3er"; */
+"JGV-9O-3er.text" = "Label";
+
+/* Class = "UILabel"; text = "Height"; ObjectID = "QoE-Ya-LN6"; */
+"QoE-Ya-LN6.text" = "Augstums";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TBu-Ym-KhE"; */
+"TBu-Ym-KhE.text" = "Label";
+
+/* Class = "UILabel"; text = "Width"; ObjectID = "Thf-NQ-TZM"; */
+"Thf-NQ-TZM.text" = "Platums";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "dQD-xx-bsa"; */
+"dQD-xx-bsa.normalTitle" = "< Atpakaļ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eRt-GL-bUi"; */
+"eRt-GL-bUi.text" = "Label";
+
+/* Class = "UILabel"; text = "Depth"; ObjectID = "j3N-bD-r2X"; */
+"j3N-bD-r2X.text" = "Dziļums";
+
+/* Class = "UILabel"; text = "Please Connect Structure Sensor"; ObjectID = "qar-sd-xxn"; */
+"qar-sd-xxn.text" = "Lūdzu pievienojiet Structure Sensor";
