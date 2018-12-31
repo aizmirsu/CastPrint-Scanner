@@ -92,13 +92,13 @@ namespace
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"")
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(dismissView)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UIBarButtonItem *emailButton = [[UIBarButtonItem alloc] initWithTitle:@"Email"
+    UIBarButtonItem *emailButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Email", @"")
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(emailMesh)];
@@ -113,7 +113,7 @@ namespace
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"Structure Sensor Scanner";
+        self.title = NSLocalizedString(@"Structure Sensor Scanner", @"");
     }
     
     return self;

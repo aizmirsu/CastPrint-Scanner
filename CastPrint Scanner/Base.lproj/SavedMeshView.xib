@@ -62,7 +62,7 @@
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="deleteButtonPushed:" destination="-1" eventType="touchUpInside" id="e7V-lT-QVn"/>
+                                <action selector="deleteButtonPushed:" destination="-1" eventType="touchUpInside" id="Zbw-9o-0R6"/>
                             </connections>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jhd-Z1-ofS">

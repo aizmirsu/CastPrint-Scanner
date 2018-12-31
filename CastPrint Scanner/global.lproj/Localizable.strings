@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  CastPrint Scanner
+
+  Created by Maija Obrumane on 31/12/2018.
+  Copyright © 2018 Occipital. All rights reserved.
+*/
+"Data added"="Data added";
+"Tracking Lost! Please Realign or Press Reset."="Tracking Lost! Please Realign or Press Reset.";
+"Please put the model back in view."="Please put the model back in view.";
+"Too close to the scene! Please step back."="Too close to the scene! Please step back.";
+"Please hold still so we can capture a keyframe..."="Please hold still so we can capture a keyframe...";
+"Processing: % 3d%%"="Processing: % 3d%%";
+"Hole filling: % 3d%%"="Hole filling: % 3d%%";
+"Please connect Structure Sensor."="Please connect Structure Sensor.";
+"Please charge Structure Sensor."="Please charge Structure Sensor.";
+"This app requires camera access to capture color.\nAllow access by going to Settings → Privacy → Camera."="This app requires camera access to capture color.\nAllow access by going to Settings → Privacy → Camera.";
+"Back"="Back";
+"Email"="Email";
+"Structure Sensor Scanner"="Structure Sensor Scanner";

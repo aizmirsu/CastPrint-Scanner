@@ -216,6 +216,7 @@
     
     // Volume change view
     self.enableNewTrackerDataView.hidden = NO;
+    self.sensorCubeRangeSlider.hidden = NO;
     
     [self setColorCameraParametersForInit];
     
@@ -241,6 +242,7 @@
     
     // Volume change view
     self.enableNewTrackerDataView.hidden = YES;
+    self.sensorCubeRangeSlider.hidden = YES;
     
     // Prepare the mapper for the new scan.
     [self setupMapper];
@@ -713,19 +715,19 @@
     if (sender == _naiveColorizeTask)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_meshViewController showMeshViewerMessage:[NSString stringWithFormat:@"Processing: % 3d%%", int(progress*20)]];
+            [_meshViewController showMeshViewerMessage:[NSString stringWithFormat:NSLocalizedString(@"Processing: % 3d%%", @""), int(progress*20)]];
         });
     }
     else if (sender == _enhancedColorizeTask)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_meshViewController showMeshViewerMessage:[NSString stringWithFormat:@"Processing: % 3d%%", int(progress*80)+20]];
+            [_meshViewController showMeshViewerMessage:[NSString stringWithFormat:NSLocalizedString(@"Processing: % 3d%%", @""), int(progress*80)+20]];
         });
     }
     else if(sender == _holeFillingTask)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_meshViewController showMeshViewerMessage:[NSString stringWithFormat:@"Hole filling: % 3d%%", int(progress*80)+20]];
+            [_meshViewController showMeshViewerMessage:[NSString stringWithFormat:NSLocalizedString(@"Hole filling: % 3d%%", @""), int(progress*80)+20]];
         });
     }
 }

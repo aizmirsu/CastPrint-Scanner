@@ -140,9 +140,9 @@ namespace { // anonymous namespace for utility function.
 
 struct StructureSensorStatus
 {
-    NSString* const pleaseConnectSensorMessage = @"Please connect Structure Sensor.";
-    NSString* const pleaseChargeSensorMessage = @"Please charge Structure Sensor.";
-    NSString* const needColorCameraAccessMessage = @"This app requires camera access to capture color.\nAllow access by going to Settings → Privacy → Camera.";
+    NSString* const pleaseConnectSensorMessage = NSLocalizedString(@"Please connect Structure Sensor.", @"");
+    NSString* const pleaseChargeSensorMessage = NSLocalizedString(@"Please charge Structure Sensor.", @"");
+    NSString* const needColorCameraAccessMessage = NSLocalizedString(@"This app requires camera access to capture color.\nAllow access by going to Settings → Privacy → Camera.", @"");
     
     enum SensorStatus
     {

@@ -183,18 +183,19 @@
 //        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK"
 //                                                                style:UIAlertActionStyleDefault
 //                                                              handler:^(UIAlertAction * action) { }];
-//        
+//
 //        [alert addAction:defaultAction];
 //        [self presentViewController:alert animated:YES completion:nil];
-//        
+//
 //        return;
 //    }
     
     NSString *screenshotPath = [cacheDirectory stringByAppendingPathComponent:[[self.scanObj valueForKey:@"scanImg"] path]];
     
     [self.mailViewController setSubject:@"3D Model"];
+    [self.mailViewController setToRecipients:@[@"info@castprint.co"]];
     
-    NSString *messageBody = @"Dati pievienoti";
+    NSString *messageBody = NSLocalizedString(@"Data added", @"");
     
     [self.mailViewController setMessageBody:messageBody isHTML:NO];
     

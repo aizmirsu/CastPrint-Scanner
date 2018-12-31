@@ -32,13 +32,13 @@ namespace // anonymous namespace for local functions
     NSString* computeTrackerMessage (STTrackerHints hints)
     {
         if (hints.trackerIsLost)
-            return @"Tracking Lost! Please Realign or Press Reset.";
+            return NSLocalizedString(@"Tracking Lost! Please Realign or Press Reset.", @"");
         
         if (hints.modelOutOfView)
-            return @"Please put the model back in view.";
+            return NSLocalizedString(@"Please put the model back in view.", @"");
         
         if (hints.sceneIsTooClose)
-            return @"Too close to the scene! Please step back.";
+            return NSLocalizedString(@"Too close to the scene! Please step back.", @"");
 
         return nil;
     }
@@ -233,7 +233,7 @@ namespace // anonymous namespace for local functions
     }
 
     if (showHoldDeviceStill)
-        return @"Please hold still so we can capture a keyframe...";
+        return NSLocalizedString(@"Please hold still so we can capture a keyframe...", @"");
         
     return nil;
 }

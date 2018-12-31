@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  CastPrint Scanner
+
+  Created by Maija Obrumane on 31/12/2018.
+  Copyright © 2018 Occipital. All rights reserved.
+*/
+"Data added"="Dati pievienoti";
+"Tracking Lost! Please Realign or Press Reset."="Zaudēta objekta sekošana! Nolīmeņojiet skatu vai atsākat skenēšanu no jauna.";
+"Please put the model back in view."="Novietojiet modeli atpakaļ skatā!";
+"Too close to the scene! Please step back."="Pārāk tuvu ainai! Lūdzu atkāpieties!";
+"Please hold still so we can capture a keyframe..."="Turiet sensoru nekustīgi, lai varētu iegūt pamatkadru...";
+"Processing: % 3d%%"="Apstrādā: % 3d%%";
+"Hole filling: % 3d%%"="Aizpilda caurumus: % 3d%%";
+"Please connect Structure Sensor."="Lūdzu pievienojiet Structure Sensor sensoru.";
+"Please charge Structure Sensor."="Lūdzu uzlādējiet Structure Sensor sensoru.";
+"This app requires camera access to capture color.\nAllow access by going to Settings → Privacy → Camera."="Šai lietotnai nepieciešama piekļuve kameri, lai uztvertu krāsas.\nAtļaujiet piekļuvi ejot uz Settings → Privacy → Camera.";
+"Back"="Atpakaļ";
+"Email"="Sūtīt";
+"Structure Sensor Scanner"="Structure Sensor skenējums";

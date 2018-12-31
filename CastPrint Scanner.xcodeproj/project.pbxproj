@@ -56,6 +56,7 @@
 		2FC26BC721D98F8400958EAD /* ZipZap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC26BC621D98F8300958EAD /* ZipZap.framework */; };
 		2FC26BC821D9903800958EAD /* ZipZap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC26BC621D98F8300958EAD /* ZipZap.framework */; };
 		2FC26BC921D9903800958EAD /* ZipZap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC26BC621D98F8300958EAD /* ZipZap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FC26BCF21DA2BB100958EAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FC26BD121DA2BB100958EAD /* Localizable.strings */; };
 		2FD5688B21AD87E3003EFC27 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD5688A21AD87E2003EFC27 /* Structure.framework */; };
 		438C049C18723EB10062E958 /* ScanView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438C049818723EB10062E958 /* ScanView.xib */; };
 		43BB38C9199D2A51009D7AB2 /* calibration.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BB38C8199D2A51009D7AB2 /* calibration.png */; };
@@ -147,10 +148,12 @@
 		2FC26B5E21D8FA9700958EAD /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		2FC26B6021D8FAA100958EAD /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		2FC26B6521D9253800958EAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SavedMeshView.xib; sourceTree = "<group>"; };
-		2FC26B6721D9259E00958EAD /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/SavedMeshView.strings; sourceTree = "<group>"; };
 		2FC26B6921D9306500958EAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SavedScans.storyboard; sourceTree = "<group>"; };
 		2FC26B6C21D9306E00958EAD /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/SavedScans.strings; sourceTree = "<group>"; };
 		2FC26BC621D98F8300958EAD /* ZipZap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZipZap.framework; path = Frameworks/ZipZap.framework; sourceTree = "<group>"; };
+		2FC26BCC21DA287000958EAD /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/SavedMeshView.strings; sourceTree = "<group>"; };
+		2FC26BD021DA2BB100958EAD /* global */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = global; path = global.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2FC26BD221DA2BB600958EAD /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2FD5688921AD843C003EFC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ScanView.xib; sourceTree = "<group>"; };
 		2FD5688A21AD87E2003EFC27 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Frameworks/Structure.framework; sourceTree = "<group>"; };
 		2FE0CCD321D121D7002D0B4F /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/MeshView.strings; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 				2F7CFC0C21B96EB50090548B /* MenuView.xib */,
 				6F03CB7C1862832600518C22 /* CastPrintScanner-Info.plist */,
 				6F03CB571862823000518C22 /* InfoPlist.strings */,
+				2FC26BD121DA2BB100958EAD /* Localizable.strings */,
 				6F03CB791862832600518C22 /* main.m */,
 				6F03CB7D1862832600518C22 /* Scanner-Prefix.pch */,
 				2FC26B6A21D9306500958EAD /* SavedScans.storyboard */,
@@ -423,6 +427,7 @@
 				2FC26B5D21D8E92A00958EAD /* LaunchImage@2x-ipad.png in Resources */,
 				6F7803CB186285E10005E6CD /* InfoPlist.strings in Resources */,
 				43BB38C9199D2A51009D7AB2 /* calibration.png in Resources */,
+				2FC26BCF21DA2BB100958EAD /* Localizable.strings in Resources */,
 				1F300615186E3B8F00405D34 /* Images.xcassets in Resources */,
 				2FAC64FE21BC6C4900E32A4C /* MeshView.xib in Resources */,
 				2D23E7CF1A37B785006E1F98 /* doneButton@2x.png in Resources */,
@@ -494,7 +499,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2FC26B6521D9253800958EAD /* Base */,
-				2FC26B6721D9259E00958EAD /* lv */,
+				2FC26BCC21DA287000958EAD /* lv */,
 			);
 			name = SavedMeshView.xib;
 			sourceTree = "<group>";
@@ -506,6 +511,15 @@
 				2FC26B6C21D9306E00958EAD /* lv */,
 			);
 			name = SavedScans.storyboard;
+			sourceTree = "<group>";
+		};
+		2FC26BD121DA2BB100958EAD /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2FC26BD021DA2BB100958EAD /* global */,
+				2FC26BD221DA2BB600958EAD /* lv */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		438C049818723EB10062E958 /* ScanView.xib */ = {

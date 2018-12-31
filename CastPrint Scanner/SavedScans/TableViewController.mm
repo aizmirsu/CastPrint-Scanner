@@ -157,7 +157,7 @@
     // Configure the cell...
     NSString *scanDateString = [self.scanDates objectAtIndex:indexPath.row];
     NSUInteger elements = [[self.scanDict objectForKey:[NSString stringWithFormat:@"%@", scanDateString]] count];
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %lu", scanDateString, (unsigned long)elements]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@ (%lu)", scanDateString, (unsigned long)elements]];
     
     return cell;
 }
