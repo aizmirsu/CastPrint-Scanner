@@ -68,7 +68,7 @@
                             </connections>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hKC-Mz-2Kj">
-                            <rect key="frame" x="338" y="16.666666666666629" width="99" height="30"/>
+                            <rect key="frame" x="338" y="15.666666666666629" width="99" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="RVs-Cy-Rz1"/>
                             </constraints>
@@ -86,13 +86,13 @@
                         <constraint firstAttribute="bottom" secondItem="fSV-Iy-Lfr" secondAttribute="bottom" constant="15" id="V1Y-kU-PW5"/>
                         <constraint firstItem="DeE-lF-zY0" firstAttribute="centerY" secondItem="fSV-Iy-Lfr" secondAttribute="centerY" id="WdX-01-1wc"/>
                         <constraint firstItem="fSV-Iy-Lfr" firstAttribute="leading" secondItem="T43-1T-fMK" secondAttribute="leading" constant="20" id="XfW-20-iiy"/>
+                        <constraint firstItem="hKC-Mz-2Kj" firstAttribute="centerY" secondItem="T43-1T-fMK" secondAttribute="centerY" id="bhh-DE-sv9"/>
                         <constraint firstItem="eY5-OB-qkB" firstAttribute="leading" secondItem="DeE-lF-zY0" secondAttribute="trailing" constant="20" id="c2c-7L-ajf"/>
                         <constraint firstItem="eY5-OB-qkB" firstAttribute="centerY" secondItem="fSV-Iy-Lfr" secondAttribute="centerY" id="fb9-Gx-cN3"/>
                         <constraint firstItem="wR9-gR-GG4" firstAttribute="leading" secondItem="eY5-OB-qkB" secondAttribute="trailing" constant="8" id="hnI-YT-fEK"/>
                         <constraint firstItem="fSV-Iy-Lfr" firstAttribute="top" secondItem="T43-1T-fMK" secondAttribute="top" constant="15" id="mdN-pp-KRY"/>
                         <constraint firstItem="LwQ-Ev-KMQ" firstAttribute="leading" secondItem="wR9-gR-GG4" secondAttribute="trailing" constant="159" id="qao-zL-BDi"/>
                         <constraint firstItem="LwQ-Ev-KMQ" firstAttribute="centerY" secondItem="fSV-Iy-Lfr" secondAttribute="centerY" id="sb8-WM-70y"/>
-                        <constraint firstItem="hKC-Mz-2Kj" firstAttribute="centerY" secondItem="LwQ-Ev-KMQ" secondAttribute="centerY" constant="1" id="tAe-We-svb"/>
                         <constraint firstItem="LwQ-Ev-KMQ" firstAttribute="leading" secondItem="hKC-Mz-2Kj" secondAttribute="trailing" constant="30" id="wfv-9L-P4m"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>

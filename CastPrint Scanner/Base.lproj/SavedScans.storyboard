@@ -104,7 +104,7 @@
             </objects>
             <point key="canvasLocation" x="-116.01562499999999" y="-104.6875"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Scanned dates-->
         <scene sceneID="Pz6-7e-GYB">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="hb3-bT-iqt" customClass="TableViewController" sceneMemberID="viewController">
@@ -127,7 +127,7 @@
                             <outlet property="delegate" destination="hb3-bT-iqt" id="3CX-hh-YGe"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="M67-97-6TO">
+                    <navigationItem key="navigationItem" title="Scanned dates" id="M67-97-6TO">
                         <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="c4d-K6-na9">
                             <connections>
                                 <action selector="cancelButtonPushed:" destination="hb3-bT-iqt" id="AHQ-Ae-HXO"/>

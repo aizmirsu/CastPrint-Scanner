@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5os-8o-PcK"; */
+"5os-8o-PcK.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9Mm-MO-o0O"; */
+"9Mm-MO-o0O.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "M67-97-6TO"; */
+"M67-97-6TO.title" = "Skenējumu datumi";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "c4d-K6-na9"; */
+"c4d-K6-na9.title" = "Atpakaļ";

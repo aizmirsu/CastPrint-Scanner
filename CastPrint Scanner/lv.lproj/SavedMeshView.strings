@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "GU9-wn-zv5"; */
+"GU9-wn-zv5.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "SfH-M1-AgP"; */
+"SfH-M1-AgP.normalTitle" = "Dzēst";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "Y3i-x8-Y4X"; */
+"Y3i-x8-Y4X.normalTitle" = "Atpakaļ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cml-92-KvQ"; */
+"cml-92-KvQ.text" = "Label";
+
+/* Class = "UILabel"; text = "Hole Filling"; ObjectID = "iDu-n2-tIf"; */
+"iDu-n2-tIf.text" = "Caurumu aizpildīšana";
