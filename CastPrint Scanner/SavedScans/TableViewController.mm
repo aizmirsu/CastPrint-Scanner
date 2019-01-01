@@ -90,6 +90,7 @@
     {
         [self deleteScanData:savedScan];
     }
+    [_context save:nil];
 }
 
 -(void)deleteScanData:(NSManagedObject*)scanObject
