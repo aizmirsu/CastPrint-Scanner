@@ -204,7 +204,7 @@
             CGRect screenBounds = [[UIScreen mainScreen] bounds];
             _calibrationOverlay = [CalibrationOverlay calibrationOverlaySubviewOf:self.view
                                                                          atCenter:CGPointMake(screenBounds.size.width / 2,
-                                                                                              screenBounds.size.height - 128)];
+                                                                                              screenBounds.size.height - 64)];
         }
         else
         {

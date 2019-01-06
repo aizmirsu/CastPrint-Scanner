@@ -72,14 +72,14 @@ const CGRect imageFrame = CGRectMake(padding, padding, imageSize, imageSize);
 
     message = [[UILabel alloc] initWithFrame: messageFrame];
     message.font = font;
-    message.text = @"Calibration needed for best results.";
+    message.text = NSLocalizedString(@"Calibration needed for best results.",@"");
     message.textColor = [UIColor whiteColor];
     [self addSubview: message];
 
     button = [UIButton buttonWithType: UIButtonTypeSystem];
     button.frame = buttonFrame;
     
-    [button setTitle: @"Calibrate Now" forState: UIControlStateNormal];
+    [button setTitle: NSLocalizedString(@"Calibrate Now", @"") forState: UIControlStateNormal];
     button.tintColor = [UIColor colorWithRed:0.25 green:0.73 blue: 0.88 alpha: 1.];
     button.titleLabel.font = font;
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
